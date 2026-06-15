@@ -7104,6 +7104,123 @@
   .land-restriction-text strong { font-weight: 700; color: var(--ink); }
 
   /* =============== LIGHTBOX (이미지 모달) =============== */
+  /* =============== 테스트 모드 안내 모달 =============== */
+  .testmode-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 17, 21, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .testmode-overlay.open { opacity: 1; pointer-events: auto; }
+  .testmode-modal {
+    position: relative;
+    background: var(--hanji);
+    border-radius: 20px;
+    max-width: 440px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(15, 17, 21, 0.45);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .testmode-overlay.open .testmode-modal { transform: translateY(0) scale(1); }
+  .testmode-accent {
+    height: 4px;
+    background: linear-gradient(90deg, var(--vermilion) 0%, var(--vermilion-dark) 100%);
+  }
+  .testmode-body { padding: 40px 36px 32px; text-align: center; }
+  .testmode-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .testmode-mark span { color: var(--vermilion); }
+  .testmode-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--vermilion);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .testmode-title {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .testmode-title em { font-style: italic; color: var(--vermilion); }
+  .testmode-desc {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .testmode-desc strong { color: var(--ink); font-weight: 600; }
+  .testmode-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    background: var(--hanji-soft);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 28px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--concrete);
+  }
+  .testmode-note-icon { color: var(--vermilion); font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+  .testmode-btn {
+    width: 100%;
+    background: var(--ink);
+    color: var(--hanji);
+    border: none;
+    border-radius: 100px;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .testmode-btn:hover { background: var(--vermilion); transform: translateY(-1px); }
+  .testmode-dismiss {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--concrete);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 14px;
+    padding: 4px;
+    transition: color 0.2s ease;
+  }
+  .testmode-dismiss:hover { color: var(--ink); text-decoration: underline; }
+  @media (max-width: 480px) {
+    .testmode-body { padding: 32px 24px 26px; }
+    .testmode-title { font-size: 22px; }
+  }
+
   .lightbox-overlay {
     position: fixed;
     inset: 0;
@@ -9194,6 +9311,29 @@
 </style>
 </head>
 <body>
+
+<!-- ===================== 테스트 모드 안내 모달 ===================== -->
+<div class="testmode-overlay" id="testmode-overlay">
+  <div class="testmode-modal" role="dialog" aria-modal="true" aria-labelledby="testmode-title">
+    <div class="testmode-accent"></div>
+    <div class="testmode-body">
+      <div class="testmode-mark">짓고<span>.</span></div>
+      <div class="testmode-eyebrow">PREVIEW · 테스트 모드</div>
+      <h2 class="testmode-title" id="testmode-title">지금 보시는 화면은<br><em>시범 운영 버전</em>입니다</h2>
+      <p class="testmode-desc">
+        짓고는 더 나은 서비스를 위해 정식 출시에 앞서 화면과 기능을 점검하고 있습니다.
+        현재 표시되는 업체 정보·후기·견적·금액은 <strong>시연을 위한 예시 데이터</strong>이며,
+        실제 거래나 결제는 이루어지지 않습니다.
+      </p>
+      <div class="testmode-note">
+        <span class="testmode-note-icon">◆</span>
+        <span>둘러보시며 느끼신 점이나 제안은 언제든 환영합니다. 여러분의 의견이 짓고를 완성합니다.</span>
+      </div>
+      <button class="testmode-btn" onclick="closeTestMode()">둘러보기 시작하기</button>
+      <button class="testmode-dismiss" onclick="closeTestMode(true)">오늘 하루 보지 않기</button>
+    </div>
+  </div>
+</div>
 
 <!-- ===================== HEADER ===================== -->
 <header class="header">
@@ -15437,6 +15577,10 @@
     renderVendorList();
     drawBigRadar();
     bindCategoryNav();
+    // 테스트 모드 안내 모달 표시 (약간의 지연으로 부드럽게)
+    setTimeout(showTestMode, 600);
+    const tmOv = document.getElementById('testmode-overlay');
+    if (tmOv) tmOv.addEventListener('click', (e) => { if (e.target === tmOv) closeTestMode(); });
   });
 
   // =============== HOME SHOWCASE ===============
@@ -16231,9 +16375,35 @@
     document.getElementById('mobile-menu-panel').classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  // =============== 테스트 모드 안내 모달 ===============
+  function showTestMode() {
+    try {
+      const until = localStorage.getItem('jitgo_testmode_dismissed');
+      if (until && new Date(until) > new Date()) return; // 오늘 하루 보지 않기 유효
+    } catch {}
+    const ov = document.getElementById('testmode-overlay');
+    if (!ov) return;
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTestMode(dismissToday) {
+    const ov = document.getElementById('testmode-overlay');
+    if (ov) ov.classList.remove('open');
+    document.body.style.overflow = '';
+    if (dismissToday) {
+      try {
+        const tomorrow = new Date();
+        tomorrow.setHours(24, 0, 0, 0); // 다음날 자정까지
+        localStorage.setItem('jitgo_testmode_dismissed', tomorrow.toISOString());
+      } catch {}
+    }
+  }
   // ESC 키로 모바일 메뉴 + 알림 드롭다운 닫기
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      const tm = document.getElementById('testmode-overlay');
+      if (tm && tm.classList.contains('open')) { closeTestMode(); return; }
       const panel = document.getElementById('mobile-menu-panel');
       if (panel && panel.classList.contains('open')) closeMobileMenu();
       const notif = document.getElementById('notif-dropdown');
