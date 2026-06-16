@@ -9,14 +9,14 @@ export default async function handler(req, res) {
     const body = req.body;
     console.log('[짓고 SMS Hook] body:', JSON.stringify(body));
 
-    const phone = body?.phone
+    const phone = body?.sms?.phone
+      || body?.phone
       || body?.user?.phone
-      || body?.record?.phone
       || '';
 
-    const otp = body?.otp
+    const otp = body?.sms?.otp
+      || body?.otp
       || body?.token
-      || body?.token_hash
       || '';
 
     console.log('[짓고 SMS Hook] phone:', phone, '/ otp:', otp);
@@ -59,12 +59,4 @@ export default async function handler(req, res) {
     });
 
     const solapiData = await solapiRes.json();
-    console.log('[짓고 SMS Hook] 솔라피 응답:', JSON.stringify(solapiData));
-
-    return res.status(200).json({});
-
-  } catch (err) {
-    console.error('[짓고 SMS Hook] 오류:', err.message);
-    return res.status(200).json({});
-  }
-}
+    console.log('[짓고 SMS Hook] 솔라피 응답:',
