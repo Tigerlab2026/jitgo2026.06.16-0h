@@ -4757,6 +4757,21 @@
   .spc-port-item-body { padding: 16px; }
   .spc-port-item-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
   .spc-port-item-meta { font-size: 11px; color: var(--concrete); margin-bottom: 12px; }
+
+  /* ── 검증 뱃지 시스템 ── */
+  .verify-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 9px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+    vertical-align: middle; white-space: nowrap;
+  }
+  .verify-badge.unverified { background: #ECECE8; color: #8A8A82; }
+  .verify-badge.pending    { background: #FFF3D6; color: #B8860B; }
+  .verify-badge.verified   { background: #E8F0FF; color: #2563EB; }
+  .verify-badge.tier-bronze { background: #F5E6D3; color: #A0703C; }
+  .verify-badge.tier-silver { background: #E8EAED; color: #6B7280; }
+  .verify-badge.tier-gold   { background: #FBF0D0; color: #B8860B; }
+  .verify-badge .vb-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
   .spc-port-item-actions { display: flex; gap: 6px; }
   .spc-port-item-actions button {
     flex: 1;
@@ -10613,6 +10628,10 @@
             <div class="mp-section-eyebrow">SUPPLIER OVERVIEW</div>
             <h2 class="mp-section-title">대시 <em>보드</em></h2>
             <p class="mp-section-sub">이번 달 영업 성과와 진행 중인 거래를 한눈에</p>
+            <div style="margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span id="spc-company-name" style="font-weight:700; font-size:15px;"></span>
+              <span id="spc-verify-badge"></span>
+            </div>
           </div>
           <div class="mp-stat-grid">
             <div class="mp-stat-card" onclick="switchSpcSection('requests')">
@@ -14547,6 +14566,56 @@
       </div>
 
       <!-- STEP 2.5: 이메일·비밀번호 설정 (로그인 정보) -->
+      <!-- STEP 2.6: 공급자 업체 정보 (시공사·설계사만) -->
+      <div id="pa-step-supplier" style="display:none;">
+        <div class="auth-field">
+          <label class="auth-label">업체명(상호)<span class="req">*</span></label>
+          <input type="text" class="auth-input" id="sp-company" placeholder="예: 정인종합건축(주)">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">대표 전문분야<span class="req">*</span></label>
+          <select class="auth-input" id="sp-category">
+            <option value="">선택하세요</option>
+            <option value="신축">신축 (종합건설)</option>
+            <option value="리모델링">리모델링</option>
+            <option value="인테리어">인테리어</option>
+            <option value="설계">설계 (건축사사무소)</option>
+            <option value="증축">증축</option>
+            <option value="대수선">대수선</option>
+            <option value="철거">철거</option>
+            <option value="토목">토목</option>
+            <option value="법무·세무">법무·세무</option>
+          </select>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">사업자등록번호<span class="req">*</span></label>
+          <input type="text" class="auth-input" id="sp-bizno" placeholder="000-00-00000" inputmode="numeric">
+        </div>
+        <div style="margin:18px 0 10px; padding-top:14px; border-top:1px solid var(--rule);">
+          <span style="font-size:12px; font-weight:700; color:var(--concrete); letter-spacing:0.05em;">선택 정보 (나중에 마이페이지에서 입력 가능)</span>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">대표자 이름</label>
+          <input type="text" class="auth-input" id="sp-ceo" placeholder="예: 홍길동">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">소재지(사업장 주소)</label>
+          <input type="text" class="auth-input" id="sp-address" placeholder="예: 서울 강남구 테헤란로 123">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">등록업종 / 면허</label>
+          <input type="text" class="auth-input" id="sp-biztype" placeholder="예: 건축공사업 / 실내건축공사업">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">자본금 (원)</label>
+          <input type="text" class="auth-input" id="sp-capital" placeholder="예: 500000000" inputmode="numeric">
+        </div>
+        <div style="background:rgba(0,0,0,0.03); border-radius:10px; padding:12px 14px; margin-bottom:16px; font-size:12px; color:var(--concrete); line-height:1.6;">
+          입력하신 정보는 <strong>'미검증' 상태</strong>로 등록됩니다. 가입 후 마이페이지에서 서류를 제출하면 운영자 검증을 거쳐 <strong>검증 뱃지</strong>가 부여됩니다.
+        </div>
+        <button class="auth-submit" id="pa-supplier-btn" onclick="paSaveSupplier()">다음 →</button>
+      </div>
+
       <div id="pa-step-account" style="display:none;">
         <div class="auth-field">
           <label class="auth-label">이메일</label>
@@ -16355,6 +16424,7 @@
     if (view === 'compare') renderComparePage();
     if (view === 'phone-auth') resetPhoneAuth();
     if (view === 'mypage') updateMypageUser();
+    if (view === 'console' && typeof loadSupplierStatus === 'function') loadSupplierStatus();
     if (view === 'chat') initChat();
   }
 
@@ -16763,14 +16833,66 @@
     btn.disabled = false; btn.textContent = '가입 완료';
     if (res && (res.data || res.demo)) {
       clearInterval(paResendTimer);
-      // OTP 인증 성공 → 이메일·비밀번호 설정 단계로
       document.getElementById('pa-step-otp').style.display = 'none';
-      document.getElementById('pa-step-account').style.display = 'block';
-      document.getElementById('pa-title').style.display = '';
-      document.getElementById('pa-title').innerHTML = '로그인 정보<br><em>설정</em>';
-      document.getElementById('pa-sub').style.display = '';
-      document.getElementById('pa-sub').textContent = '이메일과 비밀번호를 등록하면 다음부터 더 빠르게 로그인할 수 있어요.';
+      if (paRole === 'supplier') {
+        // 시공사 → 업체 정보 입력 단계로
+        document.getElementById('pa-step-supplier').style.display = 'block';
+        document.getElementById('pa-title').style.display = '';
+        document.getElementById('pa-title').innerHTML = '업체 정보<br><em>등록</em>';
+        document.getElementById('pa-sub').style.display = '';
+        document.getElementById('pa-sub').textContent = '건축주에게 노출될 업체 정보입니다. 정확히 입력해 주세요.';
+      } else {
+        // 건축주 → 바로 이메일·비밀번호 단계로
+        document.getElementById('pa-step-account').style.display = 'block';
+        document.getElementById('pa-title').style.display = '';
+        document.getElementById('pa-title').innerHTML = '로그인 정보<br><em>설정</em>';
+        document.getElementById('pa-sub').style.display = '';
+        document.getElementById('pa-sub').textContent = '이메일과 비밀번호를 등록하면 다음부터 더 빠르게 로그인할 수 있어요.';
+      }
     }
+  }
+
+  // ─── 시공사 업체 정보 저장 ───
+  async function paSaveSupplier() {
+    const company  = document.getElementById('sp-company').value.trim();
+    const category = document.getElementById('sp-category').value;
+    const bizno    = document.getElementById('sp-bizno').value.trim();
+    if (!company)  { alert('업체명을 입력해 주세요.'); return; }
+    if (!category) { alert('대표 전문분야를 선택해 주세요.'); return; }
+    if (!bizno)    { alert('사업자등록번호를 입력해 주세요.'); return; }
+
+    const btn = document.getElementById('pa-supplier-btn');
+    btn.disabled = true; btn.textContent = '저장 중…';
+
+    if (isSupabaseReady()) {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      if (user) {
+        const capRaw = document.getElementById('sp-capital').value.replace(/[^0-9]/g, '');
+        const payload = {
+          id: user.id,
+          company_name: company,
+          category,
+          business_no: bizno,
+          ceo_name: document.getElementById('sp-ceo').value.trim() || null,
+          address: document.getElementById('sp-address').value.trim() || null,
+          biz_type: document.getElementById('sp-biztype').value.trim() || null,
+          capital: capRaw ? parseInt(capRaw, 10) : null,
+          verify_status: 'unverified'
+        };
+        const { error } = await supabaseClient.from('suppliers').upsert(payload, { onConflict: 'id' });
+        if (error) {
+          btn.disabled = false; btn.textContent = '다음 →';
+          alert('저장 실패: ' + error.message + '\n\n(suppliers 테이블이 생성되었는지 확인하세요.)');
+          return;
+        }
+      }
+    }
+    btn.disabled = false; btn.textContent = '다음 →';
+    // 업체 정보 저장 후 → 이메일·비밀번호 단계로
+    document.getElementById('pa-step-supplier').style.display = 'none';
+    document.getElementById('pa-step-account').style.display = 'block';
+    document.getElementById('pa-title').innerHTML = '로그인 정보<br><em>설정</em>';
+    document.getElementById('pa-sub').textContent = '이메일과 비밀번호를 등록하면 다음부터 더 빠르게 로그인할 수 있어요.';
   }
 
   // ─── 이메일·비밀번호 저장 (휴대폰 계정에 연결) ───
@@ -16839,6 +16961,7 @@
     document.getElementById('pa-step-phone').style.display = 'block';
     document.getElementById('pa-step-otp').style.display = 'none';
     const acc = document.getElementById('pa-step-account'); if (acc) acc.style.display = 'none';
+    const sup = document.getElementById('pa-step-supplier'); if (sup) sup.style.display = 'none';
     document.getElementById('pa-step-done').style.display = 'none';
     document.getElementById('pa-title').style.display = '';
     document.getElementById('pa-title').innerHTML = '휴대폰으로<br><em>간편 가입</em>';
@@ -18819,6 +18942,34 @@ ${vendorContext}
 </div>
 
 <script>
+  // ===================== 검증 뱃지 시스템 =====================
+  // 공급자 검증 상태 → 뱃지 HTML 생성
+  function verifyBadgeHtml(status, tier) {
+    if (status === 'verified') {
+      if (tier === 'gold')   return '<span class="verify-badge tier-gold"><span class="vb-dot"></span>검증 GOLD</span>';
+      if (tier === 'silver') return '<span class="verify-badge tier-silver"><span class="vb-dot"></span>검증 SILVER</span>';
+      if (tier === 'bronze') return '<span class="verify-badge tier-bronze"><span class="vb-dot"></span>검증 BRONZE</span>';
+      return '<span class="verify-badge verified"><span class="vb-dot"></span>검증완료</span>';
+    }
+    if (status === 'pending') return '<span class="verify-badge pending"><span class="vb-dot"></span>검토중</span>';
+    return '<span class="verify-badge unverified"><span class="vb-dot"></span>미검증</span>';
+  }
+
+  // 공급자 콘솔 진입 시 본인 검증 상태 표시
+  async function loadSupplierStatus() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const { data, error } = await supabaseClient
+      .from('suppliers').select('*').eq('id', user.id).maybeSingle();
+    if (error || !data) return;
+    // 콘솔 헤더 등에 뱃지 표시할 자리가 있으면 채움
+    const badgeSlot = document.getElementById('spc-verify-badge');
+    if (badgeSlot) badgeSlot.innerHTML = verifyBadgeHtml(data.verify_status, data.verify_tier);
+    const nameSlot = document.getElementById('spc-company-name');
+    if (nameSlot && data.company_name) nameSlot.textContent = data.company_name;
+  }
+
   // ===================== 포트폴리오 등록·조회·삭제 =====================
   function openPortfolioModal() {
     document.getElementById('pf-title').value = '';
