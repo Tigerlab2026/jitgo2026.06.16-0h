@@ -10916,30 +10916,25 @@
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">VERIFICATION</div>
             <h2 class="mp-section-title">검증 <em>신청</em></h2>
-            <p class="mp-section-sub">검증 등급을 높이면 검색 노출과 매칭 우선순위가 향상됩니다</p>
+            <p class="mp-section-sub">서류를 제출하면 운영자 검토 후 검증 뱃지가 부여됩니다. 검증 업체는 검색 노출과 매칭 우선순위가 향상됩니다.</p>
           </div>
 
-          <div class="spc-verify-current">
-            <div class="spc-verify-current-eyebrow">CURRENT TIER · 현재 등급</div>
-            <div class="spc-verify-current-tier">Gold</div>
-            <div class="spc-verify-current-ko">심층 검증 · 최상위 등급</div>
-            <div class="spc-verify-current-meta">
-              <div class="spc-verify-current-meta-cell">CERTIFIED ON<strong>2024.06.15</strong></div>
-              <div class="spc-verify-current-meta-cell">NEXT RENEWAL<strong>2026.06.14</strong></div>
-            </div>
+          <!-- 현재 검증 상태 -->
+          <div class="spc-verify-current" style="text-align:left;">
+            <div class="spc-verify-current-eyebrow">CURRENT STATUS · 현재 상태</div>
+            <div id="vdoc-status-badge" style="margin:10px 0;"></div>
+            <div class="spc-verify-current-ko" id="vdoc-status-desc">서류를 제출하고 검증을 신청하세요.</div>
           </div>
 
-          <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 24px;">
-            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; margin-bottom: 8px;">검증 일정 및 재실사</h3>
-            <p style="font-size: 13px; color: var(--concrete); margin-bottom: 16px;">Gold 등급은 2년마다 재실사가 필요합니다. 다음 재실사 6개월 전 자동으로 알림을 보냅니다.</p>
-            <div style="padding: 16px; background: var(--hanji-soft); border-radius: 10px; font-size: 13px; line-height: 1.7; color: var(--ink-soft);">
-              <strong>다음 재실사 항목 미리보기:</strong><br>
-              • 진행 중 현장 2곳 방문 (안전 관리, 자재 품질)<br>
-              • 최근 1년 신규 실적 검토 (12건 표본)<br>
-              • 분쟁 이력 조회 (지난 2년)<br>
-              • 재무제표 재검토
+          <!-- 서류 업로드 -->
+          <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 24px; margin-top:16px;">
+            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; margin-bottom: 8px;">검증 서류 제출</h3>
+            <p style="font-size: 13px; color: var(--concrete); margin-bottom: 20px;">항목별로 파일을 올려주세요. (PDF·JPG·PNG, 각 10MB 이하)</p>
+            <div id="vdoc-list">
+              <!-- 서류 항목들이 JS로 렌더링됩니다 -->
             </div>
-            <button class="auth-submit" style="margin-top: 16px;">재실사 일정 조율 신청</button>
+            <button class="auth-submit" id="vdoc-submit-btn" style="margin-top: 20px;" onclick="submitVerification()">검증 신청하기</button>
+            <p style="font-size:12px; color:var(--concrete); margin-top:10px; text-align:center;">제출 후 영업일 기준 3~5일 내 검토됩니다.</p>
           </div>
         </div>
 
@@ -16435,6 +16430,7 @@
     const target = document.getElementById('spc-sec-' + section);
     if (target) target.classList.add('active');
     if (section === 'portfolio' && typeof loadMyPortfolio === 'function') loadMyPortfolio();
+    if (section === 'verify' && typeof loadVerifyStatus === 'function') loadVerifyStatus();
   }
 
   // =============== CHAT ===============
@@ -18970,9 +18966,106 @@ ${vendorContext}
     if (nameSlot && data.company_name) nameSlot.textContent = data.company_name;
   }
 
+  // ===================== 검증 서류 업로드 =====================
+  const VDOC_TYPES = [
+    { key: 'biz_license',   label: '사업자등록증', required: true },
+    { key: 'const_license', label: '건설업 등록증 / 면허증', required: false },
+    { key: 'insurance',     label: '4대보험 가입증명원', required: false },
+    { key: 'portfolio_doc', label: '시공 실적 증빙', required: false },
+  ];
+  let vdocFiles = {}; // { key: File }
+
+  function renderVdocList() {
+    const wrap = document.getElementById('vdoc-list');
+    if (!wrap) return;
+    wrap.innerHTML = VDOC_TYPES.map(d => (
+      '<div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0; border-bottom:1px solid var(--rule);">' +
+        '<div style="flex:1;">' +
+          '<div style="font-weight:600; font-size:14px;">' + d.label +
+            (d.required ? ' <span style="color:var(--vermilion);">*</span>' : ' <span style="font-size:11px; color:var(--concrete);">(선택)</span>') +
+          '</div>' +
+          '<div id="vdoc-name-' + d.key + '" style="font-size:12px; color:var(--concrete); margin-top:3px;">선택된 파일 없음</div>' +
+        '</div>' +
+        '<label style="cursor:pointer; background:var(--hanji-soft); border:1px solid var(--rule-strong); border-radius:8px; padding:8px 14px; font-size:13px; font-weight:600; white-space:nowrap;">' +
+          '파일 선택' +
+          '<input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="onVdocPick(\'' + d.key + '\', this)">' +
+        '</label>' +
+      '</div>'
+    )).join('');
+  }
+
+  function onVdocPick(key, input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { alert('10MB 이하 파일만 업로드할 수 있습니다.'); input.value=''; return; }
+    vdocFiles[key] = file;
+    const nameEl = document.getElementById('vdoc-name-' + key);
+    if (nameEl) { nameEl.textContent = file.name; nameEl.style.color = 'var(--vermilion)'; }
+  }
+
+  async function submitVerification() {
+    if (!vdocFiles['biz_license']) { alert('사업자등록증은 필수입니다.'); return; }
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 작동합니다.'); return; }
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) { alert('로그인이 필요합니다.'); return; }
+
+    const btn = document.getElementById('vdoc-submit-btn');
+    btn.disabled = true; btn.textContent = '업로드 중…';
+
+    try {
+      for (const key of Object.keys(vdocFiles)) {
+        const file = vdocFiles[key];
+        const ext = file.name.split('.').pop();
+        const path = user.id + '/' + key + '_' + Date.now() + '.' + ext;
+
+        // Storage 업로드
+        const { error: upErr } = await supabaseClient.storage
+          .from('supplier-docs').upload(path, file, { upsert: true });
+        if (upErr) throw new Error(key + ' 업로드 실패: ' + upErr.message);
+
+        // DB 기록
+        const { error: dbErr } = await supabaseClient
+          .from('supplier_documents')
+          .insert({ supplier_id: user.id, doc_type: key, file_url: path, status: 'submitted' });
+        if (dbErr) throw new Error(key + ' 기록 실패: ' + dbErr.message);
+      }
+
+      // 공급자 상태를 'pending'(검토중)으로
+      await supabaseClient.from('suppliers')
+        .update({ verify_status: 'pending' }).eq('id', user.id);
+
+      btn.disabled = false; btn.textContent = '검증 신청하기';
+      alert('검증 신청이 완료되었습니다. 영업일 기준 3~5일 내 검토됩니다.');
+      vdocFiles = {};
+      loadVerifyStatus();
+    } catch (e) {
+      btn.disabled = false; btn.textContent = '검증 신청하기';
+      alert(e.message + '\n\n(Storage 버킷 supplier-docs 생성 + 정책 적용을 확인하세요.)');
+    }
+  }
+
+  // 검증 상태 불러오기 (검증 섹션 진입 시)
+  async function loadVerifyStatus() {
+    renderVdocList();
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const { data } = await supabaseClient
+      .from('suppliers').select('verify_status, verify_tier').eq('id', user.id).maybeSingle();
+    const badge = document.getElementById('vdoc-status-badge');
+    const desc  = document.getElementById('vdoc-status-desc');
+    if (!data) return;
+    if (badge) badge.innerHTML = verifyBadgeHtml(data.verify_status, data.verify_tier);
+    if (desc) {
+      if (data.verify_status === 'verified')      desc.textContent = '검증이 완료되었습니다. 검색 결과에 검증 뱃지가 노출됩니다.';
+      else if (data.verify_status === 'pending')  desc.textContent = '서류 검토 중입니다. 결과는 알림으로 안내됩니다.';
+      else                                        desc.textContent = '서류를 제출하고 검증을 신청하세요.';
+    }
+  }
+
   // ===================== 포트폴리오 등록·조회·삭제 =====================
   function openPortfolioModal() {
-    document.getElementById('pf-title').value = '';
     document.getElementById('pf-region').value = '';
     document.getElementById('pf-category').value = '';
     document.getElementById('pf-image').value = '';
