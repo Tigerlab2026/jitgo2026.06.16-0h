@@ -1,6 +1,6 @@
-import { createHmac } from 'crypto';
+const { createHmac } = require('crypto');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(200).json({});
   }
@@ -59,4 +59,12 @@ export default async function handler(req, res) {
     });
 
     const solapiData = await solapiRes.json();
-    console.log('[짓고 SMS Hook] 솔라피 응답:',
+    console.log('[짓고 SMS Hook] 솔라피 응답:', JSON.stringify(solapiData));
+
+    return res.status(200).json({});
+
+  } catch (err) {
+    console.error('[짓고 SMS Hook] 오류:', err.message);
+    return res.status(200).json({});
+  }
+};
