@@ -9464,10 +9464,14 @@
         <button class="header-nav-link primary" onclick="switchView('mypage')">마이 페이지</button>
       </div>
 
-      <!-- 그룹 C: 인증 (로그인 · 회원가입 CTA) -->
-      <div class="header-nav-group">
+      <!-- 그룹 C: 인증 상태에 따라 동적 표시 -->
+      <div class="header-nav-group" id="header-auth-group">
         <button class="header-nav-link" onclick="switchView('login')">로그인</button>
         <button class="header-cta" onclick="switchView('signup')">회원가입</button>
+      </div>
+      <div class="header-nav-group" id="header-user-group" style="display:none;">
+        <span class="header-nav-link" id="header-user-name" style="cursor:default; font-weight:700;"></span>
+        <button class="header-nav-link" onclick="jitgoSignOut().then(()=>{ updateHeaderAuth(); switchView('home'); })">로그아웃</button>
       </div>
     </nav>
 
@@ -11225,9 +11229,9 @@
     <div class="mypage-layout">
       <aside class="mp-sidebar">
         <div class="mp-user-card">
-          <div class="mp-avatar">김</div>
-          <div class="mp-user-name">김재훈 님</div>
-          <div class="mp-user-email">jaehoon@example.kr</div>
+          <div class="mp-avatar" id="mp-avatar">김</div>
+          <div class="mp-user-name" id="mp-user-name">김재훈 님</div>
+          <div class="mp-user-email" id="mp-user-phone">jaehoon@example.kr</div>
           <div class="mp-user-meta">USER · 가입 2025.11.15</div>
         </div>
         <nav class="mp-nav" id="mp-nav">
@@ -16356,6 +16360,7 @@
     }
     if (view === 'compare') renderComparePage();
     if (view === 'phone-auth') resetPhoneAuth();
+    if (view === 'mypage') updateMypageUser();
     if (view === 'chat') initChat();
   }
 
@@ -16797,6 +16802,44 @@
     document.getElementById('pa-sub').textContent = '휴대폰 번호로 인증하면 가입과 로그인이 한 번에 완료됩니다.';
     document.getElementById('pa-foot').style.display = '';
   }
+  // ─── 헤더 인증 상태 업데이트 ───
+  async function updateHeaderAuth() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    const authGroup = document.getElementById('header-auth-group');
+    const userGroup = document.getElementById('header-user-group');
+    const userName  = document.getElementById('header-user-name');
+    if (user) {
+      const name = user.user_metadata?.name || user.phone || '회원';
+      if (userName)  userName.textContent = name + ' 님';
+      if (authGroup) authGroup.style.display = 'none';
+      if (userGroup) userGroup.style.display = '';
+    } else {
+      if (authGroup) authGroup.style.display = '';
+      if (userGroup) userGroup.style.display = 'none';
+    }
+  }
+  async function updateMypageUser() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const name = user.user_metadata?.name || '회원';
+    const phone = user.phone ? '0' + user.phone.replace(/^82/, '') : '';
+    const avatar = document.getElementById('mp-avatar');
+    const nameEl = document.getElementById('mp-user-name');
+    const phoneEl = document.getElementById('mp-user-phone');
+    if (avatar)  avatar.textContent = name.charAt(0);
+    if (nameEl)  nameEl.textContent = name + ' 님';
+    if (phoneEl) phoneEl.textContent = phone;
+  }
+  window.addEventListener('load', () => { setTimeout(updateHeaderAuth, 500); });
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (supabaseClient) {
+        supabaseClient.auth.onAuthStateChange(() => { updateHeaderAuth(); });
+      }
+    }, 600);
+  });
   // ESC 키로 모바일 메뉴 + 알림 드롭다운 닫기
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
