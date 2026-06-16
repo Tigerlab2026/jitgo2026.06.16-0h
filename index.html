@@ -7221,6 +7221,66 @@
     .testmode-title { font-size: 22px; }
   }
 
+  /* =============== 휴대폰 OTP 인증 화면 =============== */
+  .pa-role-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 6px;
+    background: var(--hanji-soft);
+    border-radius: 14px;
+  }
+  .pa-role-btn {
+    text-align: left;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: inherit;
+  }
+  .pa-role-btn:hover { background: rgba(255,255,255,0.5); }
+  .pa-role-btn.active {
+    background: var(--white);
+    border-color: rgba(196,74,44,0.3);
+    box-shadow: 0 2px 8px -2px rgba(15,17,21,0.1);
+  }
+  .pa-role-title { display: block; font-size: 15px; font-weight: 700; color: var(--ink); }
+  .pa-role-btn.active .pa-role-title { color: var(--vermilion); }
+  .pa-role-sub { display: block; font-size: 11px; color: var(--concrete); margin-top: 2px; }
+  .pa-otp-input {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    letter-spacing: 0.4em;
+    font-weight: 600;
+  }
+  .pa-otp-hint { font-size: 12px; color: var(--concrete); margin-top: 8px; }
+  .pa-otp-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pa-otp-actions button {
+    background: none; border: none; cursor: pointer; font-family: inherit; padding: 4px;
+  }
+  .pa-otp-actions button:first-child { color: var(--concrete); }
+  .pa-otp-actions button:first-child:hover { color: var(--ink); }
+  #pa-resend-btn { color: var(--vermilion); }
+  #pa-resend-btn:disabled { color: var(--concrete); opacity: 0.6; cursor: not-allowed; }
+  .pa-done-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: rgba(27,139,62,0.1);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+
   .lightbox-overlay {
     position: fixed;
     inset: 0;
@@ -9309,6 +9369,14 @@
     .bottom-tab svg { width: 20px; height: 20px; }
   }
 </style>
+<!-- Supabase 연동 SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // SDK 로드 실패 시 대체 CDN에서 재시도 (네트워크 환경 대비)
+  if (!window.supabase) {
+    document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>');
+  }
+</script>
 </head>
 <body>
 
@@ -11934,6 +12002,15 @@
           <button type="submit" class="auth-submit">로그인</button>
         </form>
 
+        <div style="display:flex; align-items:center; gap:12px; margin:20px 0;">
+          <div style="flex:1; height:1px; background:var(--rule);"></div>
+          <span style="font-size:12px; color:var(--concrete);">또는</span>
+          <div style="flex:1; height:1px; background:var(--rule);"></div>
+        </div>
+        <button type="button" class="auth-submit" style="background:var(--white); color:var(--ink); border:1px solid var(--rule-strong);" onclick="switchView('phone-auth')">
+          📱 휴대폰 번호로 로그인
+        </button>
+
         <div class="auth-utility-row">
           <a onclick="switchView('find-id')">아이디 찾기</a>
           <span class="sep">|</span>
@@ -11965,6 +12042,13 @@
         </div>
         <h1 class="auth-title">어떤 자격으로<br><em>가입하시나요?</em></h1>
         <p class="auth-sub">사용자와 공급자는 권한과 진행 절차가 다릅니다.<br>아래에서 본인에게 해당하는 항목을 선택하세요.</p>
+      </div>
+
+      <div style="text-align:center; margin-bottom:28px;">
+        <button class="auth-submit" style="max-width:360px; margin:0 auto;" onclick="switchView('phone-auth')">
+          📱 휴대폰 번호로 간편 가입 (1분 소요)
+        </button>
+        <p style="font-size:12px; color:var(--concrete); margin-top:10px;">휴대폰 인증 한 번으로 가입과 로그인이 완료됩니다</p>
       </div>
 
       <div class="signup-choice-grid">
@@ -14446,6 +14530,72 @@
     </div>
   </section>
 
+  <!-- ===================== 휴대폰 OTP 인증 (실제 작동) ===================== -->
+  <section class="view" id="view-phone-auth">
+    <div class="auth-wrap">
+      <div class="auth-head">
+        <div class="auth-logo" onclick="switchView('home')">
+          <span class="auth-logo-mark">짓고</span>
+          <span class="auth-logo-dot"></span>
+        </div>
+        <h1 class="auth-title" id="pa-title">휴대폰으로<br><em>간편 가입</em></h1>
+        <p class="auth-sub" id="pa-sub">휴대폰 번호로 인증하면 가입과 로그인이 한 번에 완료됩니다.</p>
+      </div>
+
+      <!-- STEP 1: 번호 입력 -->
+      <div id="pa-step-phone">
+        <div class="auth-field">
+          <label class="auth-label">회원 유형</label>
+          <div class="pa-role-toggle">
+            <button type="button" class="pa-role-btn active" id="pa-role-owner" onclick="paSetRole('owner')">
+              <span class="pa-role-title">건축주</span>
+              <span class="pa-role-sub">집·건물을 짓고 싶어요</span>
+            </button>
+            <button type="button" class="pa-role-btn" id="pa-role-supplier" onclick="paSetRole('supplier')">
+              <span class="pa-role-title">시공사·설계사</span>
+              <span class="pa-role-sub">전문 업체예요</span>
+            </button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" id="pa-name-label">이름</label>
+          <input type="text" class="auth-input" id="pa-name" placeholder="홍길동">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">휴대폰 번호</label>
+          <input type="tel" inputmode="numeric" class="auth-input" id="pa-phone" placeholder="010-0000-0000" maxlength="13" oninput="paFormatPhone(this)">
+        </div>
+        <button class="auth-submit" id="pa-send-btn" onclick="paSendOtp()">인증번호 발송</button>
+      </div>
+
+      <!-- STEP 2: OTP 입력 -->
+      <div id="pa-step-otp" style="display:none;">
+        <div class="auth-field">
+          <label class="auth-label">인증번호 6자리</label>
+          <input type="text" inputmode="numeric" class="auth-input pa-otp-input" id="pa-otp" placeholder="000000" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <div class="pa-otp-hint" id="pa-otp-hint">문자로 받은 6자리 번호를 입력하세요.</div>
+        </div>
+        <button class="auth-submit" id="pa-verify-btn" onclick="paVerifyOtp()">가입 완료</button>
+        <div class="pa-otp-actions">
+          <button type="button" onclick="paBackToPhone()">← 번호 다시 입력</button>
+          <button type="button" id="pa-resend-btn" onclick="paResend()">인증번호 재발송</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: 완료 -->
+      <div id="pa-step-done" style="display:none; text-align:center; padding:20px 0;">
+        <div class="pa-done-icon">✓</div>
+        <h2 class="signup-step-title" style="text-align:center;">가입이 완료되었습니다</h2>
+        <p class="signup-step-sub" id="pa-done-msg" style="text-align:center;">짓고에 오신 것을 환영합니다.</p>
+        <button class="auth-submit" style="max-width:280px; margin:18px auto 0;" onclick="switchView('home')">홈으로 이동</button>
+      </div>
+
+      <p class="auth-foot" id="pa-foot">
+        가입 시 <a onclick="switchView('terms')">이용약관</a> 및 <a onclick="switchView('privacy')">개인정보처리방침</a>에 동의하게 됩니다.
+      </p>
+    </div>
+  </section>
+
   <!-- ===================== 404 ===================== -->
   <section class="view" id="view-404">
     <div style="max-width: 640px; margin: 80px auto; text-align: center; padding: 40px;">
@@ -15022,6 +15172,155 @@
 </div>
 
 <script>
+  // ============================================================
+  // Supabase 연동 설정 (입력 완료)
+  //   프로젝트: putkaufxailnmpfjjlxz · publishable 키 사용
+  //   키 변경 시 아래 두 줄만 교체하면 됩니다.
+  // ============================================================
+  const SUPABASE_URL = 'https://putkaufxailnmpfjjlxz.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_rCaEu5yAK-XKtuSXaGszzg_E3j4bYVv';
+
+  let supabaseClient = null;
+  // SDK가 로드됐고, URL·키가 실제 값으로 채워졌을 때만 초기화
+  const _keysReady = SUPABASE_URL.startsWith('https://') &&
+                     SUPABASE_URL.indexOf('YOUR-PROJECT') === -1 &&
+                     SUPABASE_ANON_KEY.length > 20 &&
+                     SUPABASE_ANON_KEY.indexOf('YOUR-ANON') === -1;
+  function initSupabase() {
+    if (supabaseClient) return true;
+    if (window.supabase && _keysReady) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('%c[짓고] ✓ Supabase 연결됨', 'color:#1B8B3E;font-weight:bold;');
+      return true;
+    }
+    return false;
+  }
+  // 즉시 시도 → 실패 시 SDK 로드 완료(window.load) 후 재시도
+  if (!initSupabase()) {
+    if (!_keysReady) {
+      console.log('%c[짓고] 데모 모드 (Supabase 키 미입력)', 'color:#C44A2C;font-weight:bold;');
+    } else {
+      window.addEventListener('load', () => {
+        if (!initSupabase()) {
+          console.log('%c[짓고] 데모 모드 (SDK 로드 실패 — 네트워크 확인)', 'color:#C44A2C;font-weight:bold;');
+        }
+      });
+    }
+  }
+  function isSupabaseReady() {
+    if (!supabaseClient) initSupabase(); // 늦은 호출에도 한 번 더 시도
+    if (!supabaseClient) {
+      console.warn('[짓고] Supabase 미설정 — 데모 모드로 동작합니다.');
+      return false;
+    }
+    return true;
+  }
+  // 콘솔에서 jitgoTestConnection() 입력하면 실제 DB 연결을 테스트할 수 있습니다
+  async function jitgoTestConnection() {
+    if (!supabaseClient) { console.log('데모 모드입니다. 키를 입력하세요.'); return; }
+    const { error } = await supabaseClient.from('users').select('id').limit(1);
+    if (error) console.error('[짓고] 연결 실패:', error.message);
+    else console.log('%c[짓고] ✓ DB 연결 정상 — users 테이블 접근 성공', 'color:#1B8B3E;font-weight:bold;');
+  }
+
+  // ─── 회원가입 (Auth + users 자동생성 트리거) ───
+  async function jitgoSignUp({ email, password, name, phone, role }) {
+    if (!isSupabaseReady()) { alert('데모 모드: 실제 가입은 Supabase 연결 후 작동합니다.'); return { demo: true }; }
+    const { data, error } = await supabaseClient.auth.signUp({
+      email, password,
+      options: { data: { name, phone, role } }   // → handle_new_user 트리거가 users에 저장
+    });
+    if (error) { alert('가입 실패: ' + error.message); return { error }; }
+    return { data };
+  }
+
+  // ─── 로그인 ───
+  async function jitgoSignIn({ email, password }) {
+    if (!isSupabaseReady()) { alert('데모 모드: 실제 로그인은 Supabase 연결 후 작동합니다.'); return { demo: true }; }
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { alert('로그인 실패: ' + error.message); return { error }; }
+    return { data };
+  }
+
+  // ─── 로그아웃 ───
+  async function jitgoSignOut() {
+    if (!isSupabaseReady()) return;
+    await supabaseClient.auth.signOut();
+  }
+
+  // ─── 국내 휴대폰번호 → E.164(+82) 변환 ───
+  function toE164KR(raw) {
+    const d = (raw || '').replace(/[^0-9]/g, '');
+    if (d.startsWith('82')) return '+' + d;
+    if (d.startsWith('0'))  return '+82' + d.slice(1);
+    if (d.length >= 9 && d.length <= 11) return '+82' + d;
+    return null;
+  }
+
+  // ─── 휴대폰 인증번호 발송 (솔라피 SMS) ───
+  async function jitgoSendOtp({ phone, name, role }) {
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 실제 문자가 발송됩니다.'); return { demo: true }; }
+    const e164 = toE164KR(phone);
+    if (!e164) { alert('휴대폰 번호 형식이 올바르지 않습니다.'); return { error: 'bad-phone' }; }
+    const { data, error } = await supabaseClient.auth.signInWithOtp({
+      phone: e164,
+      options: { data: { name: name || '회원', role: role || 'owner' } }
+    });
+    if (error) { alert('인증번호 발송 실패: ' + error.message); return { error }; }
+    return { data };
+  }
+
+  // ─── 휴대폰 인증번호 확인 + 로그인 ───
+  async function jitgoVerifyOtp({ phone, token, name, role }) {
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 실제 인증됩니다.'); return { demo: true }; }
+    const e164 = toE164KR(phone);
+    if (!e164) { alert('휴대폰 번호 오류. 다시 시도해 주세요.'); return { error: 'bad-phone' }; }
+    const { data, error } = await supabaseClient.auth.verifyOtp({ phone: e164, token, type: 'sms' });
+    if (error) { alert('인증 실패: ' + error.message); return { error }; }
+    // metadata 비어있으면 보강
+    if (data.user && (!data.user.user_metadata?.role || !data.user.user_metadata?.name)) {
+      await supabaseClient.auth.updateUser({ data: { name: name || '회원', role: role || 'owner' } });
+    }
+    return { data };
+  }
+
+  // ─── 시공사 포트폴리오 등록 ───
+  async function jitgoAddProduct({ company_name, image_url, description, region, category }) {
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 실제 저장됩니다.'); return { demo: true }; }
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) { alert('로그인이 필요합니다.'); return { error: 'no-auth' }; }
+    const { data, error } = await supabaseClient
+      .from('products')
+      .insert({ supplier_id: user.id, company_name, image_url, description, region, category })
+      .select();
+    if (error) { alert('등록 실패: ' + error.message); return { error }; }
+    return { data };
+  }
+
+  // ─── 포트폴리오 목록 불러오기 (지역·카테고리 필터 옵션) ───
+  async function jitgoFetchProducts({ region, category, limit = 50 } = {}) {
+    if (!isSupabaseReady()) return { demo: true, data: [] };
+    let q = supabaseClient.from('products').select('*').order('created_at', { ascending: false }).limit(limit);
+    if (region)   q = q.eq('region', region);
+    if (category) q = q.eq('category', category);
+    const { data, error } = await q;
+    if (error) { console.error(error); return { error }; }
+    return { data };
+  }
+
+  // ─── 견적 요청 (건축주 → 시공사) ───
+  async function jitgoRequestQuote({ supplier_id, product_id, title, region, budget, message }) {
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 실제 전송됩니다.'); return { demo: true }; }
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) { alert('로그인이 필요합니다.'); return { error: 'no-auth' }; }
+    const { data, error } = await supabaseClient
+      .from('quotes')
+      .insert({ owner_id: user.id, supplier_id, product_id, title, region, budget, message })
+      .select();
+    if (error) { alert('견적 요청 실패: ' + error.message); return { error }; }
+    return { data };
+  }
+
   // =============== DATA ===============
   const vendors = [
     { id:1, name:'정인종합건축(주)', cat:'건축시공', tier:'gold', rating:4.9, reviews:89, projects:142, region:'서울 강남구', specialty:'근린상가 신축', desc:'강남권 근린상가 및 점포겸용주택 시공 전문. 디자인 강한 입면 설계.',
@@ -16056,6 +16355,7 @@
       renderMpCompareList();
     }
     if (view === 'compare') renderComparePage();
+    if (view === 'phone-auth') resetPhoneAuth();
     if (view === 'chat') initChat();
   }
 
@@ -16398,6 +16698,104 @@
         localStorage.setItem('jitgo_testmode_dismissed', tomorrow.toISOString());
       } catch {}
     }
+  }
+
+  // =============== 휴대폰 OTP 인증 화면 제어 ===============
+  let paRole = 'owner';
+  let paResendTimer = null;
+
+  function paSetRole(role) {
+    paRole = role;
+    document.getElementById('pa-role-owner').classList.toggle('active', role === 'owner');
+    document.getElementById('pa-role-supplier').classList.toggle('active', role === 'supplier');
+    document.getElementById('pa-name-label').textContent = role === 'owner' ? '이름' : '담당자 이름';
+  }
+
+  function paFormatPhone(el) {
+    let d = el.value.replace(/[^0-9]/g, '').slice(0, 11);
+    if (d.length >= 8) el.value = d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7);
+    else if (d.length >= 4) el.value = d.slice(0,3) + '-' + d.slice(3);
+    else el.value = d;
+  }
+
+  async function paSendOtp() {
+    const name = document.getElementById('pa-name').value.trim();
+    const phone = document.getElementById('pa-phone').value;
+    if (paRole === 'owner' && !name) { alert('이름을 입력해 주세요.'); return; }
+    if (!phone) { alert('휴대폰 번호를 입력해 주세요.'); return; }
+    const btn = document.getElementById('pa-send-btn');
+    btn.disabled = true; btn.textContent = '발송 중…';
+    const res = await jitgoSendOtp({ phone, name, role: paRole });
+    btn.disabled = false; btn.textContent = '인증번호 발송';
+    if (res && (res.data || res.demo)) {
+      // 데모 모드여도 UI 흐름은 보여줌
+      document.getElementById('pa-step-phone').style.display = 'none';
+      document.getElementById('pa-step-otp').style.display = 'block';
+      document.getElementById('pa-title').innerHTML = '인증번호<br><em>입력</em>';
+      document.getElementById('pa-sub').textContent = phone + ' 로 보낸 6자리 번호를 입력해 주세요.';
+      document.getElementById('pa-otp').focus();
+      paStartResendCooldown();
+    }
+  }
+
+  function paStartResendCooldown() {
+    let sec = 30;
+    const btn = document.getElementById('pa-resend-btn');
+    btn.disabled = true;
+    clearInterval(paResendTimer);
+    paResendTimer = setInterval(() => {
+      sec--;
+      btn.textContent = sec > 0 ? `재발송 ${sec}s` : '인증번호 재발송';
+      if (sec <= 0) { btn.disabled = false; clearInterval(paResendTimer); }
+    }, 1000);
+  }
+
+  function paResend() { paSendOtp(); }
+
+  async function paVerifyOtp() {
+    const token = document.getElementById('pa-otp').value;
+    const phone = document.getElementById('pa-phone').value;
+    const name = document.getElementById('pa-name').value.trim();
+    if (token.length !== 6) { alert('6자리 인증번호를 입력해 주세요.'); return; }
+    const btn = document.getElementById('pa-verify-btn');
+    btn.disabled = true; btn.textContent = '확인 중…';
+    const res = await jitgoVerifyOtp({ phone, token, name, role: paRole });
+    btn.disabled = false; btn.textContent = '가입 완료';
+    if (res && (res.data || res.demo)) {
+      clearInterval(paResendTimer);
+      document.getElementById('pa-step-otp').style.display = 'none';
+      document.getElementById('pa-step-done').style.display = 'block';
+      document.getElementById('pa-title').style.display = 'none';
+      document.getElementById('pa-sub').style.display = 'none';
+      document.getElementById('pa-foot').style.display = 'none';
+      document.getElementById('pa-done-msg').textContent = paRole === 'owner'
+        ? '짓고에 오신 것을 환영합니다. 검증된 전문 업체를 만나보세요.'
+        : '짓고 공급자로 등록되었습니다. 콘솔에서 업체 정보를 등록해 주세요.';
+    }
+  }
+
+  function paBackToPhone() {
+    clearInterval(paResendTimer);
+    document.getElementById('pa-step-otp').style.display = 'none';
+    document.getElementById('pa-step-phone').style.display = 'block';
+    document.getElementById('pa-title').innerHTML = '휴대폰으로<br><em>간편 가입</em>';
+    document.getElementById('pa-sub').textContent = '휴대폰 번호로 인증하면 가입과 로그인이 한 번에 완료됩니다.';
+  }
+
+  // 화면 진입 시 초기화
+  function resetPhoneAuth() {
+    paSetRole('owner');
+    document.getElementById('pa-name').value = '';
+    document.getElementById('pa-phone').value = '';
+    document.getElementById('pa-otp').value = '';
+    document.getElementById('pa-step-phone').style.display = 'block';
+    document.getElementById('pa-step-otp').style.display = 'none';
+    document.getElementById('pa-step-done').style.display = 'none';
+    document.getElementById('pa-title').style.display = '';
+    document.getElementById('pa-title').innerHTML = '휴대폰으로<br><em>간편 가입</em>';
+    document.getElementById('pa-sub').style.display = '';
+    document.getElementById('pa-sub').textContent = '휴대폰 번호로 인증하면 가입과 로그인이 한 번에 완료됩니다.';
+    document.getElementById('pa-foot').style.display = '';
   }
   // ESC 키로 모바일 메뉴 + 알림 드롭다운 닫기
   document.addEventListener('keydown', (e) => {
@@ -18020,7 +18418,21 @@ ${vendorContext}
     if (backBtn) backBtn.onclick = userSignupStep === 1 ? () => switchView('signup') : prevUserStep;
   }
 
-  function finishUserSignup() {
+  async function finishUserSignup() {
+    // ─── Supabase 실제 가입 시도 (연결돼 있을 때만) ───
+    const nameEl  = document.getElementById('user-name');
+    const phoneEl = document.getElementById('user-phone');
+    const emailEl = document.getElementById('user-email');
+    const pwEl    = document.getElementById('user-password');
+    if (supabaseClient && emailEl && pwEl && emailEl.value && pwEl.value) {
+      await jitgoSignUp({
+        email: emailEl.value.trim(),
+        password: pwEl.value,
+        name: nameEl ? nameEl.value.trim() : '회원',
+        phone: phoneEl ? phoneEl.value.trim() : null,
+        role: 'owner'
+      });
+    }
     document.getElementById('user-signup-content').innerHTML = `
       <div class="signup-complete">
         <div class="signup-complete-icon">✓</div>
@@ -18231,7 +18643,29 @@ ${vendorContext}
     document.getElementById('supplier-next-btn').disabled = false;
   }
 
-  function finishSupplierSignup() {
+  async function finishSupplierSignup() {
+    // ─── Supabase 실제 가입 시도 (연결돼 있을 때만) ───
+    const nameEl  = document.getElementById('supplier-rep-name') || document.getElementById('supplier-name');
+    const phoneEl = document.getElementById('supplier-phone');
+    const emailEl = document.getElementById('supplier-email');
+    const pwEl    = document.getElementById('supplier-password');
+    if (supabaseClient && emailEl && pwEl && emailEl.value && pwEl.value) {
+      const res = await jitgoSignUp({
+        email: emailEl.value.trim(),
+        password: pwEl.value,
+        name: nameEl ? nameEl.value.trim() : '공급자',
+        phone: phoneEl ? phoneEl.value.trim() : null,
+        role: 'supplier'
+      });
+      // 가입 성공 시 검증 레코드(Bronze 대기) 생성 시도
+      if (res && res.data && res.data.user && supabaseClient) {
+        try {
+          await supabaseClient.from('verifications').insert({
+            supplier_id: res.data.user.id, tier: 'bronze', status: 'pending'
+          });
+        } catch (e) { console.warn('검증 레코드 생성 보류:', e); }
+      }
+    }
     document.getElementById('supplier-signup-content').innerHTML = `
       <div class="signup-complete">
         <div class="signup-complete-icon">✓</div>
