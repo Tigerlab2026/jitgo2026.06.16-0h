@@ -1,28 +1,14 @@
-import { createHmac, timingSafeEqual } from 'crypto';
-
-function verifySignature(secret, body, signature) {
-  try {
-    const hmac = createHmac('sha256', secret.replace('v1,whsec_', ''));
-    hmac.update(body);
-    const digest = hmac.digest('hex');
-    return timingSafeEqual(Buffer.from(digest), Buffer.from(signature));
-  } catch {
-    return false;
-  }
-}
+import { createHmac } from 'crypto';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(200).json({});
   }
 
   try {
-    const rawBody = JSON.stringify(req.body);
-    console.log('[짓고 SMS Hook] body:', rawBody);
-
     const body = req.body;
+    console.log('[짓고 SMS Hook] body:', JSON.stringify(body));
 
-    // Supabase Hook 페이로드 구조
     const phone = body?.phone
       || body?.user?.phone
       || body?.record?.phone
@@ -36,8 +22,8 @@ export default async function handler(req, res) {
     console.log('[짓고 SMS Hook] phone:', phone, '/ otp:', otp);
 
     if (!phone || !otp) {
-      console.error('[짓고 SMS Hook] 필드 없음. body:', rawBody);
-      return res.status(400).json({ error: 'missing fields', received: body });
+      console.error('[짓고 SMS Hook] 필드 없음:', JSON.stringify(body));
+      return res.status(200).json({});
     }
 
     const SOLAPI_API_KEY    = process.env.SOLAPI_API_KEY;
@@ -73,17 +59,12 @@ export default async function handler(req, res) {
     });
 
     const solapiData = await solapiRes.json();
+    console.log('[짓고 SMS Hook] 솔라피 응답:', JSON.stringify(solapiData));
 
-    if (!solapiRes.ok) {
-      console.error('[짓고 SMS Hook] 솔라피 오류:', JSON.stringify(solapiData));
-      return res.status(500).json({ error: solapiData });
-    }
-
-    console.log('[짓고 SMS Hook] 발송 성공:', to);
-    return res.status(200).json({ success: true });
+    return res.status(200).json({});
 
   } catch (err) {
-    console.error('[짓고 SMS Hook] 서버 오류:', err.message);
-    return res.status(500).json({ error: err.message });
+    console.error('[짓고 SMS Hook] 오류:', err.message);
+    return res.status(200).json({});
   }
 }
