@@ -9891,6 +9891,11 @@
       </div>
       <h1 class="page-title" id="listing-title">전체 <em>업체</em></h1>
       <p class="page-sub" id="listing-sub">검증된 3,217개 건설 전문업체</p>
+      <div style="margin-top:10px;">
+        <button onclick="switchView('sitesearch')" style="background:var(--ink); color:var(--hanji); border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;">
+          🔍 현장으로 검색하기 (규모·용도·지역·준공년도) →
+        </button>
+      </div>
     </div>
 
     <!-- 카테고리 칩 (헤더에서 옮겨옴) -->
@@ -9941,6 +9946,66 @@
 
       <div class="vendor-grid" id="vendor-grid"></div>
       <div id="map-view" style="display: none;"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 현장 검색 (SITE SEARCH) ===================== -->
+  <section class="view" id="view-sitesearch">
+    <div class="page-head">
+      <div class="breadcrumb">
+        <button onclick="switchView('home')">짓고</button>
+        <span class="sep">/</span>
+        <span class="current">현장 검색</span>
+      </div>
+      <h1 class="page-title">현장 <em>검색</em></h1>
+      <p class="page-sub">규모·용도·지역·준공년도·공사비로 실제 시공 현장을 찾습니다</p>
+    </div>
+
+    <div style="max-width:1100px; margin:0 auto; padding:0 20px;">
+      <!-- 검색 필터 -->
+      <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:20px; margin-bottom:24px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px;">
+          <div>
+            <label style="font-size:12px; font-weight:700; color:var(--concrete); display:block; margin-bottom:6px;">지역</label>
+            <input type="text" class="auth-input" id="ss-region" placeholder="예: 서울 강남구" style="margin:0;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:700; color:var(--concrete); display:block; margin-bottom:6px;">용도</label>
+            <select class="auth-input" id="ss-usage" style="margin:0;">
+              <option value="">전체</option>
+              <option value="근린생활시설">근린생활시설</option>
+              <option value="단독주택">단독주택</option>
+              <option value="다세대·다가구">다세대·다가구</option>
+              <option value="공동주택">공동주택</option>
+              <option value="상가">상가</option>
+              <option value="오피스">오피스</option>
+              <option value="숙박시설">숙박시설</option>
+              <option value="공장·창고">공장·창고</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:700; color:var(--concrete); display:block; margin-bottom:6px;">면적(평) 이상</label>
+            <input type="text" class="auth-input" id="ss-pyeong-min" placeholder="예: 100" inputmode="numeric" style="margin:0;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:700; color:var(--concrete); display:block; margin-bottom:6px;">준공년도 이후</label>
+            <input type="text" class="auth-input" id="ss-year-min" placeholder="예: 2020" inputmode="numeric" style="margin:0;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:700; color:var(--concrete); display:block; margin-bottom:6px;">키워드</label>
+            <input type="text" class="auth-input" id="ss-keyword" placeholder="제목·설명 검색" style="margin:0;">
+          </div>
+        </div>
+        <button class="auth-submit" style="margin-top:16px;" onclick="runSiteSearch()">현장 검색</button>
+      </div>
+
+      <!-- 검색 결과 -->
+      <div style="margin-bottom:12px; font-size:14px; color:var(--concrete);">총 <strong id="ss-count" style="color:var(--ink);">0</strong>개 현장</div>
+      <div id="ss-results" class="spc-port-grid" style="grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));">
+        <div id="ss-empty" style="grid-column:1/-1; padding:40px 20px; text-align:center; color:var(--concrete);">
+          조건을 입력하고 "현장 검색"을 눌러주세요.
+        </div>
+      </div>
     </div>
   </section>
 
@@ -15985,26 +16050,68 @@
   }
 
   function tierBadgeClass(tier) {
-    return { gold:'badge-gold', silver:'badge-silver', bronze:'badge-bronze', unverified:'badge-unverified' }[tier];
+    return { gold:'badge-gold', silver:'badge-silver', bronze:'badge-bronze', unverified:'badge-unverified', pending:'badge-unverified' }[tier] || 'badge-unverified';
   }
   function tierLabel(tier) {
-    return { gold:'GOLD', silver:'SILVER', bronze:'BRONZE', unverified:'미인증' }[tier];
+    return { gold:'GOLD', silver:'SILVER', bronze:'BRONZE', unverified:'미검증', pending:'검토중' }[tier] || '미검증';
   }
 
   // =============== LISTING ===============
+  // DB에서 불러온 실제 업체 (가짜 vendors와 합쳐서 표시)
+  let dbVendors = [];
+
+  // suppliers 테이블 → vendors 카드 형식으로 변환
+  function supplierToVendor(s) {
+    const tier = (s.verify_status === 'verified') ? (s.verify_tier || 'bronze')
+               : (s.verify_status === 'pending') ? 'pending' : 'unverified';
+    const tierTag = (s.verify_status === 'verified') ? (s.verify_tier ? s.verify_tier.toUpperCase() : '검증')
+               : (s.verify_status === 'pending') ? '검토중' : '미검증';
+    return {
+      id: 'db_' + s.id,            // 실제 업체는 db_ 접두사로 구분
+      dbId: s.id,
+      name: s.company_name || '이름 없음',
+      cat: s.category || '기타',
+      tier: tier,
+      rating: 0, reviews: 0, projects: 0,
+      region: s.address || '지역 미입력',
+      specialty: s.biz_type || '',
+      desc: s.intro || (s.category ? s.category + ' 전문 업체' : '신규 등록 업체'),
+      tags: [tierTag],
+      abilities: [70,70,70,70,70,70],
+      img: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800&q=80',
+      isReal: true
+    };
+  }
+
+  // DB 업체 불러오기
+  async function loadDbVendors() {
+    if (!isSupabaseReady()) return;
+    const { data, error } = await supabaseClient
+      .from('suppliers').select('*').order('created_at', { ascending: false });
+    if (error) { console.error('[짓고] 업체 조회 실패:', error.message); return; }
+    dbVendors = (data || []).map(supplierToVendor);
+    if (typeof renderVendorList === 'function') renderVendorList();
+  }
+
+  // 전체 업체 = 실제 DB 업체(위) + 가짜 샘플(아래)
+  function allVendors() {
+    return [...dbVendors, ...vendors];
+  }
+
   function renderVendorList() {
-    const filtered = currentCat === 'all' ? vendors : vendors.filter(v => v.cat.includes(currentCat));
+    const base = allVendors();
+    const filtered = currentCat === 'all' ? base : base.filter(v => v.cat.includes(currentCat));
     document.getElementById('result-count').textContent = filtered.length;
 
     // Shopping mall view
     document.getElementById('vendor-grid').innerHTML = filtered.map(v => `
-      <div class="vendor-list-card ${v.tier === 'unverified' ? 'unverified' : ''}" onclick="goVendor(${v.id})">
+      <div class="vendor-list-card ${v.tier === 'unverified' ? 'unverified' : ''}" onclick="goVendor('${v.id}')">
         <div class="vendor-list-img">
           <img src="${v.img}" alt="">
           <div class="vendor-badges">
             <span class="badge ${tierBadgeClass(v.tier)}">${tierLabel(v.tier)}</span>
           </div>
-          <button class="vendor-fav ${favSet.has(v.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(${v.id}, this)">♡</button>
+          <button class="vendor-fav ${favSet.has(v.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav('${v.id}', this)">♡</button>
         </div>
         <div class="vendor-list-body">
           <div class="vendor-list-header">
@@ -16017,11 +16124,11 @@
           <div class="vendor-list-desc">${v.desc}</div>
           <div class="vendor-list-tags">${v.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
           <div class="vendor-list-stats">
-            <span><span class="rating">${v.rating}</span> (${v.reviews})</span>
+            <span>${v.isReal ? '신규 등록' : `<span class="rating">${v.rating}</span> (${v.reviews})`}</span>
             <span>${v.region}</span>
           </div>
           <button class="vendor-card-compare ${compareSet.has(v.id) ? 'active' : ''}"
-                  onclick="event.stopPropagation(); toggleCompare(${v.id}, this)">
+                  onclick="event.stopPropagation(); toggleCompare('${v.id}', this)">
             ${compareSet.has(v.id) ? '비교함에 추가됨' : '+ 비교 추가'}
           </button>
         </div>
@@ -16440,6 +16547,7 @@
     if (view === 'phone-auth') resetPhoneAuth();
     if (view === 'mypage') updateMypageUser();
     if (view === 'console' && typeof loadSupplierStatus === 'function') loadSupplierStatus();
+    if (view === 'listing' && typeof loadDbVendors === 'function') loadDbVendors();
     if (view === 'chat') initChat();
   }
 
@@ -16664,6 +16772,12 @@
   }
 
   function goVendor(id) {
+    // 실제 DB 업체는 아직 상세 페이지 미연동 (v30 예정) → 임시 안내
+    if (typeof id === 'string' && id.startsWith('db_')) {
+      const v = dbVendors.find(x => x.id === id);
+      alert((v ? v.name : '신규 업체') + '\n\n실제 등록 업체입니다. 상세 페이지는 준비 중입니다.\n(' + (v ? v.region : '') + ')');
+      return;
+    }
     switchView('vendor');
     setTimeout(drawBigRadar, 50);
   }
@@ -19159,6 +19273,59 @@ ${vendorContext}
       else if (data.verify_status === 'pending')  desc.textContent = '서류 검토 중입니다. 결과는 알림으로 안내됩니다.';
       else                                        desc.textContent = '서류를 제출하고 검증을 신청하세요.';
     }
+  }
+
+  // ===================== 현장 검색 (SITE SEARCH) =====================
+  async function runSiteSearch() {
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 작동합니다.'); return; }
+
+    const region    = document.getElementById('ss-region').value.trim();
+    const usage     = document.getElementById('ss-usage').value;
+    const pyeongMin = parseFloat(document.getElementById('ss-pyeong-min').value.replace(/[^0-9.]/g, ''));
+    const yearMin   = parseInt(document.getElementById('ss-year-min').value.replace(/[^0-9]/g, ''), 10);
+    const keyword   = document.getElementById('ss-keyword').value.trim();
+
+    let q = supabaseClient.from('products').select('*').order('created_at', { ascending: false });
+    if (region)            q = q.ilike('region', '%' + region + '%');
+    if (usage)             q = q.eq('usage_type', usage);
+    if (!isNaN(pyeongMin)) q = q.gte('area_pyeong', pyeongMin);
+    if (!isNaN(yearMin))   q = q.gte('completed_year', yearMin);
+    if (keyword)           q = q.or('company_name.ilike.%' + keyword + '%,description.ilike.%' + keyword + '%');
+
+    const { data, error } = await q;
+    const results = document.getElementById('ss-results');
+    const empty   = document.getElementById('ss-empty');
+    const countEl = document.getElementById('ss-count');
+
+    results.querySelectorAll('.spc-port-item').forEach(el => el.remove());
+
+    if (error) { alert('검색 실패: ' + error.message); return; }
+
+    countEl.textContent = (data || []).length;
+
+    if (!data || data.length === 0) {
+      if (empty) { empty.style.display = 'block'; empty.textContent = '조건에 맞는 현장이 없습니다.'; }
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+
+    data.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'spc-port-item';
+      const safeTitle = (p.company_name || '제목 없음').replace(/</g, '&lt;');
+      const metaParts = [p.region, p.usage_type];
+      if (p.area_pyeong) metaParts.push(p.area_pyeong + '평');
+      if (p.completed_year) metaParts.push(p.completed_year + '년');
+      if (p.cost_amount) metaParts.push((p.cost_amount / 100000000).toFixed(1) + '억');
+      const safeMeta = metaParts.filter(Boolean).join(' · ').replace(/</g, '&lt;');
+      item.innerHTML =
+        '<div class="spc-port-item-img"><img src="' + (p.image_url || '') + '" alt="" onerror="this.style.opacity=0.3"></div>' +
+        '<div class="spc-port-item-body">' +
+          '<div class="spc-port-item-title">' + safeTitle + '</div>' +
+          '<div class="spc-port-item-meta">' + safeMeta + '</div>' +
+        '</div>';
+      results.appendChild(item);
+    });
   }
 
   // ===================== 포트폴리오 등록·조회·삭제 =====================
