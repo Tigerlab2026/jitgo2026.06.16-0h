@@ -10689,87 +10689,15 @@
         <!-- DASHBOARD -->
         <div class="mp-section active" id="spc-sec-dashboard">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">SUPPLIER OVERVIEW</div>
-            <h2 class="mp-section-title">대시 <em>보드</em></h2>
-            <p class="mp-section-sub">이번 달 영업 성과와 진행 중인 거래를 한눈에</p>
-            <div style="margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-              <span id="spc-company-name" style="font-weight:700; font-size:15px;"></span>
-              <span id="spc-verify-badge"></span>
-            </div>
+            <div class="mp-section-eyebrow">DASHBOARD</div>
+            <h2 class="mp-section-title">콘솔 <em>대시보드</em></h2>
+            <p class="mp-section-sub">받은 견적 요청·포트폴리오·검증 현황을 왼쪽 메뉴에서 확인하세요</p>
           </div>
-          <div class="mp-stat-grid">
-            <div class="mp-stat-card" onclick="switchSpcSection('requests')">
-              <div class="mp-stat-card-eyebrow">REQUESTS · 받은 요청</div>
-              <div class="mp-stat-card-num">8<small> 건</small></div>
-              <div class="mp-stat-card-label">미응답 4건</div>
-              <div class="mp-stat-card-trend">+3 NEW</div>
-            </div>
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">RESPONSE · 응답률</div>
-              <div class="mp-stat-card-num">98<small>%</small></div>
-              <div class="mp-stat-card-label">평균 응답 2시간</div>
-              <div class="mp-stat-card-trend">↑ 2%</div>
-            </div>
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">REVENUE · 이번달 매출</div>
-              <div class="mp-stat-card-num">8.2<small>억</small></div>
-              <div class="mp-stat-card-label">계약 진행 3건</div>
-              <div class="mp-stat-card-trend">↑ 18%</div>
-            </div>
-            <div class="spc-stat-card mp-stat-card gold" onclick="switchSpcSection('verify')">
-              <div class="mp-stat-card-eyebrow">VERIFICATION · 검증 등급</div>
-              <div class="mp-stat-card-num">Gold</div>
-              <div class="mp-stat-card-label">2026.06.14 만료</div>
-            </div>
-          </div>
-
-          <div class="spc-revenue-chart">
-            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; margin-bottom: 4px;">월별 매출 추이</h3>
-            <div style="font-size: 12px; color: var(--concrete); margin-bottom: 12px;">최근 6개월 · 단위 억원</div>
-            <div class="spc-chart-bars">
-              <div class="spc-chart-bar muted" style="height: 40%;"><span class="spc-chart-bar-val">3.2</span></div>
-              <div class="spc-chart-bar muted" style="height: 55%;"><span class="spc-chart-bar-val">4.5</span></div>
-              <div class="spc-chart-bar muted" style="height: 50%;"><span class="spc-chart-bar-val">4.1</span></div>
-              <div class="spc-chart-bar muted" style="height: 65%;"><span class="spc-chart-bar-val">5.3</span></div>
-              <div class="spc-chart-bar muted" style="height: 78%;"><span class="spc-chart-bar-val">6.4</span></div>
-              <div class="spc-chart-bar" style="height: 100%;"><span class="spc-chart-bar-val">8.2</span></div>
-            </div>
-            <div class="spc-chart-labels">
-              <div>2025.06</div><div>07</div><div>08</div><div>09</div><div>10</div><div>11</div>
-            </div>
-          </div>
-
-          <div class="mp-activity">
-            <h3>최근 활동</h3>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">1시간 전</div>
-              <div class="mp-activity-text">신규 견적 요청 도착 · <strong>김재훈 건축주</strong> · 강남 신사동 5층 상가 신축 (25~30억)</div>
-              <button class="mp-activity-action">견적 작성</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">3시간 전</div>
-              <div class="mp-activity-text"><strong>박서영 건축주</strong>가 채팅 메시지를 보냈습니다 · 화성 남양 근린상가 임차인 문의</div>
-              <button class="mp-activity-action">답장</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">어제</div>
-              <div class="mp-activity-text">계약 성사 · <strong>합정동 다세대 리모델링</strong> · 9억 8천만원</div>
-              <button class="mp-activity-action">상세</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">2일 전</div>
-              <div class="mp-activity-text">신규 ★5점 후기 · <strong>이정훈 건축주</strong> · 합정동 노후 상가 리뉴얼</div>
-              <button class="mp-activity-action">답글</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">3일 전</div>
-              <div class="mp-activity-text">중도금 3차 5억원이 짓고 에스크로에 예치되었습니다 · 화성 남양 근린상가</div>
-              <button class="mp-activity-action">결제 보기</button>
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:40px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">환영합니다</div>
+            <div style="font-size:13px;">왼쪽 메뉴에서 포트폴리오 등록, 받은 견적 요청, 검증 신청을 관리하세요.<br>거래 통계는 거래가 쌓이면 표시됩니다.</div>
           </div>
         </div>
-
-        <!-- REQUESTS -->
         <div class="mp-section" id="spc-sec-requests">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">INCOMING REQUESTS</div>
@@ -10784,75 +10712,30 @@
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">SENT QUOTES</div>
             <h2 class="mp-section-title">보낸 <em>견적서</em></h2>
-            <p class="mp-section-sub">최근 발송한 견적서 목록</p>
+            <p class="mp-section-sub" id="spc-quotes-sub">건축주에게 응답한 견적 내역입니다</p>
           </div>
-          <div class="mp-quote-list">
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">화성 남양 근린상가 신축 · 22억원</div>
-                  <div class="mp-quote-meta">QUOTE-2025-0508 · 박서영 건축주 · 2025.05.08 발송</div>
-                </div>
-                <span class="mp-quote-status contracted">계약 체결</span>
-              </div>
-              <p class="mp-quote-body">평당 510만원 기준, 14개월 공사 일정. 안심예치제·하자보증 2년 보장 포함.</p>
-              <div class="mp-quote-foot">
-                <span>계약 체결 완료 · 현재 골조 50% 진행 중</span>
-                <button onclick="switchView('quotecompare')">PDF 다운로드</button>
-              </div>
-            </div>
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">합정동 노후 상가 리뉴얼 · 9.8억원</div>
-                  <div class="mp-quote-meta">QUOTE-2025-1015 · 이정훈 건축주 · 2025.10.15 발송</div>
-                </div>
-                <span class="mp-quote-status contracted">계약 체결</span>
-              </div>
-              <p class="mp-quote-body">4층 부분 리모델링, 외벽·창호·옥상 방수 포함. 평당 595만원, 4개월 공사.</p>
-              <div class="mp-quote-foot">
-                <span>계약 체결 완료 · 2026년 1월 착공 예정</span>
-                <button onclick="switchView('quotecompare')">PDF 다운로드</button>
-              </div>
-            </div>
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">강남 신사동 5층 상가 신축 · 28억원</div>
-                  <div class="mp-quote-meta">QUOTE-2025-1116 · 김재훈 건축주 · 2025.11.16 발송</div>
-                </div>
-                <span class="mp-quote-status received">검토 중</span>
-              </div>
-              <p class="mp-quote-body">평당 580만원, 14개월 공사. BIM 도면 기반 시공.</p>
-              <div class="mp-quote-foot">
-                <span>발주처 검토 중 · 비교 견적 4건과 경쟁</span>
-                <button onclick="switchView('quotecompare')">PDF 다운로드</button>
-              </div>
-            </div>
+          <div id="spc-quotes-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">보낸 견적이 없습니다.</div>
           </div>
         </div>
-
-        <!-- PROFILE -->
         <div class="mp-section" id="spc-sec-profile">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">COMPANY PROFILE</div>
             <h2 class="mp-section-title">회사 <em>프로필</em></h2>
-            <p class="mp-section-sub">사용자에게 보이는 회사 정보를 편집합니다</p>
+            <p class="mp-section-sub">건축주에게 보이는 회사 정보를 편집합니다</p>
           </div>
           <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 32px; max-width: 720px;">
-            <div class="auth-field"><label class="auth-label">회사명</label><input type="text" class="auth-input" value="정인종합건축(주)"></div>
-            <div class="auth-field"><label class="auth-label">대표이사</label><input type="text" class="auth-input" value="김정인"></div>
-            <div class="auth-field"><label class="auth-label">사업자등록번호</label><input type="text" class="auth-input" value="220-86-12345" disabled style="background: var(--hanji-soft); color: var(--concrete);"></div>
-            <div class="auth-field"><label class="auth-label">설립일</label><input type="date" class="auth-input" value="2012-03-15"></div>
-            <div class="auth-field"><label class="auth-label">자본금 (원)</label><input type="text" class="auth-input" value="500,000,000"></div>
-            <div class="auth-field"><label class="auth-label">소재지</label><input type="text" class="auth-input" value="서울 강남구 테헤란로 234, 정인빌딩 5층"></div>
-            <div class="auth-field"><label class="auth-label">전문 분야</label><div class="signup-cat-chips"><button type="button" class="signup-cat-chip active">근린상가 신축</button><button type="button" class="signup-cat-chip active">점포겸용주택</button><button type="button" class="signup-cat-chip">단독주택</button><button type="button" class="signup-cat-chip active">리모델링</button></div></div>
-            <div class="auth-field"><label class="auth-label">회사 소개 (홈에 노출)</label><textarea class="auth-input" style="min-height: 100px; resize: vertical;">강남권 근린상가 및 점포겸용주택 시공 전문. 디자인 강한 입면 설계와 정밀한 공정 관리로 합리적인 단가에 고품질 결과물을 제공합니다.</textarea></div>
-            <button class="auth-submit" style="margin-top: 16px;">변경 사항 저장</button>
+            <div class="auth-field"><label class="auth-label">회사명</label><input type="text" class="auth-input" id="spc-prof-name" value=""></div>
+            <div class="auth-field"><label class="auth-label">대표이사</label><input type="text" class="auth-input" id="spc-prof-ceo" value=""></div>
+            <div class="auth-field"><label class="auth-label">사업자등록번호</label><input type="text" class="auth-input" id="spc-prof-bizno" value="" readonly style="background: var(--hanji-soft); color: var(--concrete);"></div>
+            <div class="auth-field"><label class="auth-label">대표 전문분야</label><input type="text" class="auth-input" id="spc-prof-category" value=""></div>
+            <div class="auth-field"><label class="auth-label">등록업종 / 면허</label><input type="text" class="auth-input" id="spc-prof-biztype" value=""></div>
+            <div class="auth-field"><label class="auth-label">자본금 (원)</label><input type="text" class="auth-input" id="spc-prof-capital" value="" inputmode="numeric"></div>
+            <div class="auth-field"><label class="auth-label">소재지</label><input type="text" class="auth-input" id="spc-prof-address" value=""></div>
+            <div class="auth-field"><label class="auth-label">회사 소개</label><textarea class="auth-input" id="spc-prof-intro" rows="3" style="resize:vertical; font-family:inherit;"></textarea></div>
+            <button class="auth-submit" style="margin-top:8px;" onclick="saveSupplierProfile()">프로필 저장</button>
           </div>
         </div>
-
-        <!-- PORTFOLIO -->
         <div class="mp-section" id="spc-sec-portfolio">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">PORTFOLIO MGMT</div>
@@ -10875,38 +10758,14 @@
         <!-- REVIEWS RECEIVED -->
         <div class="mp-section" id="spc-sec-reviews">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">RECEIVED REVIEWS</div>
             <h2 class="mp-section-title">받은 <em>후기</em></h2>
-            <p class="mp-section-sub">고객이 작성한 후기에 답글을 달아 신뢰를 쌓으세요</p>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-          <div class="review-item" style="margin-bottom: 12px;">
-            <div class="review-item-head">
-              <div>
-                <div class="review-item-rating">★★★★★</div>
-                <div class="review-item-meta">김재훈 건축주 · 2024.11.15 · 강남 신사동 5층 상가</div>
-              </div>
-              <span class="review-verified">실거래 인증</span>
-            </div>
-            <p class="review-text">14개월의 긴 공사 기간 동안 단 한 번도 일정이 밀리지 않았습니다. 매주 공정 보고서를 사진과 함께 정리해 보내주셨고...</p>
-            <div style="margin-top: 12px; padding: 12px 16px; background: var(--hanji-soft); border-left: 3px solid var(--vermilion); border-radius: 4px;">
-              <div style="font-size: 11px; color: var(--vermilion); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px;">YOUR REPLY · 답글</div>
-              <div style="font-size: 13px; color: var(--ink-soft); line-height: 1.6;">소중한 후기 감사합니다. 김재훈 건축주님의 명확한 의사결정 덕분에 일정이 잘 지켜졌습니다. 준공 후에도 사후관리는 끝까지 책임지겠습니다.</div>
-            </div>
-          </div>
-          <div class="review-item" style="margin-bottom: 12px;">
-            <div class="review-item-head">
-              <div>
-                <div class="review-item-rating">★★★★★</div>
-                <div class="review-item-meta">박서영 건축주 · 2024.08.22 · 화성 남양 근린상가</div>
-              </div>
-              <span class="review-verified">실거래 인증</span>
-            </div>
-            <p class="review-text">중간에 임차인 요구로 1층 평면을 한 번 수정해야 했는데, 추가 공사비 부담 없이 유연하게 대응해주셨습니다...</p>
-            <button class="auth-submit" style="margin-top: 12px; max-width: 180px; padding: 10px;">답글 작성하기</button>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- VERIFY REQUEST -->
         <div class="mp-section" id="spc-sec-verify">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">VERIFICATION</div>
@@ -10936,357 +10795,24 @@
         <!-- MEMBERSHIP -->
         <div class="mp-section" id="spc-sec-membership">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">MEMBERSHIP</div>
-            <h2 class="mp-section-title">멤버십 / <em>결제</em></h2>
-            <p class="mp-section-sub">현재 플랜과 결제 정보를 관리합니다</p>
+            <h2 class="mp-section-title">멤버십</h2>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-          <div class="spc-membership">
-            <div>
-              <div class="spc-membership-tier-eyebrow">CURRENT PLAN</div>
-              <div class="spc-membership-tier-name">프리미엄</div>
-              <div class="spc-membership-tier-price">월 249,000원 · 다음 결제 2025.12.16</div>
-            </div>
-            <button class="spc-membership-cta">플랜 변경</button>
-          </div>
-          <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 24px;">
-            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; margin-bottom: 16px;">결제 내역</h3>
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 13px;">
-                <div>2025.11.16 · 프리미엄 월간 구독</div>
-                <div style="font-family: 'JetBrains Mono', monospace;">249,000원</div>
-                <span style="background: #E8F5E9; color: var(--green); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;">결제 완료</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 13px;">
-                <div>2025.10.16 · 프리미엄 월간 구독</div>
-                <div style="font-family: 'JetBrains Mono', monospace;">249,000원</div>
-                <span style="background: #E8F5E9; color: var(--green); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;">결제 완료</span>
-              </div>
-              <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 16px; padding: 12px 0; font-size: 13px;">
-                <div>2025.06.10 · 계약 성사 수수료 (1.5%)</div>
-                <div style="font-family: 'JetBrains Mono', monospace;">3,300,000원</div>
-                <span style="background: #E8F5E9; color: var(--green); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;">정산 완료</span>
-              </div>
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- ANALYTICS -->
         <div class="mp-section" id="spc-sec-analytics">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">ANALYTICS</div>
-            <h2 class="mp-section-title">통계 / <em>분석</em></h2>
-            <p class="mp-section-sub">프로필 노출, 견적 요청 패턴, 매출 추이</p>
+            <h2 class="mp-section-title">분석</h2>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-          <div class="mp-stat-grid">
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">PROFILE VIEWS · 프로필 조회</div>
-              <div class="mp-stat-card-num">1,247</div>
-              <div class="mp-stat-card-label">이번달 (↑ 23%)</div>
-            </div>
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">REQUEST RATE · 요청 전환률</div>
-              <div class="mp-stat-card-num">6.4<small>%</small></div>
-              <div class="mp-stat-card-label">조회 → 견적 요청</div>
-            </div>
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">WIN RATE · 계약 성공률</div>
-              <div class="mp-stat-card-num">38<small>%</small></div>
-              <div class="mp-stat-card-label">견적 → 계약</div>
-            </div>
-            <div class="mp-stat-card">
-              <div class="mp-stat-card-eyebrow">AVG. DEAL · 평균 거래액</div>
-              <div class="mp-stat-card-num">17.4<small>억</small></div>
-              <div class="mp-stat-card-label">최근 12개월</div>
-            </div>
-          </div>
-          <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 24px;">
-            <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; margin-bottom: 8px;">검색어 분석</h3>
-            <p style="font-size: 12px; color: var(--concrete); margin-bottom: 16px;">고객이 어떤 검색어로 우리 회사를 발견했는지</p>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: grid; grid-template-columns: 200px 1fr 50px; gap: 12px; align-items: center; padding: 8px 0; font-size: 13px;">
-                <div style="font-weight: 600;">강남 근린상가</div>
-                <div class="aip-breakdown-bar"><div class="aip-breakdown-bar-fill" style="width: 88%;"></div></div>
-                <div style="font-family: 'JetBrains Mono', monospace; text-align: right; font-weight: 700;">412</div>
-              </div>
-              <div style="display: grid; grid-template-columns: 200px 1fr 50px; gap: 12px; align-items: center; padding: 8px 0; font-size: 13px;">
-                <div style="font-weight: 600;">점포겸용주택</div>
-                <div class="aip-breakdown-bar"><div class="aip-breakdown-bar-fill" style="width: 56%;"></div></div>
-                <div style="font-family: 'JetBrains Mono', monospace; text-align: right; font-weight: 700;">267</div>
-              </div>
-              <div style="display: grid; grid-template-columns: 200px 1fr 50px; gap: 12px; align-items: center; padding: 8px 0; font-size: 13px;">
-                <div style="font-weight: 600;">5층 상가 신축</div>
-                <div class="aip-breakdown-bar"><div class="aip-breakdown-bar-fill" style="width: 45%;"></div></div>
-                <div style="font-family: 'JetBrains Mono', monospace; text-align: right; font-weight: 700;">198</div>
-              </div>
-              <div style="display: grid; grid-template-columns: 200px 1fr 50px; gap: 12px; align-items: center; padding: 8px 0; font-size: 13px;">
-                <div style="font-weight: 600;">RC조 시공사</div>
-                <div class="aip-breakdown-bar"><div class="aip-breakdown-bar-fill" style="width: 32%;"></div></div>
-                <div style="font-family: 'JetBrains Mono', monospace; text-align: right; font-weight: 700;">142</div>
-              </div>
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CHAT ===================== -->
-  <section class="view" id="view-chat">
-    <div class="page-head">
-      <div class="breadcrumb">
-        <button onclick="switchView('home')">짓고</button>
-        <span class="sep">/</span>
-        <span class="current">메시지</span>
-      </div>
-      <h1 class="page-title">메 <em>시지</em></h1>
-      <p class="page-sub">견적 요청한 업체와 짓고 안에서 안전하게 대화하세요. 개인정보는 자동 마스킹됩니다.</p>
-    </div>
-    <div class="chat-layout">
-      <div class="chat-list">
-        <div class="chat-list-head">
-          <input type="text" class="chat-list-search" placeholder="대화 검색...">
-        </div>
-        <div class="chat-list-items" id="chat-list-items"></div>
-      </div>
-      <div class="chat-panel" id="chat-panel"></div>
-    </div>
-  </section>
-
-  <!-- ===================== PRECISE QUOTE COMPARE ===================== -->
-  <section class="view" id="view-quotecompare">
-    <div class="page-head">
-      <div class="breadcrumb">
-        <button onclick="switchView('home')">짓고</button>
-        <span class="sep">/</span>
-        <button onclick="switchView('mypage')">마이페이지</button>
-        <span class="sep">/</span>
-        <span class="current">정밀 견적 비교</span>
-      </div>
-      <h1 class="page-title">정밀 <em>견적 비교</em></h1>
-      <p class="page-sub">받은 견적 5건을 공종별로 한눈에 비교하세요. AI 적정가 컬럼이 기준입니다.</p>
-    </div>
-
-    <div class="qc-summary">
-      <div>
-        <div class="qc-summary-eyebrow">PROJECT</div>
-        <div class="qc-summary-title">강남 신사동 5층 상가 신축</div>
-        <div class="qc-summary-meta">연면적 260평 · RC조 · 2026년 4월 착공 예정</div>
-      </div>
-      <div class="qc-summary-ai">
-        <div class="qc-summary-ai-eyebrow">◆ AI 적정가</div>
-        <div class="qc-summary-ai-val">26.5억<small> · 평당 1,019만</small></div>
-      </div>
-    </div>
-
-    <div class="qc-table-wrap">
-      <table class="qc-table">
-        <thead>
-          <tr>
-            <th>공종 / 항목</th>
-            <th>
-              <div class="qc-th-vendor-name">에이케이엔지니어링</div>
-              <div class="qc-th-vendor-meta">★ 4.8 · GOLD</div>
-              <div class="qc-th-vendor-total">22.0억<small>/평 846만</small></div>
-              <div class="qc-th-vendor-diff cheap">평균 대비 −8%</div>
-            </th>
-            <th>
-              <div class="qc-th-vendor-name">대한건설산업</div>
-              <div class="qc-th-vendor-meta">★ 4.6 · SILVER</div>
-              <div class="qc-th-vendor-total">25.5억<small>/평 980만</small></div>
-              <div class="qc-th-vendor-diff cheap">평균 대비 −3%</div>
-            </th>
-            <th>
-              <div class="qc-th-vendor-name">정인종합건축</div>
-              <div class="qc-th-vendor-meta">★ 4.9 · GOLD</div>
-              <div class="qc-th-vendor-total">28.0억<small>/평 1,076만</small></div>
-              <div class="qc-th-vendor-diff expensive">평균 대비 +6%</div>
-            </th>
-            <th>
-              <div class="qc-th-vendor-name">서일종합건설</div>
-              <div class="qc-th-vendor-meta">★ 4.4 · BRONZE</div>
-              <div class="qc-th-vendor-total">21.5억<small>/평 826만</small></div>
-              <div class="qc-th-vendor-diff cheap">평균 대비 −18%</div>
-            </th>
-            <th>
-              <div class="qc-th-vendor-name">한솔건축</div>
-              <div class="qc-th-vendor-meta">★ 4.7 · SILVER</div>
-              <div class="qc-th-vendor-total">30.5억<small>/평 1,173만</small></div>
-              <div class="qc-th-vendor-diff expensive">평균 대비 +15%</div>
-            </th>
-            <th class="qc-th-ai">
-              <div class="qc-th-vendor-name" style="color: var(--vermilion);">◆ AI 적정가</div>
-              <div class="qc-th-vendor-meta" style="color: rgba(245,239,230,0.7);">짓고 기준</div>
-              <div class="qc-th-vendor-total">26.5억<small style="color: rgba(245,239,230,0.7);">/평 1,019만</small></div>
-              <div class="qc-th-vendor-diff" style="color: var(--vermilion);">기준점</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>가설·토공사</td>
-            <td>1.5억</td><td>1.7억</td><td class="expensive">2.0억</td><td class="cheapest">1.2억</td><td class="expensive">2.1억</td>
-            <td class="ai-col">1.7억</td>
-          </tr>
-          <tr>
-            <td>철근콘크리트</td>
-            <td class="cheapest">5.5억</td><td>6.5억</td><td class="expensive">7.4억</td><td>5.8억</td><td class="expensive">7.8억</td>
-            <td class="ai-col">6.7억</td>
-          </tr>
-          <tr>
-            <td>골조 (철골)</td>
-            <td>3.2억</td><td>3.5억</td><td class="expensive">4.2억</td><td class="cheapest">2.8억</td><td>3.8억</td>
-            <td class="ai-col">3.6억</td>
-          </tr>
-          <tr>
-            <td>외장공사</td>
-            <td>2.8억</td><td>3.4억</td><td class="expensive">3.9억</td><td class="cheapest">2.5억</td><td class="expensive">4.3억</td>
-            <td class="ai-col">3.5억</td>
-          </tr>
-          <tr>
-            <td>내장·마감</td>
-            <td>4.2억</td><td>4.8억</td><td>5.2억</td><td class="cheapest">3.9억</td><td class="expensive">6.1억</td>
-            <td class="ai-col">4.9억</td>
-          </tr>
-          <tr>
-            <td>기계·전기 설비</td>
-            <td>3.5억</td><td>4.0억</td><td>4.5억</td><td class="cheapest">3.2억</td><td class="expensive">4.8억</td>
-            <td class="ai-col">4.2억</td>
-          </tr>
-          <tr>
-            <td>기타·예비비</td>
-            <td class="cheapest">1.3억</td><td>1.6억</td><td>0.8억</td><td class="expensive">2.1억</td><td>1.6억</td>
-            <td class="ai-col">1.9억</td>
-          </tr>
-          <tr class="total-row">
-            <td>총 견적</td>
-            <td>22.0억</td>
-            <td>25.5억</td>
-            <td>28.0억</td>
-            <td>21.5억</td>
-            <td>30.5억</td>
-            <td>26.5억</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div style="margin-top: 24px; padding: 20px 24px; background: var(--vermilion-light); border-radius: 12px; display: flex; gap: 16px; align-items: flex-start;">
-      <div style="width: 32px; height: 32px; background: var(--vermilion); color: var(--hanji); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">◆</div>
-      <div style="font-size: 13px; color: var(--ink-soft); line-height: 1.7;">
-        <strong style="color: var(--vermilion-dark);">AI 분석 요약:</strong> <strong>에이케이엔지니어링</strong>이 적정가 대비 17% 저렴하지만 외장공사 비용이 다소 낮습니다 — 마감 사양을 꼼꼼히 확인하세요. <strong>정인종합건축</strong>은 가설·토공사·외장이 평균 이상이지만 기타 비용은 가장 낮아 후수정 리스크가 작은 편입니다. <strong>서일종합건설</strong>은 전반적으로 가장 저렴하나 BRONZE 등급이므로 시공 품질 확인이 필요합니다. <strong>한솔건축</strong>은 평균 대비 15% 비쌉니다 — 협상 여지를 확인해보세요.
-      </div>
-    </div>
-
-    <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
-      <button class="signup-btn-back" onclick="switchView('mypage'); setTimeout(()=>switchMpSection('quotes-received'),50);">← 받은 견적으로</button>
-      <button class="auth-submit" style="max-width: 280px;" onclick="switchView('chat')">상위 3개 업체와 채팅 시작</button>
-    </div>
-  </section>
-
-  <!-- ===================== MYPAGE ===================== -->
-  <section class="view" id="view-mypage">
-    <div class="page-head">
-      <div class="breadcrumb">
-        <button onclick="switchView('home')">짓고</button>
-        <span class="sep">/</span>
-        <span class="current">마이페이지</span>
-      </div>
-      <h1 class="page-title">마이 <em>페이지</em></h1>
-      <p class="page-sub">짓고에서의 활동을 한 곳에서 관리하세요</p>
-    </div>
-
-    <div class="mypage-layout">
-      <aside class="mp-sidebar">
-        <div class="mp-user-card">
-          <div class="mp-avatar" id="mp-avatar">김</div>
-          <div class="mp-user-name" id="mp-user-name">김재훈 님</div>
-          <div class="mp-user-email" id="mp-user-phone">jaehoon@example.kr</div>
-          <div class="mp-user-meta" id="mp-user-meta">USER · 가입 2025.11.15</div>
-        </div>
-        <nav class="mp-nav" id="mp-nav">
-          <button class="mp-nav-item active" data-mp="dashboard" onclick="switchMpSection('dashboard')">대시보드</button>
-          <button class="mp-nav-item" data-mp="profile" onclick="switchMpSection('profile')">내 정보</button>
-          <div class="mp-nav-divider"></div>
-          <button class="mp-nav-item" data-mp="quotes-sent" onclick="switchMpSection('quotes-sent')">견적 요청 내역</button>
-          <button class="mp-nav-item" data-mp="quotes-received" onclick="switchMpSection('quotes-received')">받은 견적</button>
-          <button class="mp-nav-item" data-mp="projects" onclick="switchMpSection('projects')">진행 프로젝트</button>
-          <button class="mp-nav-item" data-mp="escrow" onclick="switchMpSection('escrow')">결제·정산</button>
-          <button class="mp-nav-item" data-mp="receipt" onclick="switchView('receipt')">영수증·세금계산서</button>
-          <button class="mp-nav-item" data-mp="archive" onclick="switchMpSection('archive')">자료 보관함</button>
-          <button class="mp-nav-item" data-mp="blueprint" onclick="switchView('blueprint')">AI 도면 검토</button>
-          <div class="mp-nav-divider"></div>
-          <button class="mp-nav-item" data-mp="favorites" onclick="switchMpSection('favorites')">관심 업체</button>
-          <button class="mp-nav-item" data-mp="compare-list" onclick="switchMpSection('compare-list')">비교함</button>
-          <button class="mp-nav-item" data-mp="reviews" onclick="switchMpSection('reviews')">작성한 후기</button>
-          <div class="mp-nav-divider"></div>
-          <button class="mp-nav-item" data-mp="notifications" onclick="switchMpSection('notifications')">알림</button>
-          <button class="mp-nav-item" data-mp="referral" onclick="switchView('referral')">친구 초대<span class="mp-nav-badge" style="background: linear-gradient(135deg, #D4AF37 0%, #8B6914 100%);">★</span></button>
-          <button class="mp-nav-item" data-mp="settings" onclick="switchMpSection('settings')">설정</button>
-        </nav>
-      </aside>
-
-      <div class="mp-content">
-        <!-- DASHBOARD -->
-        <div class="mp-section active" id="mp-sec-dashboard">
-          <div class="mp-section-head">
-            <div class="mp-section-eyebrow">OVERVIEW</div>
-            <h2 class="mp-section-title">대시 <em>보드</em></h2>
-            <p class="mp-section-sub">진행 중인 의뢰와 활동을 한눈에 확인합니다</p>
-          </div>
-          <div class="mp-stat-grid">
-            <div class="mp-stat-card" onclick="switchMpSection('quotes-received')">
-              <div class="mp-stat-card-eyebrow">RECEIVED · 받은 견적</div>
-              <div class="mp-stat-card-num">7<small> 건</small></div>
-              <div class="mp-stat-card-label">미열람 견적</div>
-              <div class="mp-stat-card-trend">+2 NEW</div>
-            </div>
-            <div class="mp-stat-card" onclick="switchMpSection('projects')">
-              <div class="mp-stat-card-eyebrow">PROJECT · 진행 프로젝트</div>
-              <div class="mp-stat-card-num">1<small> 건</small></div>
-              <div class="mp-stat-card-label">화성 남양 근린상가</div>
-            </div>
-            <div class="mp-stat-card" onclick="switchMpSection('favorites')">
-              <div class="mp-stat-card-eyebrow">FAVORITE · 관심 업체</div>
-              <div class="mp-stat-card-num">12<small> 곳</small></div>
-              <div class="mp-stat-card-label">저장된 업체</div>
-            </div>
-            <div class="mp-stat-card" onclick="switchMpSection('reviews')">
-              <div class="mp-stat-card-eyebrow">REVIEW · 작성 후기</div>
-              <div class="mp-stat-card-num">3<small> 건</small></div>
-              <div class="mp-stat-card-label">실거래 인증</div>
-            </div>
-          </div>
-          <div class="mp-activity">
-            <h3>최근 활동</h3>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">2시간 전</div>
-              <div class="mp-activity-text"><strong>정인종합건축(주)</strong>에서 견적이 도착했습니다. 견적가 28억원 (평균 대비 +3%)</div>
-              <button class="mp-activity-action">견적 보기</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">어제</div>
-              <div class="mp-activity-text"><strong>에이케이엔지니어링(주)</strong>에서 견적이 도착했습니다. 견적가 22억원 (평균 대비 -8%)</div>
-              <button class="mp-activity-action">견적 보기</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">2일 전</div>
-              <div class="mp-activity-text">화성 남양 근린상가 신축 공정 <strong>골조 공사 50% 완료</strong></div>
-              <button class="mp-activity-action">현장 보기</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">5일 전</div>
-              <div class="mp-activity-text">강남 신사동 5층 상가에 대한 견적 요청을 보냈습니다 · 5개 업체 매칭</div>
-              <button class="mp-activity-action">상세 보기</button>
-            </div>
-            <div class="mp-activity-item">
-              <div class="mp-activity-time">1주 전</div>
-              <div class="mp-activity-text"><strong>이지안건축사사무소</strong>에 대한 ★5점 후기를 작성하셨습니다</div>
-              <button class="mp-activity-action">후기 보기</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- PROFILE -->
         <div class="mp-section" id="mp-sec-profile">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">ACCOUNT</div>
@@ -11332,422 +10858,52 @@
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">SENT QUOTES</div>
             <h2 class="mp-section-title">견적 <em>요청 내역</em></h2>
-            <p class="mp-section-sub">사용자가 보낸 견적 요청과 진행 상태입니다</p>
+            <p class="mp-section-sub" id="mp-qs-sub">보낸 견적 요청과 진행 상태입니다</p>
           </div>
-          <div class="mp-quote-list">
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">강남 신사동 5층 상가 신축</div>
-                  <div class="mp-quote-meta">REQ-2025-1115-A · 2025.11.15 발송</div>
-                </div>
-                <span class="mp-quote-status received">견적 도착 5건</span>
-              </div>
-              <p class="mp-quote-body">강남구 신사동 일대. 연면적 약 260평, 지상 5층 RC조 신축. 1층 카페 입점 가능한 입면 디자인 필요. 예상 공사비 25~30억원, 착공 2026년 4월 희망.</p>
-              <div class="mp-quote-foot">
-                <span><strong>5개 업체</strong> 견적 도착 · 평균 27.4억원</span>
-                <button onclick="switchMpSection('quotes-received')">견적 비교 →</button>
-              </div>
-            </div>
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">합정동 다세대 리모델링 자문</div>
-                  <div class="mp-quote-meta">REQ-2025-1108-B · 2025.11.08 발송</div>
-                </div>
-                <span class="mp-quote-status received">견적 도착 2건</span>
-              </div>
-              <p class="mp-quote-body">2003년 준공된 4층 다세대 리모델링 검토. 외벽·창호·옥상 방수 위주. 예산 1억원 이내.</p>
-              <div class="mp-quote-foot">
-                <span><strong>2개 업체</strong> 견적 도착 · 평균 8,500만원</span>
-                <button onclick="switchMpSection('quotes-received')">견적 비교 →</button>
-              </div>
-            </div>
-            <div class="mp-quote-card">
-              <div class="mp-quote-head">
-                <div>
-                  <div class="mp-quote-title">송파 가락동 신축 부동산 세무 자문</div>
-                  <div class="mp-quote-meta">REQ-2025-1102-C · 2025.11.02 발송</div>
-                </div>
-                <span class="mp-quote-status contracted">계약 완료</span>
-              </div>
-              <p class="mp-quote-body">신축 양도세 신고와 임대업 세무 위탁. 임대 호실 12호 기준 월 기장료 견적 요청.</p>
-              <div class="mp-quote-foot">
-                <span><strong>한솔세무회계</strong>와 계약 완료 · 월 18만원</span>
-                <button>계약서 보기</button>
-              </div>
-            </div>
-            <div style="text-align: center; margin-top: 24px;">
-              <button class="signup-btn-back" onclick="switchView('wizard')">+ 새 견적 요청하기</button>
-            </div>
+          <div id="mp-quotes-sent-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">보낸 견적 요청이 없습니다.</div>
           </div>
         </div>
-
-        <!-- QUOTES RECEIVED -->
         <div class="mp-section" id="mp-sec-quotes-received">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">RECEIVED QUOTES</div>
             <h2 class="mp-section-title">받은 <em>견적</em></h2>
-            <p class="mp-section-sub">"강남 신사동 5층 상가 신축" 견적 요청에 도착한 5개 업체 견적</p>
+            <p class="mp-section-sub" id="mp-qr-sub">업체들이 보낸 견적 응답입니다</p>
           </div>
-
-          <div style="background: var(--vermilion-light); border: 1px solid rgba(196,74,44,0.2); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center;">
-            <div style="width: 32px; height: 32px; background: var(--vermilion); color: var(--hanji); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0;">◆</div>
-            <div style="font-size: 13px; color: var(--ink-soft); flex: 1;">
-              <strong>AI 적정가 분석:</strong> 이 프로젝트의 적정 시공비는 약 <strong style="color: var(--vermilion);">26.5억원</strong> (평균 평당 590만원) 입니다. 받은 견적 중 22~28억원 범위는 합리적이며, 30억 이상은 평균 대비 13% 이상 높은 수준입니다.
-            </div>
-            <button onclick="switchView('quotecompare')" style="background: var(--vermilion); color: var(--hanji); border: none; padding: 9px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;">정밀 비교 →</button>
-          </div>
-
-          <div class="mp-rq-card">
-            <div class="mp-rq-thumb"><img src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=200&q=80" alt=""></div>
-            <div class="mp-rq-info">
-              <div class="mp-rq-vendor">에이케이엔지니어링(주) <span class="badge badge-gold" style="font-size: 10px; padding: 2px 8px;">GOLD</span></div>
-              <div class="mp-rq-project">★ 4.8 · 142건 시공 · 평균 평당 510만원</div>
-            </div>
-            <div class="mp-rq-price">22.0억원<br><small>평균 대비 -8%</small></div>
-            <div class="mp-rq-buttons">
-              <button class="primary">상세 보기</button>
-              <button>비교 추가</button>
-            </div>
-          </div>
-          <div class="mp-rq-card">
-            <div class="mp-rq-thumb"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=200&q=80" alt=""></div>
-            <div class="mp-rq-info">
-              <div class="mp-rq-vendor">대한건설산업(주) <span class="badge badge-silver" style="font-size: 10px; padding: 2px 8px;">SILVER</span></div>
-              <div class="mp-rq-project">★ 4.6 · 89건 시공 · 평균 평당 580만원</div>
-            </div>
-            <div class="mp-rq-price">25.5억원<br><small>평균 대비 -3%</small></div>
-            <div class="mp-rq-buttons">
-              <button class="primary">상세 보기</button>
-              <button>비교 추가</button>
-            </div>
-          </div>
-          <div class="mp-rq-card">
-            <div class="mp-rq-thumb"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&q=80" alt=""></div>
-            <div class="mp-rq-info">
-              <div class="mp-rq-vendor">정인종합건축(주) <span class="badge badge-gold" style="font-size: 10px; padding: 2px 8px;">GOLD</span></div>
-              <div class="mp-rq-project">★ 4.9 · 142건 시공 · 평균 평당 580만원</div>
-            </div>
-            <div class="mp-rq-price">28.0억원<br><small>평균 대비 +6%</small></div>
-            <div class="mp-rq-buttons">
-              <button class="primary">상세 보기</button>
-              <button>비교 추가</button>
-            </div>
-          </div>
-          <div class="mp-rq-card">
-            <div class="mp-rq-thumb"><img src="https://images.unsplash.com/photo-1542361345-89e58247f2d5?w=200&q=80" alt=""></div>
-            <div class="mp-rq-info">
-              <div class="mp-rq-vendor">서일종합건설(주) <span class="badge badge-bronze" style="font-size: 10px; padding: 2px 8px;">BRONZE</span></div>
-              <div class="mp-rq-project">★ 4.4 · 67건 시공 · 평균 평당 450만원</div>
-            </div>
-            <div class="mp-rq-price">21.5억원<br><small>평균 대비 -18%</small></div>
-            <div class="mp-rq-buttons">
-              <button class="primary">상세 보기</button>
-              <button>비교 추가</button>
-            </div>
-          </div>
-          <div class="mp-rq-card">
-            <div class="mp-rq-thumb"><img src="https://images.unsplash.com/photo-1556909114-44e3e9399e2b?w=200&q=80" alt=""></div>
-            <div class="mp-rq-info">
-              <div class="mp-rq-vendor">한솔건축(주) <span class="badge badge-silver" style="font-size: 10px; padding: 2px 8px;">SILVER</span></div>
-              <div class="mp-rq-project">★ 4.7 · 78건 시공 · 평균 평당 620만원</div>
-            </div>
-            <div class="mp-rq-price">30.5억원<br><small style="color: var(--vermilion);">평균 대비 +15% ⚠</small></div>
-            <div class="mp-rq-buttons">
-              <button class="primary">상세 보기</button>
-              <button>비교 추가</button>
-            </div>
+          <div id="mp-quotes-received-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">받은 견적이 없습니다.</div>
           </div>
         </div>
-
-        <!-- PROJECTS -->
         <div class="mp-section" id="mp-sec-projects">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">PROJECTS</div>
             <h2 class="mp-section-title">진행 <em>프로젝트</em></h2>
-            <p class="mp-section-sub">시공 중인 프로젝트의 공정 현황과 일정을 확인합니다</p>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-
-          <!-- 시공 완료 → 후기 요청 강조 카드 (자동 알림) -->
-          <div style="background: linear-gradient(135deg, var(--vermilion) 0%, var(--vermilion-dark) 100%); color: var(--hanji); border-radius: 16px; padding: 28px; margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
-              <div style="flex: 1; min-width: 280px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: rgba(245,239,230,0.85); font-weight: 700; margin-bottom: 8px;">★ COMPLETED · 시공 완료</div>
-                <h3 style="font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; margin-bottom: 6px; letter-spacing: -0.015em;">강남 신사동 5층 상가 신축 — 시공이 완료되었습니다</h3>
-                <div style="color: rgba(245,239,230,0.85); font-size: 13px; line-height: 1.6;">에이엠인테리어(주) · 2024.08 ~ 2025.11.15 · 28억원<br>다른 건축주에게 도움이 되는 솔직한 후기를 남겨주세요. <strong>후기 작성 시 짓고에서 5만원 적립</strong></div>
-              </div>
-              <button class="auth-submit" style="background: var(--hanji); color: var(--vermilion); max-width: 200px; padding: 14px 22px;" onclick="switchView('review-write')">★ 후기 작성하기 →</button>
-            </div>
-          </div>
-
-          <div class="mp-project-card">
-            <div class="mp-project-head">
-              <div>
-                <div class="mp-project-title">화성 남양 근린상가 신축</div>
-                <div class="mp-project-meta">2025.06 ~ 2026.05 · 정인종합건축(주) · 공사비 22억원</div>
-              </div>
-              <button class="signup-btn-back" style="padding: 8px 16px; font-size: 12px;" onclick="switchView('project-detail')">상세 보기</button>
-            </div>
-            <div class="mp-progress-bar"><div class="mp-progress-fill" style="width: 50%;"></div></div>
-            <div class="mp-progress-label">
-              <span><strong>50% 진행</strong> · 골조 공사 단계</span>
-              <span>예상 준공 2026.05.30</span>
-            </div>
-            <div class="mp-phases">
-              <div class="mp-phase done"><div class="mp-phase-num">01</div><div class="mp-phase-name">착공</div></div>
-              <div class="mp-phase done"><div class="mp-phase-num">02</div><div class="mp-phase-name">기초 공사</div></div>
-              <div class="mp-phase active"><div class="mp-phase-num">03</div><div class="mp-phase-name">골조 공사</div></div>
-              <div class="mp-phase"><div class="mp-phase-num">04</div><div class="mp-phase-name">내·외장</div></div>
-              <div class="mp-phase"><div class="mp-phase-num">05</div><div class="mp-phase-name">준공</div></div>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px;">
-              <div style="padding: 14px; background: var(--hanji-soft); border-radius: 10px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--concrete); letter-spacing: 0.1em;">PAYMENT · 결제 진행</div>
-                <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">14억 / 22억 (63%)</div>
-                <div style="font-size: 11px; color: var(--concrete); margin-top: 2px;">계약금·중도금 1·2차 지급 완료</div>
-              </div>
-              <div style="padding: 14px; background: var(--hanji-soft); border-radius: 10px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--concrete); letter-spacing: 0.1em;">SCHEDULE · 일정</div>
-                <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">D-187</div>
-                <div style="font-size: 11px; color: var(--concrete); margin-top: 2px;">준공까지 187일 남음</div>
-              </div>
-              <div style="padding: 14px; background: var(--hanji-soft); border-radius: 10px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--concrete); letter-spacing: 0.1em;">PHOTOS · 현장 사진</div>
-                <div style="font-size: 14px; font-weight: 700; margin-top: 4px;">42장</div>
-                <div style="font-size: 11px; color: var(--concrete); margin-top: 2px;">최근 업로드 2일 전</div>
-              </div>
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- ESCROW -->
         <div class="mp-section" id="mp-sec-escrow">
-          <div class="mp-section-head" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div class="mp-section-eyebrow">ESCROW · 안심결제</div>
-              <h2 class="mp-section-title">결제·<em>정산</em></h2>
-              <p class="mp-section-sub">짓고가 자금을 보관하다가 공정 단계별로 정산합니다. 사용자도 공급자도 안전합니다.</p>
-            </div>
-            <button class="adm-btn" style="padding: 10px 18px; font-size: 13px;" onclick="switchView('receipt')">영수증·세금계산서 →</button>
+          <div class="mp-section-head">
+            <h2 class="mp-section-title">에스크로 <em>관리</em></h2>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-
-          <div class="escrow-summary">
-            <div class="escrow-summary-eyebrow">CURRENT PROJECT</div>
-            <div class="escrow-summary-title">화성 남양 근린상가 신축 · 정인종합건축(주)</div>
-            <div class="escrow-summary-grid">
-              <div>
-                <div class="escrow-summary-cell-eyebrow">TOTAL · 총 계약금</div>
-                <div class="escrow-summary-cell-val">22억원<small></small></div>
-                <div class="escrow-summary-cell-sub">2025.06.10 계약</div>
-              </div>
-              <div>
-                <div class="escrow-summary-cell-eyebrow">PAID · 지급 완료</div>
-                <div class="escrow-summary-cell-val">14억<small> / 22억</small></div>
-                <div class="escrow-summary-cell-sub">63% 진행</div>
-              </div>
-              <div>
-                <div class="escrow-summary-cell-eyebrow">HELD · 짓고 보관 중</div>
-                <div class="escrow-summary-cell-val" style="color: var(--vermilion);">5억원</div>
-                <div class="escrow-summary-cell-sub">중도금 3차 예치 중</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="escrow-stages">
-            <h3>지급 단계</h3>
-            <div class="escrow-stages-sub">짓고가 자금을 보관하고, 각 단계마다 사용자와 공급자가 공정 확인 후 정산됩니다.</div>
-
-            <div class="escrow-stage done">
-              <div class="escrow-stage-num">1</div>
-              <div>
-                <div class="escrow-stage-title">계약금</div>
-                <div class="escrow-stage-meta">
-                  <span>2025.06.10 지급</span>
-                  <span><strong>현장 사진 12장</strong></span>
-                  <span><strong>도면 확인 완료</strong></span>
-                </div>
-                <span class="escrow-stage-status done">정산 완료</span>
-              </div>
-              <div class="escrow-stage-amount">2.2억원<br><small>10% · 계약 시</small></div>
-            </div>
-
-            <div class="escrow-stage done">
-              <div class="escrow-stage-num">2</div>
-              <div>
-                <div class="escrow-stage-title">중도금 1차 · 기초공사 완료</div>
-                <div class="escrow-stage-meta">
-                  <span>2025.09.05 지급</span>
-                  <span><strong>현장 사진 28장</strong></span>
-                  <span><strong>기초 검토 통과</strong></span>
-                </div>
-                <span class="escrow-stage-status done">정산 완료</span>
-              </div>
-              <div class="escrow-stage-amount">5.5억원<br><small>25% · 기초공사 완료</small></div>
-            </div>
-
-            <div class="escrow-stage done">
-              <div class="escrow-stage-num">3</div>
-              <div>
-                <div class="escrow-stage-title">중도금 2차 · 골조 30% 완료</div>
-                <div class="escrow-stage-meta">
-                  <span>2025.11.20 지급</span>
-                  <span><strong>현장 사진 42장</strong></span>
-                  <span><strong>골조 검사 통과</strong></span>
-                </div>
-                <span class="escrow-stage-status done">정산 완료</span>
-              </div>
-              <div class="escrow-stage-amount">6.3억원<br><small>29% · 골조 30%</small></div>
-            </div>
-
-            <div class="escrow-stage active">
-              <div class="escrow-stage-num">4</div>
-              <div>
-                <div class="escrow-stage-title">중도금 3차 · 골조 80% 완료</div>
-                <div class="escrow-stage-meta">
-                  <span>예상 2026.02.15</span>
-                  <span><strong>짓고 보관 중 · 5억원</strong></span>
-                  <span>골조 검사 대기</span>
-                </div>
-                <span class="escrow-stage-status active">예치 중 · 검수 대기</span>
-              </div>
-              <div class="escrow-stage-amount">5.0억원<br><small>23% · 골조 80%</small></div>
-            </div>
-
-            <div class="escrow-stage">
-              <div class="escrow-stage-num">5</div>
-              <div>
-                <div class="escrow-stage-title">잔금 · 준공 후</div>
-                <div class="escrow-stage-meta">
-                  <span>예상 2026.05.30</span>
-                  <span>사용승인 후 14일 내</span>
-                </div>
-                <span class="escrow-stage-status pending">미지급</span>
-              </div>
-              <div class="escrow-stage-amount">3.0억원<br><small>13% · 준공 후</small></div>
-            </div>
-
-            <div class="escrow-dispute">
-              <div class="escrow-dispute-icon">!</div>
-              <div class="escrow-dispute-text">
-                <strong>분쟁이 발생하셨나요?</strong> 짓고가 중간에서 양측 의견을 듣고 중재합니다. 보관 중인 자금은 분쟁 해결 전까지 안전하게 보호됩니다.<br>
-                <span style="display: inline-block; margin-top: 6px; font-size: 12px; color: var(--vermilion); font-weight: 600;">▸ 진행 중인 분쟁: <strong>DISP-2025-1118-001</strong> · STEP 03 1차 중재안 작성 중</span>
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <button onclick="switchView('dispute-track')" style="background: var(--vermilion); color: var(--hanji); border: none; padding: 9px 14px; border-radius: 100px; font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 600;">진행 상황 보기 →</button>
-                <button onclick="switchView('dispute')">새 분쟁 신청</button>
-              </div>
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- ARCHIVE (자료 보관함) -->
         <div class="mp-section" id="mp-sec-archive">
           <div class="mp-section-head">
-            <div class="mp-section-eyebrow">ARCHIVE · 자료 보관함</div>
-            <h2 class="mp-section-title">자료 <em>보관함</em></h2>
-            <p class="mp-section-sub">도면·계약서·영수증·시공 사진을 한 곳에 보관하세요. 프로젝트별로 자동 분류됩니다.</p>
+            <h2 class="mp-section-title">보관함</h2>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-
-          <div class="archive-stats">
-            <div class="archive-stat-cell">
-              <div class="archive-stat-cell-num">42</div>
-              <div class="archive-stat-cell-label">전체 자료</div>
-            </div>
-            <div class="archive-stat-cell">
-              <div class="archive-stat-cell-num">8</div>
-              <div class="archive-stat-cell-label">도면 (PDF·DWG)</div>
-            </div>
-            <div class="archive-stat-cell">
-              <div class="archive-stat-cell-num">12</div>
-              <div class="archive-stat-cell-label">계약·문서</div>
-            </div>
-            <div class="archive-stat-cell">
-              <div class="archive-stat-cell-num">22</div>
-              <div class="archive-stat-cell-label">사진·영수증</div>
-            </div>
-          </div>
-
-          <div class="archive-toolbar">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--vermilion); font-weight: 700;">PROJECT · 화성 남양 근린상가 신축</div>
-            <select class="auth-input" style="width: auto; padding: 8px 14px; font-size: 12px;">
-              <option>전체 프로젝트</option>
-              <option>화성 남양 근린상가</option>
-              <option>강남 신사동 5층 상가</option>
-            </select>
-          </div>
-
-          <div class="archive-file-grid">
-            <div class="archive-upload" onclick="alert('파일 업로드 (PDF/DWG/JPG/PNG/DOCX 지원)')">
-              <div class="archive-upload-icon">+</div>
-              <div class="archive-upload-text">파일 업로드</div>
-            </div>
-            <div class="archive-file" onclick="alert('도면 미리보기 — 실제 환경에서는 PDF 뷰어로 열립니다')">
-              <div class="archive-file-icon pdf">PDF</div>
-              <div class="archive-file-name">건축도면_v3_최종.pdf</div>
-              <div class="archive-file-meta">3.2 MB · 11.18</div>
-            </div>
-            <div class="archive-file" onclick="alert('DWG 도면 뷰어 — 실제 환경에서는 AutoCAD 뷰어로 열립니다')">
-              <div class="archive-file-icon dwg">DWG</div>
-              <div class="archive-file-name">구조도_철근배근.dwg</div>
-              <div class="archive-file-meta">2.4 MB · 11.15</div>
-            </div>
-            <div class="archive-file" onclick="alert('계약서 PDF 다운로드')">
-              <div class="archive-file-icon pdf">PDF</div>
-              <div class="archive-file-name">시공계약서_정인종합건축.pdf</div>
-              <div class="archive-file-meta">820 KB · 06.10</div>
-            </div>
-            <div class="archive-file" onclick="alert('한글 문서 다운로드')">
-              <div class="archive-file-icon docx">DOC</div>
-              <div class="archive-file-name">표준견적서_정인종합건축.docx</div>
-              <div class="archive-file-meta">120 KB · 06.02</div>
-            </div>
-            <div class="archive-file" onclick="alert('영수증 이미지 보기')">
-              <div class="archive-file-icon pdf">PDF</div>
-              <div class="archive-file-name">중도금1차_세금계산서.pdf</div>
-              <div class="archive-file-meta">340 KB · 09.05</div>
-            </div>
-            <div class="archive-file" onclick="alert('영수증 이미지 보기')">
-              <div class="archive-file-icon pdf">PDF</div>
-              <div class="archive-file-name">중도금2차_세금계산서.pdf</div>
-              <div class="archive-file-meta">340 KB · 11.20</div>
-            </div>
-            <div class="archive-file" onclick="openSitePhotoLightbox(0)">
-              <div class="archive-file-icon img">JPG</div>
-              <div class="archive-file-name">현장사진_기초공사_완료.jpg</div>
-              <div class="archive-file-meta">2.1 MB · 09.02</div>
-            </div>
-            <div class="archive-file" onclick="openSitePhotoLightbox(1)">
-              <div class="archive-file-icon img">JPG</div>
-              <div class="archive-file-name">현장사진_골조_30%.jpg</div>
-              <div class="archive-file-meta">1.8 MB · 11.18</div>
-            </div>
-            <div class="archive-file" onclick="openSitePhotoLightbox(2)">
-              <div class="archive-file-icon img">JPG</div>
-              <div class="archive-file-name">현장사진_골조_50%.jpg</div>
-              <div class="archive-file-meta">1.9 MB · 11.20</div>
-            </div>
-            <div class="archive-file" onclick="alert('도면 다운로드')">
-              <div class="archive-file-icon dwg">DWG</div>
-              <div class="archive-file-name">전기도면_조명.dwg</div>
-              <div class="archive-file-meta">1.4 MB · 10.22</div>
-            </div>
-            <div class="archive-file" onclick="alert('AI 도면 검토 페이지로 이동'); switchView('blueprint')">
-              <div class="archive-file-icon" style="background: var(--ink); color: var(--hanji);">AI</div>
-              <div class="archive-file-name">AI 도면 검토 받기</div>
-              <div class="archive-file-meta">새 도면 분석</div>
-            </div>
-          </div>
-
-          <div style="margin-top: 28px; padding: 20px 24px; background: var(--hanji-soft); border-radius: 12px; border: 1px solid var(--rule);">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--vermilion); font-weight: 700; margin-bottom: 8px;">💡 ARCHIVE TIP</div>
-            <div style="font-size: 13px; color: var(--ink-soft); line-height: 1.7;">
-              짓고는 진행 중인 프로젝트의 모든 자료를 자동 백업합니다. 시공 완료 후에도 <strong style="color: var(--vermilion);">10년 보관</strong>하며, 향후 매도·증축·리모델링 시 도면을 다시 활용할 수 있습니다.
-            </div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- FAVORITES -->
         <div class="mp-section" id="mp-sec-favorites">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">FAVORITES</div>
@@ -11782,39 +10938,15 @@
 
         <!-- REVIEWS -->
         <div class="mp-section" id="mp-sec-reviews">
-          <div class="mp-section-head" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div class="mp-section-eyebrow">MY REVIEWS</div>
-              <h2 class="mp-section-title">작성한 <em>후기</em></h2>
-              <p class="mp-section-sub">짓고에서 작성한 실거래 인증 후기 3건</p>
-            </div>
-            <button class="adm-btn primary" style="padding: 10px 18px; font-size: 13px;" onclick="switchView('review-write')">+ 새 후기 작성</button>
+          <div class="mp-section-head">
+            <h2 class="mp-section-title">후기</h2>
+            <p class="mp-section-sub">준비 중인 기능입니다</p>
           </div>
-          <div class="review-item" style="margin-bottom: 12px;">
-            <div class="review-item-head">
-              <div>
-                <div class="review-item-rating">★★★★★</div>
-                <div class="review-item-meta">이지안건축사사무소 · 2025.11.10</div>
-              </div>
-              <span class="review-verified">실거래 인증</span>
-            </div>
-            <p class="review-text">강남 신사동 5층 상가 설계를 의뢰했습니다. 도면 작업이 정밀하고, 임차인 동선까지 고려한 평면 계획이 인상적이었어요.</p>
-            <div class="review-project"><strong>프로젝트</strong> 강남 신사동 5층 상가 설계 (연면적 260평)</div>
-          </div>
-          <div class="review-item" style="margin-bottom: 12px;">
-            <div class="review-item-head">
-              <div>
-                <div class="review-item-rating">★★★★★</div>
-                <div class="review-item-meta">한솔세무회계 · 2025.10.22</div>
-              </div>
-              <span class="review-verified">실거래 인증</span>
-            </div>
-            <p class="review-text">송파 신축 양도세 신고와 임대업 위탁을 의뢰. 절세 시뮬레이션이 명확하고, 위탁 후 매월 정산 보고서가 깔끔하게 옵니다.</p>
-            <div class="review-project"><strong>프로젝트</strong> 송파 가락동 임대업 세무 위탁</div>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- NOTIFICATIONS -->
         <div class="mp-section" id="mp-sec-notifications">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">NOTIFICATIONS</div>
@@ -12578,98 +11710,8 @@
     </div>
 
     <!-- Featured -->
-    <div class="mag-featured">
-      <div class="mag-card-large" onclick="switchView('article')">
-        <div class="mag-card-large-img"><img src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1200&q=80" alt=""></div>
-        <div class="mag-card-large-body">
-          <div class="mag-card-eyebrow">신축 가이드 · FEATURED</div>
-          <h2 class="mag-card-large-title">꼬마빌딩 신축, 평당 580만원이 적정한가</h2>
-          <p class="mag-card-large-excerpt">강남권 5층 RC조 근린상가의 실제 거래 데이터 327건을 분석했습니다. 평당가가 결정되는 9가지 요인과, 견적이 적정한지 판단하는 체크리스트를 정리합니다.</p>
-          <div class="mag-card-meta">
-            <span>2026.05.10</span>
-            <span>·</span>
-            <span>읽는 시간 8분</span>
-            <span>·</span>
-            <span>조회 4,892</span>
-          </div>
-        </div>
-      </div>
-      <div class="mag-side">
-        <div class="mag-card-small" onclick="switchView('article')">
-          <div class="mag-card-eyebrow">법무·세무</div>
-          <div class="mag-card-small-title">신축 후 양도세 절세 5가지 방법</div>
-          <div class="mag-card-meta"><span>2026.05.08</span><span>·</span><span>읽는 시간 5분</span></div>
-        </div>
-        <div class="mag-card-small" onclick="switchView('article')">
-          <div class="mag-card-eyebrow">시공 사례</div>
-          <div class="mag-card-small-title">강남 신사동 5층 신축 — 22억으로 끝낸 비결</div>
-          <div class="mag-card-meta"><span>2026.05.05</span><span>·</span><span>읽는 시간 6분</span></div>
-        </div>
-        <div class="mag-card-small" onclick="switchView('article')">
-          <div class="mag-card-eyebrow">시장 데이터</div>
-          <div class="mag-card-small-title">2026년 1분기 서울 신축 평당가 동향</div>
-          <div class="mag-card-meta"><span>2026.05.01</span><span>·</span><span>읽는 시간 4분</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Grid -->
-    <h2 style="font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; margin-bottom: 16px; letter-spacing: -0.01em;">최신 글</h2>
-    <div class="mag-grid">
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">신축 가이드</div>
-          <div class="mag-card-title">시공사 고를 때 꼭 봐야 할 7가지</div>
-          <div class="mag-card-excerpt">검증된 50개 시공사의 공통점을 분석했습니다. 가격만이 아닌 진짜 기준은…</div>
-          <div class="mag-card-meta"><span>2026.04.28</span><span>·</span><span>7분</span></div>
-        </div>
-      </div>
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">시공 사례</div>
-          <div class="mag-card-title">화성 남양 근린상가 — 1년 만의 완공기</div>
-          <div class="mag-card-excerpt">실제 건축주 김재훈 씨의 22억 신축 프로젝트 전 과정을 인터뷰했습니다.</div>
-          <div class="mag-card-meta"><span>2026.04.22</span><span>·</span><span>9분</span></div>
-        </div>
-      </div>
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1556909114-44e3e9399e2b?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">법무·세무</div>
-          <div class="mag-card-title">건축허가 단계별 챙겨야 할 서류</div>
-          <div class="mag-card-excerpt">대지조사부터 사용승인까지, 단계별 필요 서류와 처리 기간 가이드.</div>
-          <div class="mag-card-meta"><span>2026.04.18</span><span>·</span><span>6분</span></div>
-        </div>
-      </div>
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1542361345-89e58247f2d5?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">시장 데이터</div>
-          <div class="mag-card-title">강남구 신축 부동산 5년 데이터 분석</div>
-          <div class="mag-card-excerpt">짓고 거래 데이터 1,432건으로 본 강남구 신축 시장의 패턴.</div>
-          <div class="mag-card-meta"><span>2026.04.12</span><span>·</span><span>5분</span></div>
-        </div>
-      </div>
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">리모델링</div>
-          <div class="mag-card-title">노후 다세대 리모델링, 어디까지 가능한가</div>
-          <div class="mag-card-excerpt">철거 없이 가치를 올리는 리모델링 범위와 합리적 예산 가이드.</div>
-          <div class="mag-card-meta"><span>2026.04.05</span><span>·</span><span>4분</span></div>
-        </div>
-      </div>
-      <div class="mag-card" onclick="switchView('article')">
-        <div class="mag-card-img"><img src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?w=800&q=80" alt=""></div>
-        <div class="mag-card-body">
-          <div class="mag-card-eyebrow">신축 가이드</div>
-          <div class="mag-card-title">설계비와 시공비의 적정 비율</div>
-          <div class="mag-card-excerpt">설계에 너무 적게 쓰면 시공에서 손해. 황금 비율 찾는 법.</div>
-          <div class="mag-card-meta"><span>2026.03.28</span><span>·</span><span>5분</span></div>
-        </div>
-      </div>
+    <div id="mag-articles">
+      <div style="padding:60px 20px; text-align:center; color:var(--concrete);">발행된 글을 불러옵니다…</div>
     </div>
   </section>
 
@@ -12687,18 +11729,17 @@
 
     <div class="mag-article-wrap">
       <div class="mag-article-head">
-        <div class="mag-article-cat">신축 가이드 · FEATURED</div>
-        <h1 class="mag-article-title">꼬마빌딩 신축,<br>평당 <em>580만원</em>이<br>적정한가</h1>
-        <p class="mag-article-sub">강남권 5층 RC조 근린상가 327건의 실제 데이터로 본 평당가 형성의 법칙</p>
-        <div class="mag-article-meta">짓고 리서치팀 · 2026.05.10 · 읽는 시간 8분 · 조회 4,892</div>
+        <div class="mag-article-cat" id="article-meta">신축 가이드</div>
+        <h1 class="mag-article-title" id="article-title">꼬마빌딩 신축, 평당 580만원이 적정한가</h1>
+        <p class="mag-article-sub" id="article-sub"></p>
       </div>
 
       <div class="mag-article-feature-img">
-        <img src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1600&q=80" alt="">
+        <img id="article-cover" src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1600&q=80" alt="">
       </div>
 
-      <div class="mag-article-body">
-        <p>"우리 동네 똑같은 5층 짓는데 어떤 데서는 25억, 어떤 데서는 35억 부른답니다. 도대체 누가 맞는 거예요?" — 지난해 봄 짓고에 가입한 건축주 김재훈 씨가 첫 상담에서 한 질문입니다. 같은 평수, 비슷한 구조, 같은 강남권인데도 견적 차이가 40%. 이 차이는 어디서 오는 걸까요.</p>
+      <div class="mag-article-body" id="article-body-wrap">
+        <p id="article-body">"우리 동네 똑같은 5층 짓는데 어떤 데서는 25억, 어떤 데서는 35억 부른답니다. 도대체 누가 맞는 거예요?" — 지난해 봄 짓고에 가입한 건축주 김재훈 씨가 첫 상담에서 한 질문입니다. 같은 평수, 비슷한 구조, 같은 강남권인데도 견적 차이가 40%. 이 차이는 어디서 오는 걸까요.</p>
 
         <p>짓고에 등록된 시공사 142곳이 최근 3년간 진행한 강남권 꼬마빌딩 신축 327건의 데이터를 분석했습니다. 결론부터 말씀드리면, 적정 평당가는 580만원, 합리적 범위는 510~640만원입니다. 이 범위를 벗어나는 견적에는 분명한 이유가 있어야 합니다.</p>
 
@@ -14232,7 +13273,8 @@
         <button type="button" class="auth-submit" id="sp-verify-btn" style="margin-top:10px; background:var(--white); color:var(--ink); border:1px solid var(--rule-strong);" onclick="verifyBizno()">국세청 사업자 진위확인</button>
         <div style="font-size:11px; color:var(--concrete); margin:6px 0 0; line-height:1.5;">사업자등록번호·대표자명·개업일자가 국세청에 등록된 정보와 일치하는지 확인합니다.</div>
         <div style="margin:18px 0 10px; padding-top:14px; border-top:1px solid var(--rule);">
-          <span style="font-size:12px; font-weight:700; color:var(--concrete); letter-spacing:0.05em;">선택 정보 (나중에 마이페이지에서 입력 가능)</span>
+          <span style="font-size:12px; font-weight:700; color:var(--concrete); letter-spacing:0.05em;">추가 정보 (직접 입력 · 선택)</span>
+          <div style="font-size:11px; color:var(--concrete); margin-top:4px; line-height:1.5;">국세청 진위확인은 일치 여부만 확인하므로, 아래 정보는 직접 입력해 주세요. 나중에 마이페이지에서도 입력 가능합니다.</div>
         </div>
         <div class="auth-field">
           <label class="auth-label">대표자 이름</label>
@@ -14286,7 +13328,7 @@
         <div id="pa-done-supplier-cta" style="display:none; background:var(--hanji-soft); border:1px solid var(--rule); border-radius:14px; padding:20px; margin:18px auto 0; max-width:340px;">
           <div style="font-weight:700; font-size:15px; margin-bottom:6px;">첫 포트폴리오를 등록하세요</div>
           <div style="font-size:13px; color:var(--concrete); line-height:1.6; margin-bottom:14px;">시공 사례를 올리면 건축주 검색 결과에 노출됩니다. 지금 등록하면 더 빨리 매칭됩니다.</div>
-          <button class="auth-submit" style="margin:0;" onclick="switchView('console'); setTimeout(()=>switchSpcSection('portfolio'),60);">포트폴리오 등록하러 가기 →</button>
+          <button class="auth-submit" style="margin:0;" onclick="goToPortfolioAfterSignup()">포트폴리오 등록하러 가기 →</button>
         </div>
         <button class="auth-submit" id="pa-done-home-btn" style="max-width:280px; margin:18px auto 0; background:var(--white); color:var(--ink); border:1px solid var(--rule-strong);" onclick="switchView('home')">나중에 하기 · 홈으로</button>
       </div>
@@ -16288,8 +15330,8 @@
   // =============== NAVIGATION ===============
   function switchView(view) {
     // ── 접근 권한 가드 ──
-    if ((view === 'console' || view === 'mypage') && isSupabaseReady()) {
-      // 동기 캐시된 사용자로 빠르게 차단 (정확한 확인은 아래 async)
+    const protectedViews = ['console','mypage','admin','chat','quotecompare','review-write','receipt','project-detail','dispute-track'];
+    if (protectedViews.includes(view) && isSupabaseReady()) {
       guardProtectedView(view);
     }
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -16312,6 +15354,7 @@
     if (view === 'mypage') updateMypageUser();
     if (view === 'console' && typeof loadSupplierStatus === 'function') loadSupplierStatus();
     if ((view === 'listing' || view === 'home') && typeof loadDbVendors === 'function') loadDbVendors();
+    if (view === 'magazine' && typeof loadPublicArticles === 'function') loadPublicArticles();
     if (view === 'chat') initChat();
   }
 
@@ -16324,6 +15367,8 @@
     if (section === 'portfolio' && typeof loadMyPortfolio === 'function') loadMyPortfolio();
     if (section === 'verify' && typeof loadVerifyStatus === 'function') loadVerifyStatus();
     if (section === 'requests' && typeof loadReceivedRequests === 'function') loadReceivedRequests();
+    if (section === 'profile' && typeof loadSupplierProfile === 'function') loadSupplierProfile();
+    if (section === 'quotes' && typeof loadSupplierQuotes === 'function') loadSupplierQuotes();
   }
 
   // 시공사: 받은 견적 요청 불러오기
@@ -16379,6 +15424,202 @@
         + '<div style="font-size:13px; color:var(--concrete); margin:8px 0;">' + meta + (budget ? ' · ' + budget : '') + '</div>'
         + '<div class="spc-rq-body">' + content + '</div>'
         + actionBtn
+        + '</div>';
+    }).join('');
+  }
+
+
+  // 매거진: 발행된 공개 글 로드
+  async function loadPublicArticles() {
+    const wrap = document.getElementById('mag-articles');
+    if (!wrap || !isSupabaseReady()) return;
+    const { data, error } = await supabaseClient
+      .from('articles').select('*')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false });
+    if (error) { wrap.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">글을 불러올 수 없습니다.</div>'; return; }
+    const arts = data || [];
+    if (arts.length === 0) {
+      wrap.innerHTML = '<div style="padding:60px 20px; text-align:center; color:var(--concrete);"><div style="font-size:15px; margin-bottom:6px;">아직 발행된 글이 없습니다</div><div style="font-size:13px;">곧 유용한 콘텐츠로 찾아뵙겠습니다.</div></div>';
+      return;
+    }
+    wrap.innerHTML = '<div class="mag-grid">' + arts.map(a => {
+      const title = (a.title || '제목 없음').replace(/</g, '&lt;');
+      const summary = (a.summary || '').replace(/</g, '&lt;');
+      const date = a.published_at ? a.published_at.slice(0,10).replace(/-/g,'.') : '';
+      const img = a.cover_url || 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800&q=80';
+      return '<div class="mag-card" onclick="openArticle(\''+a.id+'\')" style="cursor:pointer;">'
+        + '<div class="mag-card-img"><img src="'+img+'" alt="" onerror="this.style.opacity=0.3"></div>'
+        + '<div class="mag-card-eyebrow">'+(a.category||'아티클')+'</div>'
+        + '<div class="mag-card-title">'+title+'</div>'
+        + '<div class="mag-card-excerpt">'+summary+'</div>'
+        + '<div class="mag-card-meta"><span>'+date+'</span><span>·</span><span>조회 '+(a.views||0)+'</span></div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+
+  // 매거진 글 상세 열기 (조회수 증가)
+  async function openArticle(id) {
+    if (!isSupabaseReady()) return;
+    const { data } = await supabaseClient.from('articles').select('*').eq('id', id).single();
+    if (!data) { alert('글을 불러올 수 없습니다.'); return; }
+    // 조회수 +1
+    supabaseClient.from('articles').update({ views: (data.views||0) + 1 }).eq('id', id);
+    // 상세 페이지 채우기
+    const setTxt = (sel, txt) => { const el = document.querySelector(sel); if (el) el.textContent = txt; };
+    const artTitle = document.getElementById('article-title');
+    if (artTitle) artTitle.textContent = data.title || '';
+    const artBody = document.getElementById('article-body');
+    if (artBody) artBody.textContent = data.body || data.summary || '';
+    const artMeta = document.getElementById('article-meta');
+    if (artMeta) artMeta.textContent = [data.category, data.author, data.published_at ? data.published_at.slice(0,10) : ''].filter(Boolean).join(' · ');
+    const artImg = document.getElementById('article-cover');
+    if (artImg && data.cover_url) artImg.src = data.cover_url;
+    switchView('article');
+  }
+
+  // 시공사: 콘솔 업체 프로필 로드
+  async function loadSupplierProfile() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const { data } = await supabaseClient.from('suppliers').select('*').eq('id', user.id).maybeSingle();
+    if (!data) return;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+    set('spc-prof-name', data.company_name);
+    set('spc-prof-ceo', data.ceo_name);
+    set('spc-prof-bizno', data.business_no);
+    set('spc-prof-category', data.category);
+    set('spc-prof-biztype', data.biz_type);
+    set('spc-prof-capital', data.capital);
+    set('spc-prof-address', data.address);
+    set('spc-prof-intro', data.intro);
+  }
+
+  async function saveSupplierProfile() {
+    if (!isSupabaseReady()) { alert('데모 모드'); return; }
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const get = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    const capRaw = get('spc-prof-capital').replace(/[^0-9]/g, '');
+    const payload = {
+      company_name: get('spc-prof-name'),
+      ceo_name: get('spc-prof-ceo') || null,
+      category: get('spc-prof-category') || null,
+      biz_type: get('spc-prof-biztype') || null,
+      capital: capRaw ? parseInt(capRaw, 10) : null,
+      address: get('spc-prof-address') || null,
+      intro: get('spc-prof-intro') || null
+    };
+    if (!payload.company_name) { alert('회사명을 입력해 주세요.'); return; }
+    const { error } = await supabaseClient.from('suppliers').update(payload).eq('id', user.id);
+    if (error) { alert('저장 실패: ' + error.message); return; }
+    alert('프로필이 저장되었습니다.');
+    if (typeof loadDbVendors === 'function') loadDbVendors();
+  }
+
+  // 시공사: 보낸 견적 (응답 내역)
+  async function loadSupplierQuotes() {
+    const list = document.getElementById('spc-quotes-list');
+    if (!list || !isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+    const { data, error } = await supabaseClient
+      .from('quote_recipients')
+      .select('*, quote_requests(title, region)')
+      .eq('supplier_id', user.id)
+      .eq('status', 'responded')
+      .order('responded_at', { ascending: false });
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패</div>'; return; }
+    const rows = (data || []).filter(r => r.quote_requests);
+    const sub = document.getElementById('spc-quotes-sub');
+    if (sub) sub.textContent = rows.length > 0 ? ('보낸 견적 ' + rows.length + '건') : '보낸 견적이 없습니다';
+    if (rows.length === 0) { list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">보낸 견적이 없습니다.</div>'; return; }
+    list.innerHTML = rows.map(r => {
+      const q = r.quote_requests;
+      const title = (q.title || '제목 없음').replace(/</g, '&lt;');
+      const amount = r.response_amount ? (r.response_amount/100000000).toFixed(1) + '억원' : '-';
+      const note = (r.response_note || '').replace(/</g, '&lt;');
+      const time = notifTimeAgo(r.responded_at);
+      return '<div class="mp-quote-card" style="margin-bottom:16px;"><div class="mp-quote-head"><div>'
+        + '<div class="mp-quote-title">' + title + ' <span style="font-size:13px; color:var(--vermilion); font-weight:700;">' + amount + '</span></div>'
+        + '<div style="font-size:12px; color:var(--concrete); margin-top:4px;">' + (q.region||'') + ' · ' + time + '</div>'
+        + '</div></div>'
+        + (note ? '<div style="font-size:13px; margin-top:10px; color:var(--ink-soft);">' + note + '</div>' : '')
+        + '</div>';
+    }).join('');
+  }
+
+  // 건축주: 보낸 견적 요청 내역
+  async function loadSentQuotes() {
+    const list = document.getElementById('mp-quotes-sent-list');
+    if (!list || !isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+    const { data, error } = await supabaseClient
+      .from('quote_requests')
+      .select('*, quote_recipients(id, status, response_amount)')
+      .eq('owner_id', user.id)
+      .order('created_at', { ascending: false });
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패: ' + error.message + '</div>'; return; }
+    const reqs = data || [];
+    const sub = document.getElementById('mp-qs-sub');
+    if (sub) sub.textContent = reqs.length > 0 ? ('보낸 견적 요청 ' + reqs.length + '건') : '보낸 견적 요청이 없습니다';
+    if (reqs.length === 0) { list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">보낸 견적 요청이 없습니다.</div>'; return; }
+    list.innerHTML = reqs.map(q => {
+      const title = (q.title || '제목 없음').replace(/</g, '&lt;');
+      const rcpts = q.quote_recipients || [];
+      const responded = rcpts.filter(r => r.status === 'responded').length;
+      const meta = [q.region, q.usage_type, q.area_pyeong ? q.area_pyeong + '평' : ''].filter(Boolean).join(' · ');
+      const time = notifTimeAgo(q.created_at);
+      return '<div class="mp-quote-card" style="margin-bottom:16px;"><div class="mp-quote-head"><div>'
+        + '<div class="mp-quote-title">' + title + '</div>'
+        + '<div style="font-size:12px; color:var(--concrete); margin-top:4px;">' + meta + ' · ' + time + '</div>'
+        + '</div></div>'
+        + '<div style="font-size:13px; margin-top:10px;">요청 업체 <strong>' + rcpts.length + '</strong>곳 · 응답 <strong style="color:var(--vermilion);">' + responded + '</strong>건</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  // 건축주: 받은 견적 (업체 응답)
+  async function loadReceivedQuotes() {
+    const list = document.getElementById('mp-quotes-received-list');
+    if (!list || !isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+    const { data: myReqs } = await supabaseClient
+      .from('quote_requests').select('id, title').eq('owner_id', user.id);
+    if (!myReqs || myReqs.length === 0) {
+      list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">받은 견적이 없습니다.</div>';
+      return;
+    }
+    const reqIds = myReqs.map(r => r.id);
+    const titleMap = {}; myReqs.forEach(r => titleMap[r.id] = r.title);
+    const { data, error } = await supabaseClient
+      .from('quote_recipients')
+      .select('*, suppliers:supplier_id(company_name)')
+      .in('request_id', reqIds)
+      .eq('status', 'responded')
+      .order('responded_at', { ascending: false });
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패: ' + error.message + '</div>'; return; }
+    const rows = data || [];
+    const sub = document.getElementById('mp-qr-sub');
+    if (sub) sub.textContent = rows.length > 0 ? ('받은 견적 ' + rows.length + '건') : '받은 견적이 없습니다';
+    if (rows.length === 0) { list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">아직 도착한 견적이 없습니다.</div>'; return; }
+    list.innerHTML = rows.map(r => {
+      const company = (r.suppliers?.company_name || '업체').replace(/</g, '&lt;');
+      const reqTitle = (titleMap[r.request_id] || '').replace(/</g, '&lt;');
+      const amount = r.response_amount ? (r.response_amount/100000000).toFixed(1) + '억원' : '-';
+      const note = (r.response_note || '').replace(/</g, '&lt;');
+      const time = notifTimeAgo(r.responded_at);
+      return '<div class="mp-quote-card" style="margin-bottom:16px;"><div class="mp-quote-head"><div>'
+        + '<div class="mp-quote-title">' + company + ' <span style="font-size:13px; color:var(--vermilion); font-weight:700;">' + amount + '</span></div>'
+        + '<div style="font-size:12px; color:var(--concrete); margin-top:4px;">' + reqTitle + ' · ' + time + '</div>'
+        + '</div></div>'
+        + (note ? '<div style="font-size:13px; margin-top:10px; color:var(--ink-soft);">' + note + '</div>' : '')
         + '</div>';
     }).join('');
   }
@@ -16772,6 +16013,8 @@
     if (section === 'compare-list') renderMpCompareList();
     if (section === 'profile' && typeof loadMyProfile === 'function') loadMyProfile();
     if (section === 'notifications' && typeof loadNotifications === 'function') loadNotifications();
+    if (section === 'quotes-sent' && typeof loadSentQuotes === 'function') loadSentQuotes();
+    if (section === 'quotes-received' && typeof loadReceivedQuotes === 'function') loadReceivedQuotes();
   }
 
   // =============== MOBILE MENU (햄버거) ===============
@@ -16966,6 +16209,10 @@
     if (isSupabaseReady()) {
       const { data: { user } } = await supabaseClient.auth.getUser();
       if (user) {
+        // 역할을 supplier로 확실히 보강 (콘솔 접근 가드 통과용)
+        if (user.user_metadata?.role !== 'supplier') {
+          await supabaseClient.auth.updateUser({ data: { ...user.user_metadata, role: 'supplier' } });
+        }
         const capRaw = document.getElementById('sp-capital').value.replace(/[^0-9]/g, '');
         const payload = {
           id: user.id,
@@ -17085,14 +16332,44 @@
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) {
       alert('로그인이 필요한 페이지입니다.');
-      switchView('login');
+      switchView(view === 'admin' ? 'admin-login' : 'login');
       return;
     }
     const role = user.user_metadata?.role || 'owner';
+
+    // 공급자 콘솔: 시공사만
     if (view === 'console' && role !== 'supplier') {
       alert('공급자(시공사·설계사) 전용 페이지입니다.');
       switchView('home');
+      return;
     }
+
+    // 운영자 백오피스: admin_users 등록 계정만
+    if (view === 'admin') {
+      const { data: adminRow } = await supabaseClient
+        .from('admin_users').select('email').eq('email', user.email || '').maybeSingle();
+      if (!adminRow) {
+        alert('운영자 권한이 없습니다.');
+        switchView('home');
+        return;
+      }
+    }
+  }
+
+  // 가입 직후 포트폴리오로 이동 (세션 새로고침해서 role 반영)
+  async function goToPortfolioAfterSignup() {
+    if (isSupabaseReady()) {
+      // 최신 metadata 반영 위해 세션 갱신
+      try { await supabaseClient.auth.refreshSession(); } catch(e) {}
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      // 혹시 role이 아직 안 박혔으면 한 번 더 보강
+      if (user && user.user_metadata?.role !== 'supplier') {
+        await supabaseClient.auth.updateUser({ data: { ...user.user_metadata, role: 'supplier' } });
+        await supabaseClient.auth.refreshSession();
+      }
+    }
+    switchView('console');
+    setTimeout(() => switchSpcSection('portfolio'), 80);
   }
 
   async function updateHeaderAuth() {
