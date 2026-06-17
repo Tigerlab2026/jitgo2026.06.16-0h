@@ -10675,6 +10675,7 @@
           <button class="mp-nav-item active" data-spc="dashboard" onclick="switchSpcSection('dashboard')">대시보드</button>
           <button class="mp-nav-item" data-spc="requests" onclick="switchSpcSection('requests')">받은 견적 요청</button>
           <button class="mp-nav-item" data-spc="quotes" onclick="switchSpcSection('quotes')">보낸 견적서</button>
+          <button class="mp-nav-item" data-spc="projects" onclick="switchSpcSection('projects')">진행 관리</button>
           <div class="mp-nav-divider"></div>
           <button class="mp-nav-item" data-spc="profile" onclick="switchSpcSection('profile')">회사 프로필</button>
           <button class="mp-nav-item" data-spc="portfolio" onclick="switchSpcSection('portfolio')">포트폴리오 관리</button>
@@ -10717,6 +10718,16 @@
           </div>
           <div id="spc-quotes-list">
             <div style="padding:40px 20px; text-align:center; color:var(--concrete);">보낸 견적이 없습니다.</div>
+          </div>
+        </div>
+        <div class="mp-section" id="spc-sec-projects">
+          <div class="mp-section-head">
+            <div class="mp-section-eyebrow">PROJECTS</div>
+            <h2 class="mp-section-title">진행 <em>관리</em></h2>
+            <p class="mp-section-sub" id="spc-proj-sub">계약된 프로젝트의 진행 단계를 업데이트하세요</p>
+          </div>
+          <div id="spc-projects-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">계약된 프로젝트가 없습니다.</div>
           </div>
         </div>
         <div class="mp-section" id="spc-sec-profile">
@@ -10877,12 +10888,12 @@
         </div>
         <div class="mp-section" id="mp-sec-projects">
           <div class="mp-section-head">
+            <div class="mp-section-eyebrow">PROJECTS</div>
             <h2 class="mp-section-title">진행 <em>프로젝트</em></h2>
-            <p class="mp-section-sub">준비 중인 기능입니다</p>
+            <p class="mp-section-sub" id="mp-proj-sub">계약된 프로젝트의 진행 상황입니다</p>
           </div>
-          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
-            <div style="font-size:15px; margin-bottom:6px;">아직 준비 중입니다</div>
-            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
+          <div id="mp-projects-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">진행 중인 프로젝트가 없습니다.</div>
           </div>
         </div>
         <div class="mp-section" id="mp-sec-escrow">
@@ -14760,6 +14771,7 @@
     if (section === 'requests' && typeof loadReceivedRequests === 'function') loadReceivedRequests();
     if (section === 'profile' && typeof loadSupplierProfile === 'function') loadSupplierProfile();
     if (section === 'quotes' && typeof loadSupplierQuotes === 'function') loadSupplierQuotes();
+    if (section === 'projects' && typeof loadSupplierProjects === 'function') loadSupplierProjects();
   }
 
   // 시공사: 받은 견적 요청 불러오기
@@ -15033,6 +15045,157 @@
   }
 
   // 건축주: 견적 수락 (계약 성사)
+  // ===================== 프로젝트 진행 단계 정의 =====================
+  const PROJECT_STAGES = [
+    { key: 'contracted',   label: '계약 완료' },
+    { key: 'design',       label: '설계' },
+    { key: 'permit',       label: '인허가' },
+    { key: 'groundbreaking', label: '착공' },
+    { key: 'structure',    label: '골조' },
+    { key: 'finishing',    label: '마감' },
+    { key: 'completion',   label: '준공' },
+    { key: 'settlement',   label: '정산' }
+  ];
+  function stageLabel(key) {
+    const s = PROJECT_STAGES.find(x => x.key === key);
+    return s ? s.label : '계약 완료';
+  }
+  function stageIndex(key) {
+    const i = PROJECT_STAGES.findIndex(x => x.key === key);
+    return i < 0 ? 0 : i;
+  }
+  function renderStageBar(currentKey) {
+    const idx = stageIndex(currentKey);
+    return '<div style="display:flex; gap:4px; margin:12px 0;">' + PROJECT_STAGES.map((s, i) => {
+      const done = i <= idx;
+      return '<div style="flex:1; text-align:center;">'
+        + '<div style="height:5px; border-radius:3px; background:' + (done ? 'var(--vermilion)' : 'var(--rule)') + ';"></div>'
+        + '<div style="font-size:9px; margin-top:4px; color:' + (done ? 'var(--ink)' : 'var(--concrete)') + ';">' + s.label + '</div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+
+  // 건축주: 진행 프로젝트 (계약된 것)
+  async function loadMyProjects() {
+    const list = document.getElementById('mp-projects-list');
+    if (!list || !isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+    const { data, error } = await supabaseClient
+      .from('quote_requests')
+      .select('*, suppliers:accepted_supplier_id(company_name)')
+      .eq('owner_id', user.id)
+      .in('contract_status', ['contracted','completed'])
+      .order('progress_updated_at', { ascending: false, nullsFirst: false });
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패: ' + error.message + '</div>'; return; }
+    const rows = data || [];
+    const sub = document.getElementById('mp-proj-sub');
+    if (sub) sub.textContent = rows.length > 0 ? ('진행 프로젝트 ' + rows.length + '건') : '계약된 프로젝트가 없습니다';
+    if (rows.length === 0) { list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">진행 중인 프로젝트가 없습니다.</div>'; return; }
+    list.innerHTML = rows.map(q => {
+      const title = (q.title || '제목 없음').replace(/</g, '&lt;');
+      const company = (q.suppliers?.company_name || '시공사').replace(/</g, '&lt;');
+      const stage = q.progress_stage || 'contracted';
+      const pct = q.progress_percent || 0;
+      const note = (q.progress_note || '').replace(/</g, '&lt;');
+      const upd = q.progress_updated_at ? notifTimeAgo(q.progress_updated_at) : '';
+      return '<div class="mp-quote-card" style="margin-bottom:16px;">'
+        + '<div class="mp-quote-title">' + title + '</div>'
+        + '<div style="font-size:12px; color:var(--concrete); margin-top:4px;">시공: ' + company + '</div>'
+        + renderStageBar(stage)
+        + '<div style="display:flex; justify-content:space-between; font-size:13px; margin-top:8px;"><span>현재: <strong style="color:var(--vermilion);">' + stageLabel(stage) + '</strong></span><span>공정률 <strong>' + pct + '%</strong></span></div>'
+        + (note ? '<div style="font-size:13px; margin-top:8px; padding:10px; background:var(--hanji-soft); border-radius:8px; color:var(--ink-soft);">' + note + (upd ? ' <span style="color:var(--concrete); font-size:11px;">· ' + upd + '</span>' : '') + '</div>' : '')
+        + '</div>';
+    }).join('');
+  }
+
+  // 시공사: 계약된 프로젝트 진행 관리
+  async function loadSupplierProjects() {
+    const list = document.getElementById('spc-projects-list');
+    if (!list || !isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+    const { data, error } = await supabaseClient
+      .from('quote_requests')
+      .select('*')
+      .eq('accepted_supplier_id', user.id)
+      .in('contract_status', ['contracted','completed'])
+      .order('progress_updated_at', { ascending: false, nullsFirst: false });
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패: ' + error.message + '</div>'; return; }
+    const rows = data || [];
+    const sub = document.getElementById('spc-proj-sub');
+    if (sub) sub.textContent = rows.length > 0 ? ('진행 프로젝트 ' + rows.length + '건') : '계약된 프로젝트가 없습니다';
+    if (rows.length === 0) { list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">계약된 프로젝트가 없습니다.</div>'; return; }
+    list.innerHTML = rows.map(q => {
+      const title = (q.title || '제목 없음').replace(/</g, '&lt;');
+      const stage = q.progress_stage || 'contracted';
+      const pct = q.progress_percent || 0;
+      const note = (q.progress_note || '').replace(/</g, '&lt;');
+      return '<div class="mp-quote-card" style="margin-bottom:16px;">'
+        + '<div class="mp-quote-title">' + title + '</div>'
+        + renderStageBar(stage)
+        + '<div style="display:flex; justify-content:space-between; font-size:13px; margin-top:8px;"><span>현재: <strong style="color:var(--vermilion);">' + stageLabel(stage) + '</strong></span><span>공정률 <strong>' + pct + '%</strong></span></div>'
+        + (note ? '<div style="font-size:13px; margin-top:8px; color:var(--ink-soft);">' + note + '</div>' : '')
+        + '<button class="auth-submit" style="margin-top:12px; max-width:180px; padding:8px 14px; font-size:13px;" onclick="openProgressUpdate(\'' + q.id + '\',\'' + stage + '\',' + pct + ')">진행 상황 업데이트</button>'
+        + '</div>';
+    }).join('');
+  }
+
+  // 진행 상황 업데이트 모달
+  function openProgressUpdate(requestId, currentStage, currentPct) {
+    document.getElementById('prog-request-id').value = requestId;
+    const sel = document.getElementById('prog-stage');
+    sel.innerHTML = PROJECT_STAGES.map(s => '<option value="' + s.key + '"' + (s.key === currentStage ? ' selected' : '') + '>' + s.label + '</option>').join('');
+    document.getElementById('prog-percent').value = currentPct || 0;
+    document.getElementById('prog-note').value = '';
+    document.getElementById('progress-modal-overlay').classList.add('open');
+  }
+  function closeProgressUpdate() {
+    document.getElementById('progress-modal-overlay').classList.remove('open');
+  }
+  async function submitProgressUpdate() {
+    const requestId = document.getElementById('prog-request-id').value;
+    const stage = document.getElementById('prog-stage').value;
+    const pct = parseInt(document.getElementById('prog-percent').value) || 0;
+    const note = document.getElementById('prog-note').value.trim();
+    if (pct < 0 || pct > 100) { alert('공정률은 0~100 사이로 입력해 주세요.'); return; }
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    const btn = document.getElementById('prog-submit-btn');
+    btn.disabled = true; btn.textContent = '저장 중…';
+
+    const contractStatus = (stage === 'settlement') ? 'completed' : 'contracted';
+    const { data: q, error } = await supabaseClient.from('quote_requests')
+      .update({
+        progress_stage: stage, progress_percent: pct,
+        progress_note: note || null, progress_updated_at: new Date().toISOString(),
+        contract_status: contractStatus
+      })
+      .eq('id', requestId).select('owner_id, title').single();
+
+    if (error) { btn.disabled=false; btn.textContent='업데이트'; alert('업데이트 실패: ' + error.message + '\n\n(project_progress_schema.sql 실행 확인)'); return; }
+
+    // 이력 기록
+    await supabaseClient.from('project_logs').insert({
+      request_id: requestId, stage, percent: pct, note: note || null, created_by: user.id
+    });
+
+    // 건축주에게 알림
+    if (q && q.owner_id) {
+      await createNotification(q.owner_id, 'project',
+        '[' + (q.title || '프로젝트') + '] 진행 상황 업데이트 · ' + stageLabel(stage) + ' ' + pct + '%',
+        'mypage');
+    }
+
+    btn.disabled = false; btn.textContent = '업데이트';
+    closeProgressUpdate();
+    alert('진행 상황이 업데이트되었습니다. 건축주에게 알림이 전송되었습니다.');
+    loadSupplierProjects();
+  }
+
   async function acceptQuote(requestId, supplierId, companyName) {
     if (!confirm(companyName + '의 견적을 수락하시겠습니까?\n수락하면 계약이 성사되고, 해당 업체에 알림이 전송됩니다.')) return;
     if (!isSupabaseReady()) return;
@@ -15521,6 +15684,7 @@
     if (section === 'notifications' && typeof loadNotifications === 'function') loadNotifications();
     if (section === 'quotes-sent' && typeof loadSentQuotes === 'function') loadSentQuotes();
     if (section === 'quotes-received' && typeof loadReceivedQuotes === 'function') loadReceivedQuotes();
+    if (section === 'projects' && typeof loadMyProjects === 'function') loadMyProjects();
   }
 
   // =============== MOBILE MENU (햄버거) ===============
@@ -18090,6 +18254,32 @@ ${vendorContext}
       <button class="signup-btn-back" style="flex:1;" onclick="closeArticleEditor()">취소</button>
       <button class="signup-btn-back" style="flex:1;" id="art-draft-btn" onclick="saveArticle('draft')">초안 저장</button>
       <button class="auth-submit" style="flex:1.5; margin:0;" id="art-publish-btn" onclick="saveArticle('published')">발행하기</button>
+    </div>
+  </div>
+</div>
+
+<div class="testmode-overlay" id="progress-modal-overlay">
+  <div class="testmode-modal" style="max-width:460px; text-align:left;">
+    <h2 class="signup-step-title" style="margin-bottom:6px;">진행 상황 업데이트</h2>
+    <p class="signup-step-sub" style="margin-bottom:20px;">현재 단계와 공정률을 입력하면 건축주에게 알림이 갑니다.</p>
+    <input type="hidden" id="prog-request-id">
+    <div style="display:flex; gap:10px;">
+      <div class="auth-field" style="flex:1.5;">
+        <label class="auth-label">진행 단계</label>
+        <select class="auth-input" id="prog-stage"></select>
+      </div>
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">공정률 (%)</label>
+        <input type="text" class="auth-input" id="prog-percent" inputmode="numeric" placeholder="0">
+      </div>
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">메모 (건축주에게 전달)</label>
+      <textarea class="auth-input" id="prog-note" rows="3" placeholder="예: 3층 슬래브 타설 완료, 다음 주 4층 골조 예정" style="resize:vertical; font-family:inherit;"></textarea>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="signup-btn-back" style="flex:1;" onclick="closeProgressUpdate()">취소</button>
+      <button class="auth-submit" style="flex:2; margin:0;" id="prog-submit-btn" onclick="submitProgressUpdate()">업데이트</button>
     </div>
   </div>
 </div>
