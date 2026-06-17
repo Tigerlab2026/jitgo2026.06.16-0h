@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="짓고">
-<meta name="description" content="검증된 건설 전문업체 매칭 플랫폼. Bronze·Silver·Gold 3단계 검증을 통과한 3,217개 업체를 한 곳에서 비교하고 의뢰하세요.">
+<meta name="description" content="검증된 건설 전문업체 매칭 플랫폼. Bronze·Silver·Gold 3단계 검증을 통과한 검증 업체를 한 곳에서 비교하고 의뢰하세요.">
 <meta name="keywords" content="건설업체 매칭, 시공사 검색, 꼬마빌딩 신축, 검증 시공사, AI 적정가, 건축주, 시행사, 인테리어, 설계, 건설 마켓플레이스">
 <meta name="author" content="짓고 (JITGO)">
 
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="짓고">
 <meta property="og:title" content="짓고 — 검증된 건설 전문업체와 건축주를 잇는 마켓플레이스">
-<meta property="og:description" content="6단계 검증을 통과한 3,217개 업체를 비교하고, AI 적정가로 견적을 검증하고, 에스크로로 안전하게 결제하세요.">
+<meta property="og:description" content="6단계 검증을 통과한 검증 업체를 비교하고, AI 적정가로 견적을 검증하고, 에스크로로 안전하게 결제하세요.">
 <meta property="og:url" content="https://jitgo.kr">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://jitgo.kr/og-image.png">
@@ -9511,7 +9511,7 @@
         </span>
         <span class="main-nav-text">
           <span class="main-nav-label">업체검색</span>
-          <span class="main-nav-sub">검증된 3,217개 업체</span>
+          <span class="main-nav-sub">검증된 전문업체</span>
         </span>
       </button>
       <button class="main-nav-link" onclick="switchView('wizard')">
@@ -9567,7 +9567,7 @@
     <div class="mobile-menu-section-title">서비스</div>
     <button class="mobile-menu-item" onclick="closeMobileMenu(); switchView('listing');">
       <span class="mobile-menu-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-      <span class="mobile-menu-item-text">업체검색<span class="mobile-menu-item-sub">검증된 3,217개 업체</span></span>
+      <span class="mobile-menu-item-text">업체검색<span class="mobile-menu-item-sub">검증된 전문업체</span></span>
     </button>
     <button class="mobile-menu-item" onclick="closeMobileMenu(); switchView('wizard');">
       <span class="mobile-menu-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-2-2"/></svg></span>
@@ -9629,7 +9629,7 @@
       <div class="hero-pretitle">건설업체 매칭 플랫폼 · since 2026</div>
       <h1 class="hero-title">검증된 전문가와<br><strong>짓는 시작.</strong></h1>
       <p class="hero-subtitle">
-        설계부터 시공·인테리어, 법무·세무까지. Bronze·Silver·Gold 3단계 검증을 통과한 3,217개 건설 전문업체를 한 곳에서 비교하고, 의뢰하세요.
+        설계부터 시공·인테리어, 법무·세무까지. Bronze·Silver·Gold 3단계 검증을 통과한 건설 전문업체를 한 곳에서 비교하고, 의뢰하세요.
       </p>
       <form class="hero-search-big" onsubmit="event.preventDefault(); doSearch(this.querySelector('input').value);">
         <input type="text" placeholder="예: 강남 근린상가 신축할 시공사">
@@ -9655,7 +9655,7 @@
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-num">3,217</div>
+          <div class="hero-stat-num" id="hero-vendor-count">0</div>
           <div class="hero-stat-label">Registered Vendors</div>
         </div>
         <div class="hero-stat">
@@ -9890,7 +9890,7 @@
         <span class="current" id="listing-breadcrumb">전체 업체</span>
       </div>
       <h1 class="page-title" id="listing-title">전체 <em>업체</em></h1>
-      <p class="page-sub" id="listing-sub">검증된 3,217개 건설 전문업체</p>
+      <p class="page-sub" id="listing-sub">검증된 건설 전문업체</p>
       <div style="margin-top:10px;">
         <button onclick="switchView('sitesearch')" style="background:var(--ink); color:var(--hanji); border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;">
           🔍 현장으로 검색하기 (규모·용도·지역·준공년도) →
@@ -9900,16 +9900,16 @@
 
     <!-- 카테고리 칩 (헤더에서 옮겨옴) -->
     <div class="listing-cat-bar">
-      <button class="cat-link active" data-cat="all">전체<span class="cat-count">3,217</span></button>
-      <button class="cat-link" data-cat="시공">건축시공<span class="cat-count">892</span></button>
-      <button class="cat-link" data-cat="설계">설계사무소<span class="cat-count">1,247</span></button>
-      <button class="cat-link" data-cat="인테리어">인테리어<span class="cat-count">734</span></button>
-      <button class="cat-link" data-cat="자재">건축자재<span class="cat-count">412</span></button>
-      <button class="cat-link" data-cat="PM">임대관리(PM)<span class="cat-count">218</span></button>
-      <button class="cat-link" data-cat="FM">시설관리(FM)<span class="cat-count">167</span></button>
-      <button class="cat-link" data-cat="법무">법무사<span class="cat-count">89</span></button>
-      <button class="cat-link" data-cat="세무">세무사<span class="cat-count">78</span></button>
-      <button class="cat-link" data-cat="금융">부동산 금융<span class="cat-count">45</span></button>
+      <button class="cat-link active" data-cat="all">전체</button>
+      <button class="cat-link" data-cat="시공">건축시공</button>
+      <button class="cat-link" data-cat="설계">설계사무소</button>
+      <button class="cat-link" data-cat="인테리어">인테리어</button>
+      <button class="cat-link" data-cat="자재">건축자재</button>
+      <button class="cat-link" data-cat="PM">임대관리(PM)</button>
+      <button class="cat-link" data-cat="FM">시설관리(FM)</button>
+      <button class="cat-link" data-cat="법무">법무사</button>
+      <button class="cat-link" data-cat="세무">세무사</button>
+      <button class="cat-link" data-cat="금융">부동산 금융</button>
     </div>
 
     <div class="listing-layout">
@@ -12280,7 +12280,7 @@
         <h2 style="font-family: 'Fraunces', serif; font-size: 40px; font-weight: 400; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 24px;">건축의 모든 단계에서<br><em style="font-style: italic; color: var(--vermilion);">정보의 비대칭을 해소합니다</em></h2>
         <p style="font-size: 16px; color: rgba(245,239,230,0.85); line-height: 1.8;">
           한국의 건축주는 시공사를 고를 때 평균 3곳 미만의 견적만 비교합니다. 검증된 정보가 부족하기 때문입니다.
-          짓고는 자체 6단계 검증 시스템으로 3,217개 전문업체의 신뢰도를 데이터화하고, AI 기반 매칭으로 적합한 업체를
+          짓고는 자체 6단계 검증 시스템으로 전문업체의 신뢰도를 데이터화하고, AI 기반 매칭으로 적합한 업체를
           누구나 합리적인 가격에 만날 수 있도록 합니다.
         </p>
       </div>
@@ -15423,44 +15423,8 @@
   }
 
   // =============== DATA ===============
-  const vendors = [
-    { id:1, name:'정인종합건축(주)', cat:'건축시공', tier:'gold', rating:4.9, reviews:89, projects:142, region:'서울 강남구', specialty:'근린상가 신축', desc:'강남권 근린상가 및 점포겸용주택 시공 전문. 디자인 강한 입면 설계.',
-      tags:['Gold', 'Premium', '3D도면'],
-      abilities:[95, 90, 88, 82, 92, 90], img:'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800&q=80' },
-    { id:2, name:'에이케이엔지니어링(주)', cat:'건축시공', tier:'gold', rating:4.8, reviews:142, projects:142, region:'경기 화성', specialty:'중소형 근린상가', desc:'중소형 근린상가 전문, 연 18건 시공. 평균 평당 510만원.',
-      tags:['Gold', '안심예치', '보증보험'],
-      abilities:[85, 88, 92, 90, 85, 78], img:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80' },
-    { id:3, name:'이지안건축사사무소', cat:'설계사무소', tier:'gold', rating:4.9, reviews:78, projects:67, region:'서울 마포구', specialty:'근린생활시설 설계', desc:'중소형 건축물 설계 전문, BIM 기반 정밀 설계.',
-      tags:['Gold', '3D도면'],
-      abilities:[78, 92, 85, 88, 80, 95], img:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80' },
-    { id:4, name:'라움인테리어 디자인', cat:'인테리어', tier:'silver', rating:4.8, reviews:124, projects:89, region:'서울 강남구', specialty:'상업공간 인테리어', desc:'카페와 F&B 매장 인테리어 전문, 임차인 선호도 분석.',
-      tags:['Silver', '3D도면'],
-      abilities:[80, 85, 78, 88, 82, 92], img:'https://images.unsplash.com/photo-1542361345-89e58247f2d5?w=800&q=80' },
-    { id:5, name:'대한건설산업(주)', cat:'건축시공', tier:'silver', rating:4.6, reviews:89, projects:89, region:'경기 전역', specialty:'RC조 5~10층', desc:'RC조 5~10층 전문. 평균 평당 580만원.',
-      tags:['Silver', '보증보험'],
-      abilities:[88, 82, 90, 75, 80, 78], img:'https://images.unsplash.com/photo-1556909114-44e3e9399e2b?w=800&q=80' },
-    { id:6, name:'도화건축사무소', cat:'설계사무소', tier:'silver', rating:4.7, reviews:56, projects:56, region:'서울 전역', specialty:'다세대 설계', desc:'다세대 및 원룸 전문 설계, 임대 효율 평면.',
-      tags:['Silver'],
-      abilities:[82, 88, 85, 85, 78, 90], img:'https://images.unsplash.com/photo-1577415124269-fc1140a69e91?w=800&q=80' },
-    { id:7, name:'서일종합건설(주)', cat:'건축시공', tier:'bronze', rating:4.4, reviews:67, projects:67, region:'서울 전역', specialty:'리모델링', desc:'리모델링 강세, 평당 450만원.',
-      tags:['Bronze'],
-      abilities:[92, 75, 82, 78, 75, 70], img:'https://images.unsplash.com/photo-1503387837-b154d5074bd2?w=800&q=80' },
-    { id:8, name:'김앤김 법무법인', cat:'법무사', tier:'gold', rating:4.9, reviews:234, projects:234, region:'서울 강남구', specialty:'부동산 법무', desc:'부동산 매매·증여·상속, 건축 인허가 전문.',
-      tags:['Gold'],
-      abilities:[75, 95, 80, 90, 85, 95], img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80' },
-    { id:9, name:'한솔세무회계', cat:'세무사', tier:'silver', rating:4.8, reviews:156, projects:156, region:'서울 전역', specialty:'부동산 세무', desc:'개인 임대업과 시행사 종합 세무, 절세 컨설팅.',
-      tags:['Silver'],
-      abilities:[78, 92, 85, 90, 80, 92], img:'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80' },
-    { id:10, name:'프리미엄목재 자재', cat:'건축자재', tier:'bronze', rating:4.5, reviews:178, projects:178, region:'경기 광주', specialty:'친환경 자재', desc:'친환경 건축자재 전문, FSC 인증.',
-      tags:['Bronze', '친환경'],
-      abilities:[88, 80, 85, 75, 70, 75], img:'https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80' },
-    { id:11, name:'유한미인테리어', cat:'인테리어', tier:'unverified', rating:4.2, reviews:34, projects:42, region:'경기 분당', specialty:'주거 인테리어', desc:'중급 주거 인테리어, 합리적 단가.',
-      tags:['미인증'],
-      abilities:[72, 70, 75, 78, 70, 75], img:'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80' },
-    { id:12, name:'모리스자산관리', cat:'임대관리', tier:'silver', rating:4.7, reviews:45, projects:45, region:'서울 강남권', specialty:'중소형빌딩 PM/FM', desc:'꼬마빌딩 자산관리 전문, 원스톱 서비스.',
-      tags:['Silver'],
-      abilities:[80, 85, 82, 92, 88, 85], img:'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80' },
-  ];
+  // 가짜 샘플 업체 전체 제거 — 이제 실제 등록 업체(dbVendors)만 표시
+  const vendors = [];
 
   const abilityLabels = ['가격경쟁력', '시공품질', '일정준수', '소통', '사후관리', '디자인'];
 
@@ -16049,6 +16013,8 @@
       .from('suppliers').select('*').order('created_at', { ascending: false });
     if (error) { console.error('[짓고] 업체 조회 실패:', error.message); return; }
     dbVendors = (data || []).map(supplierToVendor);
+    const heroCount = document.getElementById('hero-vendor-count');
+    if (heroCount) heroCount.textContent = dbVendors.length;
     if (typeof renderVendorList === 'function') renderVendorList();
   }
 
@@ -16506,7 +16472,7 @@
     if (view === 'phone-auth') resetPhoneAuth();
     if (view === 'mypage') updateMypageUser();
     if (view === 'console' && typeof loadSupplierStatus === 'function') loadSupplierStatus();
-    if (view === 'listing' && typeof loadDbVendors === 'function') loadDbVendors();
+    if ((view === 'listing' || view === 'home') && typeof loadDbVendors === 'function') loadDbVendors();
     if (view === 'chat') initChat();
   }
 
