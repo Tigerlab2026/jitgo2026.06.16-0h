@@ -11888,44 +11888,10 @@
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">NOTIFICATIONS</div>
             <h2 class="mp-section-title">알 <em>림</em></h2>
-            <p class="mp-section-sub">전체 알림 12건 · 미열람 5건</p>
+            <p class="mp-section-sub" id="mp-notif-sub">새로운 소식을 확인하세요</p>
           </div>
-          <div class="mp-notif-list">
-            <div class="mp-notif-item unread">
-              <div class="mp-notif-icon">₩</div>
-              <div class="mp-notif-text"><strong>정인종합건축(주)</strong>에서 견적이 도착했습니다 · 28억원</div>
-              <div class="mp-notif-time">2시간 전</div>
-            </div>
-            <div class="mp-notif-item unread">
-              <div class="mp-notif-icon">₩</div>
-              <div class="mp-notif-text"><strong>에이케이엔지니어링(주)</strong>에서 견적이 도착했습니다 · 22억원</div>
-              <div class="mp-notif-time">어제</div>
-            </div>
-            <div class="mp-notif-item unread">
-              <div class="mp-notif-icon">◆</div>
-              <div class="mp-notif-text">AI 적정가 분석 완료. 강남 신사동 5층 상가의 적정 공사비는 <strong>26.5억원</strong> 수준입니다</div>
-              <div class="mp-notif-time">어제</div>
-            </div>
-            <div class="mp-notif-item unread">
-              <div class="mp-notif-icon">⬢</div>
-              <div class="mp-notif-text">진행 중인 화성 남양 근린상가 <strong>골조 공사가 50% 완료</strong>되었습니다</div>
-              <div class="mp-notif-time">2일 전</div>
-            </div>
-            <div class="mp-notif-item unread">
-              <div class="mp-notif-icon">✎</div>
-              <div class="mp-notif-text">신축 양도세 신고가 완료되었습니다 · 한솔세무회계</div>
-              <div class="mp-notif-time">3일 전</div>
-            </div>
-            <div class="mp-notif-item">
-              <div class="mp-notif-icon">★</div>
-              <div class="mp-notif-text">관심 업체 <strong>이지안건축사사무소</strong>의 신규 포트폴리오가 등록되었습니다</div>
-              <div class="mp-notif-time">5일 전</div>
-            </div>
-            <div class="mp-notif-item">
-              <div class="mp-notif-icon">₩</div>
-              <div class="mp-notif-text">중도금 2차 지급 완료 · 화성 남양 근린상가 7억원</div>
-              <div class="mp-notif-time">1주 전</div>
-            </div>
+          <div class="mp-notif-list" id="mp-notif-list">
+            <div style="padding: 40px 20px; text-align: center; color: var(--concrete); font-size: 14px;">새로운 알림이 없습니다.</div>
           </div>
         </div>
 
@@ -16180,14 +16146,112 @@
   // =============== NOTIFICATION DROPDOWN ===============
   function toggleNotifDropdown(e) {
     e.stopPropagation();
-    document.getElementById('notif-dropdown').classList.toggle('open');
+    const dd = document.getElementById('notif-dropdown');
+    dd.classList.toggle('open');
+    if (dd.classList.contains('open')) loadNotifications();
   }
   function closeNotifDropdown() {
     document.getElementById('notif-dropdown').classList.remove('open');
   }
-  function markAllNotifRead() {
-    document.querySelectorAll('.header-notif-row.unread').forEach(r => r.classList.remove('unread'));
-    document.getElementById('notif-badge').style.display = 'none';
+
+  // ===================== 알림 시스템 =====================
+  // 알림 불러오기 (헤더 드롭다운 + 마이페이지 공용)
+  async function loadNotifications() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await supabaseClient
+      .from('notifications').select('*')
+      .order('created_at', { ascending: false }).limit(30);
+    if (error) { console.error('[짓고] 알림 조회 실패:', error.message); return; }
+
+    const notifs = data || [];
+    const unread = notifs.filter(n => !n.is_read).length;
+
+    // 헤더 뱃지
+    updateNotifBadge(unread);
+
+    // 헤더 드롭다운
+    const ddBody = document.getElementById('notif-dropdown-body');
+    if (ddBody) {
+      ddBody.innerHTML = notifs.length === 0
+        ? '<div style="padding:32px 20px; text-align:center; color:var(--concrete); font-size:13px;">새로운 알림이 없습니다.</div>'
+        : notifs.slice(0,6).map(n => renderNotifRow(n, 'header')).join('');
+    }
+
+    // 마이페이지 알림 리스트
+    const mpList = document.getElementById('mp-notif-list');
+    if (mpList) {
+      mpList.innerHTML = notifs.length === 0
+        ? '<div style="padding:40px 20px; text-align:center; color:var(--concrete); font-size:14px;">새로운 알림이 없습니다.</div>'
+        : notifs.map(n => renderNotifRow(n, 'mypage')).join('');
+    }
+    const mpSub = document.getElementById('mp-notif-sub');
+    if (mpSub) mpSub.textContent = notifs.length > 0
+      ? ('전체 알림 ' + notifs.length + '건 · 미열람 ' + unread + '건')
+      : '새로운 소식을 확인하세요';
+  }
+
+  function renderNotifRow(n, place) {
+    const time = notifTimeAgo(n.created_at);
+    const icon = { quote:'₩', project:'⬢', review:'★', system:'◆', general:'●' }[n.type] || '●';
+    const safeBody = (n.body || '').replace(/</g, '&lt;');
+    const clickAttr = n.link_view ? ` onclick="closeNotifDropdown(); markNotifRead('${n.id}'); switchView('${n.link_view}')" style="cursor:pointer;"` : '';
+    if (place === 'header') {
+      return '<div class="header-notif-row ' + (n.is_read ? '' : 'unread') + '"' + clickAttr + '>'
+        + '<div class="icon">' + icon + '</div><div><div class="header-notif-row-text">' + safeBody + '</div>'
+        + '<div class="header-notif-row-time">' + time + '</div></div></div>';
+    }
+    return '<div class="mp-notif-item ' + (n.is_read ? '' : 'unread') + '"' + clickAttr + '>'
+      + '<div class="mp-notif-icon">' + icon + '</div>'
+      + '<div class="mp-notif-text">' + safeBody + '</div>'
+      + '<div class="mp-notif-time">' + time + '</div></div>';
+  }
+
+  function notifTimeAgo(ts) {
+    if (!ts) return '';
+    const diff = Date.now() - new Date(ts).getTime();
+    const min = Math.floor(diff / 60000), hr = Math.floor(min/60), day = Math.floor(hr/24);
+    if (min < 1) return '방금 전';
+    if (min < 60) return min + '분 전';
+    if (hr < 24) return hr + '시간 전';
+    if (day < 7) return day + '일 전';
+    return new Date(ts).toLocaleDateString('ko-KR');
+  }
+
+  function updateNotifBadge(count) {
+    document.querySelectorAll('.header-notif-badge').forEach(b => {
+      if (b.id === 'notif-badge' || !b.id) {
+        b.textContent = count;
+        b.style.display = count > 0 ? '' : 'none';
+      }
+    });
+  }
+
+  // 개별 알림 읽음 처리
+  async function markNotifRead(id) {
+    if (!isSupabaseReady()) return;
+    await supabaseClient.from('notifications').update({ is_read: true }).eq('id', id);
+    loadNotifications();
+  }
+
+  // 전체 읽음 처리
+  async function markAllNotifRead() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    await supabaseClient.from('notifications').update({ is_read: true })
+      .eq('user_id', user.id).eq('is_read', false);
+    loadNotifications();
+  }
+
+  // 알림 생성 헬퍼 (거래 기능에서 호출 — 예: 견적요청 시 시공사에게)
+  async function createNotification(targetUserId, type, body, linkView) {
+    if (!isSupabaseReady()) return;
+    await supabaseClient.from('notifications').insert({
+      user_id: targetUserId, type: type || 'general', body: body, link_view: linkView || null
+    });
   }
   document.addEventListener('click', (e) => {
     const dd = document.getElementById('notif-dropdown');
@@ -16873,6 +16937,7 @@
     if (section === 'favorites') renderMpFavorites();
     if (section === 'compare-list') renderMpCompareList();
     if (section === 'profile' && typeof loadMyProfile === 'function') loadMyProfile();
+    if (section === 'notifications' && typeof loadNotifications === 'function') loadNotifications();
   }
 
   // =============== MOBILE MENU (햄버거) ===============
@@ -17225,6 +17290,8 @@
       if (mConsole) mConsole.style.display = (role === 'supplier') ? '' : 'none';
       if (mAuthFoot) mAuthFoot.style.display = 'none';
       if (mLogoutFoot) mLogoutFoot.style.display = '';
+      // 로그인 사용자 알림 뱃지 갱신
+      if (typeof loadNotifications === 'function') loadNotifications();
     } else {
       // 비로그인: 로그인/회원가입만, 기능 메뉴 전부 숨김
       if (authGroup) authGroup.style.display = '';
@@ -17237,6 +17304,8 @@
       if (mAccount) mAccount.style.display = 'none';
       if (mAuthFoot) mAuthFoot.style.display = '';
       if (mLogoutFoot) mLogoutFoot.style.display = 'none';
+      // 비로그인: 알림 뱃지 숨김
+      if (typeof updateNotifBadge === 'function') updateNotifBadge(0);
     }
   }
   async function updateMypageUser() {
