@@ -12099,7 +12099,7 @@
       </div>
 
       <div class="signup-choice-grid">
-        <div class="signup-choice-card" onclick="switchView('signup-user')">
+        <div class="signup-choice-card" onclick="startSignup('owner')">
           <div class="signup-choice-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
@@ -12113,10 +12113,10 @@
             <li>견적 요청 및 견적 비교</li>
             <li>실거래 인증 후기 작성</li>
           </ul>
-          <button class="signup-choice-cta">사용자로 가입 →</button>
+          <button class="signup-choice-cta" onclick="event.stopPropagation(); startSignup('owner')">사용자로 가입 →</button>
         </div>
 
-        <div class="signup-choice-card" onclick="switchView('signup-supplier')">
+        <div class="signup-choice-card" onclick="startSignup('supplier')">
           <div class="signup-choice-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 22h20"/><path d="M4 22V12a8 8 0 0 1 16 0v10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
           </div>
@@ -12130,7 +12130,7 @@
             <li>Bronze/Silver/Gold 검증 신청</li>
             <li>월 평균 187건 매칭 기회</li>
           </ul>
-          <button class="signup-choice-cta">공급자로 가입 →</button>
+          <button class="signup-choice-cta" onclick="event.stopPropagation(); startSignup('supplier')">공급자로 가입 →</button>
         </div>
       </div>
 
@@ -16953,6 +16953,12 @@
     document.getElementById('pa-role-owner').classList.toggle('active', role === 'owner');
     document.getElementById('pa-role-supplier').classList.toggle('active', role === 'supplier');
     document.getElementById('pa-name-label').textContent = role === 'owner' ? '이름' : '담당자 이름';
+  }
+
+  // 역할 선택 카드 → 휴대폰 인증 화면으로 (역할 미리 지정)
+  function startSignup(role) {
+    switchView('phone-auth');
+    setTimeout(() => { paSetRole(role); }, 60);
   }
 
   function paFormatPhone(el) {
