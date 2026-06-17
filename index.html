@@ -10307,8 +10307,8 @@
           </div>
         </div>
 
-        <button class="vd-cta">견적 요청하기</button>
-        <button class="vd-cta outline">채팅 시작</button>
+        <button class="vd-cta" onclick="openQuoteRequest()">견적 요청하기</button>
+        <button class="vd-cta outline" onclick="alert('1:1 채팅은 준비 중입니다.')">채팅 시작</button>
         <button class="vd-cta outline" style="background: transparent;">♡ 관심회사 추가</button>
 
         <div class="vd-trust">
@@ -10774,81 +10774,12 @@
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">INCOMING REQUESTS</div>
             <h2 class="mp-section-title">받은 견적 <em>요청</em></h2>
-            <p class="mp-section-sub">총 8건 · 미응답 4건 · 48시간 내 응답 권장</p>
+            <p class="mp-section-sub" id="spc-rq-sub">받은 견적 요청을 확인하세요</p>
           </div>
-
-          <div class="spc-rq-card urgent">
-            <div class="spc-rq-head">
-              <div>
-                <div class="spc-rq-title">강남 신사동 5층 상가 신축</div>
-                <div class="spc-rq-customer">REQ-2025-1115-A · 김재훈 건축주 (마스킹) · 1시간 전 도착</div>
-              </div>
-              <span class="spc-rq-deadline">D-2 응답 필요</span>
-            </div>
-            <div class="spc-rq-body">강남구 신사동 일대. 연면적 약 260평, 지상 5층 RC조 신축. 1층 카페 입점 가능한 입면 디자인 필요. 예상 공사비 25~30억원, 착공 2026년 4월 희망.</div>
-            <div class="spc-rq-tags">
-              <span class="tag">신축</span>
-              <span class="tag">RC조</span>
-              <span class="tag">260평</span>
-              <span class="tag">25~30억</span>
-              <span class="tag">강남구</span>
-            </div>
-            <div class="spc-rq-actions">
-              <button class="spc-rq-btn">상세 보기</button>
-              <button class="spc-rq-btn">채팅으로 문의</button>
-              <button class="spc-rq-btn reject">정중히 거절</button>
-              <button class="spc-rq-btn primary" onclick="switchView('quote-write')">견적서 작성 →</button>
-            </div>
-          </div>
-
-          <div class="spc-rq-card">
-            <div class="spc-rq-head">
-              <div>
-                <div class="spc-rq-title">송파 점포겸용주택 리모델링</div>
-                <div class="spc-rq-customer">REQ-2025-1114-D · 이수정 건축주 (마스킹) · 어제 도착</div>
-              </div>
-              <span class="spc-rq-deadline" style="background: var(--hanji-dark); color: var(--ink);">3일 남음</span>
-            </div>
-            <div class="spc-rq-body">2008년 준공 점포겸용주택. 1층 상가 + 2~3층 주거 부분 전면 리모델링. 외벽·창호·내부 마감 포함. 예상 공사비 4~6억원.</div>
-            <div class="spc-rq-tags">
-              <span class="tag">리모델링</span>
-              <span class="tag">점포겸용</span>
-              <span class="tag">4~6억</span>
-              <span class="tag">송파구</span>
-            </div>
-            <div class="spc-rq-actions">
-              <button class="spc-rq-btn">상세 보기</button>
-              <button class="spc-rq-btn">채팅으로 문의</button>
-              <button class="spc-rq-btn reject">정중히 거절</button>
-              <button class="spc-rq-btn primary" onclick="switchView('quote-write')">견적서 작성 →</button>
-            </div>
-          </div>
-
-          <div class="spc-rq-card">
-            <div class="spc-rq-head">
-              <div>
-                <div class="spc-rq-title">분당 단독주택 신축</div>
-                <div class="spc-rq-customer">REQ-2025-1112-G · 박정민 건축주 (마스킹) · 3일 전 도착</div>
-              </div>
-              <span class="spc-rq-deadline" style="background: var(--hanji-dark); color: var(--ink);">1일 남음</span>
-            </div>
-            <div class="spc-rq-body">분당 정자동 단독주택지. 대지 130평, 연면적 90평 2층 단독주택 신축. 친환경 패시브 하우스 고려. 예상 8~12억원, 2026년 5월 착공.</div>
-            <div class="spc-rq-tags">
-              <span class="tag">신축</span>
-              <span class="tag">단독주택</span>
-              <span class="tag">패시브</span>
-              <span class="tag">8~12억</span>
-            </div>
-            <div class="spc-rq-actions">
-              <button class="spc-rq-btn">상세 보기</button>
-              <button class="spc-rq-btn">채팅으로 문의</button>
-              <button class="spc-rq-btn reject">정중히 거절</button>
-              <button class="spc-rq-btn primary" onclick="switchView('quote-write')">견적서 작성 →</button>
-            </div>
+          <div id="spc-rq-list">
+            <div style="padding:40px 20px; text-align:center; color:var(--concrete);">받은 견적 요청이 없습니다.</div>
           </div>
         </div>
-
-        <!-- QUOTES SENT -->
         <div class="mp-section" id="spc-sec-quotes">
           <div class="mp-section-head">
             <div class="mp-section-eyebrow">SENT QUOTES</div>
@@ -13683,76 +13614,16 @@
         <div class="adm-section" id="adm-sec-dispute">
           <div class="adm-section-head">
             <div>
-              <div class="adm-section-eyebrow">DISPUTE ARBITRATION · 분쟁 중재</div>
+              <div class="adm-section-eyebrow">DISPUTE · 분쟁 중재</div>
               <h2 class="adm-section-title">분쟁 <em>중재</em></h2>
-              <div class="adm-section-sub">미처리 3건 · 평균 해결 기간 7.2일</div>
+              <div class="adm-section-sub">준비 중인 기능입니다</div>
             </div>
           </div>
-
-          <div class="adm-table-wrap">
-            <table class="adm-table">
-              <thead>
-                <tr>
-                  <th>분쟁 ID</th>
-                  <th>프로젝트</th>
-                  <th>유형</th>
-                  <th>상태</th>
-                  <th>경과일</th>
-                  <th>관련 자금</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="background: var(--vermilion-light);">
-                  <td style="font-family: 'JetBrains Mono', monospace;">D-2026-0517</td>
-                  <td><strong>강남 신사동 5층</strong><br><span style="font-size: 11px; color: var(--concrete);">건축주 김** ↔ 정인종합건축</span></td>
-                  <td>일정 지연</td>
-                  <td><span class="adm-tag urgent">긴급</span></td>
-                  <td><strong>D+2</strong></td>
-                  <td>중도금 3차 5억</td>
-                  <td>
-                    <button class="adm-btn primary" onclick="alert('중재 진행 — 양측 의견 청취 시작')">중재 진행</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">D-2026-0515</td>
-                  <td><strong>분당 단독주택</strong><br><span style="font-size: 11px; color: var(--concrete);">건축주 박** ↔ 한솔건축</span></td>
-                  <td>품질 불량</td>
-                  <td><span class="adm-tag pending">진행 중</span></td>
-                  <td>D+4</td>
-                  <td>잔금 1.2억</td>
-                  <td>
-                    <button class="adm-btn" onclick="alert('1차 중재안 검토')">1차안 검토</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">D-2026-0512</td>
-                  <td><strong>합정동 리모델링</strong><br><span style="font-size: 11px; color: var(--concrete);">건축주 이** ↔ 모던인테리어</span></td>
-                  <td>추가 비용 청구</td>
-                  <td><span class="adm-tag pending">진행 중</span></td>
-                  <td>D+7</td>
-                  <td>중도금 4,500만</td>
-                  <td>
-                    <button class="adm-btn primary" onclick="alert('최종 중재안 발송')">최종안</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">D-2026-0508</td>
-                  <td><strong>대전 다세대</strong></td>
-                  <td>중도 포기</td>
-                  <td><span class="adm-tag approved">해결</span></td>
-                  <td>D+11</td>
-                  <td>환불 2.2억</td>
-                  <td>
-                    <button class="adm-btn">사례 보기</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:8px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- 4. 공급자 관리 -->
         <div class="adm-section" id="adm-sec-suppliers">
           <div class="adm-section-head">
             <div>
@@ -13777,79 +13648,8 @@
                   <th>액션</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><strong>정인종합건축(주)</strong><br><span style="font-size: 11px; color: var(--concrete);">사업자 123-45-67890</span></td>
-                  <td><span class="adm-tag gold">GOLD</span></td>
-                  <td>시공</td>
-                  <td>142건</td>
-                  <td>★ 4.9</td>
-                  <td>98%</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td>
-                    <button class="adm-btn">상세</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>에이케이엔지니어링(주)</strong></td>
-                  <td><span class="adm-tag gold">GOLD</span></td>
-                  <td>시공</td>
-                  <td>89건</td>
-                  <td>★ 4.8</td>
-                  <td>96%</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td>
-                    <button class="adm-btn">상세</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>이지안건축사사무소</strong></td>
-                  <td><span class="adm-tag gold">GOLD</span></td>
-                  <td>설계</td>
-                  <td>156건</td>
-                  <td>★ 4.9</td>
-                  <td>99%</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td>
-                    <button class="adm-btn">상세</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>한솔건축(주)</strong></td>
-                  <td><span class="adm-tag silver">SILVER</span></td>
-                  <td>시공</td>
-                  <td>78건</td>
-                  <td>★ 4.7</td>
-                  <td>94%</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td>
-                    <button class="adm-btn">상세</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>대한건설산업(주)</strong></td>
-                  <td><span class="adm-tag silver">SILVER</span></td>
-                  <td>시공</td>
-                  <td>89건</td>
-                  <td>★ 4.6</td>
-                  <td>92%</td>
-                  <td><span class="adm-tag pending">Gold 신청</span></td>
-                  <td>
-                    <button class="adm-btn">상세</button>
-                  </td>
-                </tr>
-                <tr style="background: rgba(196,74,44,0.05);">
-                  <td><strong>예시건설(주)</strong></td>
-                  <td><span class="adm-tag bronze">BRONZE</span></td>
-                  <td>시공</td>
-                  <td>12건</td>
-                  <td>★ 3.2</td>
-                  <td>62%</td>
-                  <td><span class="adm-tag urgent">분쟁 2건</span></td>
-                  <td>
-                    <button class="adm-btn danger" onclick="alert('영업 정지 / 등급 박탈 검토')">제재 검토</button>
-                  </td>
-                </tr>
+              <tbody id="adm-suppliers-tbody">
+                <tr><td colspan="6" style="padding:30px; text-align:center; color:var(--concrete);">공급자 관리를 열면 목록을 불러옵니다.</td></tr>
               </tbody>
             </table>
           </div>
@@ -13898,43 +13698,8 @@
                   <th>액션</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><strong>김재훈</strong></td>
-                  <td>jaehoon@example.kr</td>
-                  <td>2025.11.15</td>
-                  <td>3건</td>
-                  <td>1건 (22억)</td>
-                  <td><span class="adm-tag approved">VIP</span></td>
-                  <td><button class="adm-btn">상세</button></td>
-                </tr>
-                <tr>
-                  <td><strong>박서영</strong></td>
-                  <td>seoyoung@example.kr</td>
-                  <td>2026.01.22</td>
-                  <td>2건</td>
-                  <td>0건</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td><button class="adm-btn">상세</button></td>
-                </tr>
-                <tr>
-                  <td><strong>이지훈</strong></td>
-                  <td>jihoon@example.kr</td>
-                  <td>2026.03.08</td>
-                  <td>1건</td>
-                  <td>0건</td>
-                  <td><span class="adm-tag approved">활성</span></td>
-                  <td><button class="adm-btn">상세</button></td>
-                </tr>
-                <tr>
-                  <td><strong>최은영</strong></td>
-                  <td>eunyoung@example.kr</td>
-                  <td>2026.04.30</td>
-                  <td>0건</td>
-                  <td>0건</td>
-                  <td><span class="adm-tag pending">탐색</span></td>
-                  <td><button class="adm-btn">상세</button></td>
-                </tr>
+              <tbody id="adm-users-tbody">
+                <tr><td colspan="5" style="padding:30px; text-align:center; color:var(--concrete);">사용자 관리를 열면 목록을 불러옵니다.</td></tr>
               </tbody>
             </table>
           </div>
@@ -13944,99 +13709,24 @@
         <div class="adm-section" id="adm-sec-revenue">
           <div class="adm-section-head">
             <div>
-              <div class="adm-section-eyebrow">REVENUE · 매출 · 정산</div>
-              <h2 class="adm-section-title">매출 <em>정산</em></h2>
-              <div class="adm-section-sub">에스크로 잔액 23.4억 · 정산 대기 5건 · 이번 달 수수료 8.2억</div>
+              <div class="adm-section-eyebrow">REVENUE · 매출·정산</div>
+              <h2 class="adm-section-title">매출·<em>정산</em></h2>
+              <div class="adm-section-sub">준비 중인 기능입니다</div>
             </div>
           </div>
-
-          <div class="adm-stat-grid">
-            <div class="adm-stat">
-              <div class="adm-stat-eyebrow">FEE · 거래 수수료</div>
-              <div class="adm-stat-val">5.4<small>억</small></div>
-              <div class="adm-stat-trend up">66% of revenue</div>
-            </div>
-            <div class="adm-stat">
-              <div class="adm-stat-eyebrow">SUBSCRIPTION · 멤버십</div>
-              <div class="adm-stat-val">2.3<small>억</small></div>
-              <div class="adm-stat-trend up">28% of revenue</div>
-            </div>
-            <div class="adm-stat">
-              <div class="adm-stat-eyebrow">EXTRA · 부가 서비스</div>
-              <div class="adm-stat-val">0.5<small>억</small></div>
-              <div class="adm-stat-trend up">6% of revenue</div>
-            </div>
-            <div class="adm-stat">
-              <div class="adm-stat-eyebrow">TOTAL · 이번 달 매출</div>
-              <div class="adm-stat-val" style="color: var(--vermilion);">8.2<small>억</small></div>
-              <div class="adm-stat-trend up">+22% MoM</div>
-            </div>
-          </div>
-
-          <div class="adm-section-eyebrow">PENDING SETTLEMENTS · 정산 대기 거래</div>
-          <h3 style="font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; margin: 8px 0 16px;">검수 통과 후 정산할 거래 5건</h3>
-
-          <div class="adm-table-wrap">
-            <table class="adm-table">
-              <thead>
-                <tr>
-                  <th>프로젝트</th>
-                  <th>공급자</th>
-                  <th>단계</th>
-                  <th>정산 금액</th>
-                  <th>짓고 수수료</th>
-                  <th>예정일</th>
-                  <th>액션</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>화성 남양 근린상가</strong></td>
-                  <td>정인종합건축</td>
-                  <td>중도금 3차</td>
-                  <td>5억</td>
-                  <td>500만 (1%)</td>
-                  <td>2026.05.20</td>
-                  <td>
-                    <button class="adm-btn primary" onclick="alert('정산 실행 — 공급자 계좌로 이체')">정산 실행</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>강남 신사동 5층</strong></td>
-                  <td>(미정)</td>
-                  <td>계약금 대기</td>
-                  <td>2.5억</td>
-                  <td>500만 (2%)</td>
-                  <td>견적 채택 후</td>
-                  <td>
-                    <button class="adm-btn">대기</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>판교 단독주택</strong></td>
-                  <td>이지안건축사사무소</td>
-                  <td>설계 완료</td>
-                  <td>4,500만</td>
-                  <td>45만 (1%)</td>
-                  <td>2026.05.22</td>
-                  <td>
-                    <button class="adm-btn primary" onclick="alert('정산 실행')">정산 실행</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="background:var(--white); border:1px solid var(--rule); border-radius:16px; padding:60px 20px; text-align:center; color:var(--concrete);">
+            <div style="font-size:15px; margin-bottom:8px;">아직 준비 중입니다</div>
+            <div style="font-size:13px;">거래·결제 기능이 활성화되면 제공됩니다.</div>
           </div>
         </div>
-
-        <!-- 7. 콘텐츠 관리 -->
         <div class="adm-section" id="adm-sec-content">
           <div class="adm-section-head">
             <div>
               <div class="adm-section-eyebrow">CONTENT · 콘텐츠 관리</div>
               <h2 class="adm-section-title">콘텐츠 <em>관리</em></h2>
-              <div class="adm-section-sub">매거진 24개 · 이번 달 발행 4건</div>
+              <div class="adm-section-sub" id="adm-content-sub">매거진 콘텐츠 관리</div>
             </div>
-            <button class="adm-btn primary" style="padding: 9px 18px; font-size: 13px;" onclick="alert('새 글 작성 페이지')">+ 새 글 작성</button>
+            <button class="adm-btn primary" style="padding: 9px 18px; font-size: 13px;" onclick="openArticleEditor()">+ 새 글 작성</button>
           </div>
 
           <div class="adm-table-wrap">
@@ -14052,42 +13742,8 @@
                   <th>액션</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><strong>꼬마빌딩 신축, 평당 580만원이 적정한가</strong></td>
-                  <td>신축 가이드</td>
-                  <td>리서치팀</td>
-                  <td>2026.05.10</td>
-                  <td>4,892</td>
-                  <td><span class="adm-tag approved">발행 중</span></td>
-                  <td>
-                    <button class="adm-btn">편집</button>
-                    <button class="adm-btn danger">내림</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>신축 후 양도세 절세 5가지 방법</strong></td>
-                  <td>법무·세무</td>
-                  <td>한솔세무회계 (외부)</td>
-                  <td>2026.05.08</td>
-                  <td>2,341</td>
-                  <td><span class="adm-tag approved">발행 중</span></td>
-                  <td>
-                    <button class="adm-btn">편집</button>
-                    <button class="adm-btn danger">내림</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>2026 Q2 강남구 신축 시장 보고서</strong></td>
-                  <td>시장 데이터</td>
-                  <td>리서치팀</td>
-                  <td>준비 중</td>
-                  <td>—</td>
-                  <td><span class="adm-tag pending">초안</span></td>
-                  <td>
-                    <button class="adm-btn primary">발행</button>
-                  </td>
-                </tr>
+              <tbody id="adm-content-tbody">
+                <tr><td colspan="7" style="padding:30px; text-align:center; color:var(--concrete);">콘텐츠 관리를 열면 목록을 불러옵니다.</td></tr>
               </tbody>
             </table>
           </div>
@@ -16253,6 +15909,124 @@
       user_id: targetUserId, type: type || 'general', body: body, link_view: linkView || null
     });
   }
+
+  // ===================== 견적 요청 =====================
+  function openQuoteRequest() {
+    if (!currentVendorDetail || !currentVendorDetail.dbId) {
+      alert('실제 등록 업체에만 견적을 요청할 수 있습니다.');
+      return;
+    }
+    document.getElementById('quote-target-label').textContent =
+      currentVendorDetail.name + ' 에 견적을 요청합니다.';
+    ['qr-title','qr-region','qr-pyeong','qr-budget-min','qr-budget-max','qr-content'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    document.getElementById('qr-usage').value = '';
+    document.getElementById('quote-modal-overlay').classList.add('open');
+  }
+  function closeQuoteRequest() {
+    document.getElementById('quote-modal-overlay').classList.remove('open');
+  }
+
+  async function submitQuoteRequest() {
+    const title   = document.getElementById('qr-title').value.trim();
+    const region  = document.getElementById('qr-region').value.trim();
+    const usage   = document.getElementById('qr-usage').value;
+    const pyeong  = document.getElementById('qr-pyeong').value.replace(/[^0-9.]/g, '');
+    const bMin    = document.getElementById('qr-budget-min').value.replace(/[^0-9.]/g, '');
+    const bMax    = document.getElementById('qr-budget-max').value.replace(/[^0-9.]/g, '');
+    const content = document.getElementById('qr-content').value.trim();
+
+    if (!title)   { alert('요청 제목을 입력해 주세요.'); return; }
+    if (!content) { alert('상세 내용을 입력해 주세요.'); return; }
+    if (!isSupabaseReady()) { alert('데모 모드입니다.'); return; }
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) { alert('로그인이 필요합니다.'); switchView('login'); return; }
+    if (!currentVendorDetail || !currentVendorDetail.dbId) { alert('업체 정보 오류'); return; }
+
+    const btn = document.getElementById('qr-submit-btn');
+    btn.disabled = true; btn.textContent = '전송 중…';
+
+    // ① 요청서 생성
+    const { data: reqData, error: reqErr } = await supabaseClient
+      .from('quote_requests').insert({
+        owner_id: user.id,
+        title, region: region || null, usage_type: usage || null,
+        area_pyeong: pyeong ? parseFloat(pyeong) : null,
+        budget_min: bMin ? Math.round(parseFloat(bMin) * 100000000) : null,
+        budget_max: bMax ? Math.round(parseFloat(bMax) * 100000000) : null,
+        content
+      }).select().single();
+
+    if (reqErr) {
+      btn.disabled = false; btn.textContent = '견적 요청 보내기';
+      alert('요청 실패: ' + reqErr.message + '\n\n(quote_requests 테이블 생성 확인)');
+      return;
+    }
+
+    // ② 수신 업체 등록 (지금은 1개, 추후 여러 업체 확장)
+    const { error: rcptErr } = await supabaseClient
+      .from('quote_recipients').insert({
+        request_id: reqData.id,
+        supplier_id: currentVendorDetail.dbId
+      });
+
+    if (rcptErr) {
+      btn.disabled = false; btn.textContent = '견적 요청 보내기';
+      alert('수신 업체 등록 실패: ' + rcptErr.message);
+      return;
+    }
+
+    // ③ 시공사에게 알림
+    await createNotification(
+      currentVendorDetail.dbId, 'quote',
+      '새 견적 요청이 도착했습니다 · ' + title,
+      'console'
+    );
+
+    btn.disabled = false; btn.textContent = '견적 요청 보내기';
+    closeQuoteRequest();
+    alert('견적 요청을 보냈습니다.\n업체가 확인 후 응답하면 알림으로 알려드립니다.');
+  }
+
+  // 시공사: 견적 응답
+  async function openQuoteResponse(recipientId, title) {
+    const amountStr = prompt('"' + title + '" 견적 금액을 입력하세요. (억원 단위, 예: 28.5)');
+    if (amountStr === null) return;
+    const amount = parseFloat(amountStr.replace(/[^0-9.]/g, ''));
+    if (isNaN(amount) || amount <= 0) { alert('올바른 금액을 입력해 주세요.'); return; }
+    const note = prompt('견적 설명을 입력하세요. (선택)') || '';
+
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    // 수신행 업데이트
+    const { data: rcpt, error } = await supabaseClient
+      .from('quote_recipients')
+      .update({
+        status: 'responded',
+        response_amount: Math.round(amount * 100000000),
+        response_note: note,
+        responded_at: new Date().toISOString()
+      })
+      .eq('id', recipientId).select('*, quote_requests(*)').single();
+
+    if (error) { alert('응답 실패: ' + error.message); return; }
+
+    // 건축주에게 알림
+    if (rcpt && rcpt.quote_requests) {
+      const supplierName = (await supabaseClient.from('suppliers').select('company_name').eq('id', user.id).maybeSingle()).data?.company_name || '업체';
+      await createNotification(
+        rcpt.quote_requests.owner_id, 'quote',
+        supplierName + '에서 견적이 도착했습니다 · ' + amount + '억원',
+        'mypage'
+      );
+    }
+
+    alert('견적을 보냈습니다. 건축주에게 알림이 전송되었습니다.');
+    loadReceivedRequests();
+  }
   document.addEventListener('click', (e) => {
     const dd = document.getElementById('notif-dropdown');
     const wrap = document.querySelector('.header-notif-wrap');
@@ -16549,6 +16323,64 @@
     if (target) target.classList.add('active');
     if (section === 'portfolio' && typeof loadMyPortfolio === 'function') loadMyPortfolio();
     if (section === 'verify' && typeof loadVerifyStatus === 'function') loadVerifyStatus();
+    if (section === 'requests' && typeof loadReceivedRequests === 'function') loadReceivedRequests();
+  }
+
+  // 시공사: 받은 견적 요청 불러오기
+  async function loadReceivedRequests() {
+    const list = document.getElementById('spc-rq-list');
+    if (!list) return;
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</div>';
+
+    // 나에게 온 수신행 + 요청서 조인
+    const { data, error } = await supabaseClient
+      .from('quote_recipients')
+      .select('*, quote_requests(*)')
+      .eq('supplier_id', user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) { list.innerHTML = '<div style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패: ' + error.message + '</div>'; return; }
+
+    const rows = (data || []).filter(r => r.quote_requests);
+    const pending = rows.filter(r => r.status === 'pending').length;
+    const sub = document.getElementById('spc-rq-sub');
+    if (sub) sub.textContent = rows.length > 0 ? ('총 ' + rows.length + '건 · 미응답 ' + pending + '건') : '받은 견적 요청을 확인하세요';
+
+    if (rows.length === 0) {
+      list.innerHTML = '<div style="padding:40px 20px; text-align:center; color:var(--concrete);">받은 견적 요청이 없습니다.</div>';
+      return;
+    }
+
+    list.innerHTML = rows.map(r => {
+      const q = r.quote_requests;
+      const title = (q.title || '제목 없음').replace(/</g, '&lt;');
+      const meta = [q.region, q.usage_type, q.area_pyeong ? q.area_pyeong + '평' : ''].filter(Boolean).join(' · ');
+      const budget = (q.budget_min || q.budget_max)
+        ? '예산 ' + (q.budget_min ? (q.budget_min/100000000).toFixed(0) : '?') + '~' + (q.budget_max ? (q.budget_max/100000000).toFixed(0) : '?') + '억원'
+        : '';
+      const content = (q.content || '').replace(/</g, '&lt;');
+      const time = notifTimeAgo(r.created_at);
+      const statusTag = r.status === 'responded'
+        ? '<span class="adm-tag gold">응답완료</span>'
+        : r.status === 'declined' ? '<span class="adm-tag">거절</span>'
+        : '<span class="adm-tag" style="background:var(--vermilion); color:#fff;">미응답</span>';
+      const actionBtn = r.status === 'pending'
+        ? '<button class="auth-submit" style="margin-top:12px; max-width:200px;" onclick="openQuoteResponse(\'' + r.id + '\',\'' + title.replace(/'/g,"\\'") + '\')">견적 응답하기</button>'
+        : (r.response_amount ? '<div style="margin-top:10px; font-size:14px;">내 견적: <strong>' + (r.response_amount/100000000).toFixed(1) + '억원</strong></div>' : '');
+      return '<div class="spc-rq-card" style="margin-bottom:16px;">'
+        + '<div class="spc-rq-head"><div>'
+        + '<div class="spc-rq-title">' + title + ' ' + statusTag + '</div>'
+        + '<div class="spc-rq-customer">' + time + ' 도착 · 건축주 (정보 보호)</div>'
+        + '</div></div>'
+        + '<div style="font-size:13px; color:var(--concrete); margin:8px 0;">' + meta + (budget ? ' · ' + budget : '') + '</div>'
+        + '<div class="spc-rq-body">' + content + '</div>'
+        + actionBtn
+        + '</div>';
+    }).join('');
   }
 
   // =============== CHAT ===============
@@ -16791,7 +16623,9 @@
   }
 
   // 실제 업체 상세 페이지 렌더링
+  let currentVendorDetail = null;
   async function renderVendorDetail(v) {
+    currentVendorDetail = v;
     // 히어로 영역
     const setT = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
     setT('vd-breadcrumb', v.name);
@@ -17419,6 +17253,9 @@
     if (target) target.classList.add('active');
     if (section === 'verify' && typeof loadAdminVerifyList === 'function') loadAdminVerifyList();
     if (section === 'dashboard' && typeof updateAdminDashCount === 'function') updateAdminDashCount();
+    if (section === 'suppliers' && typeof loadAdminSuppliers === 'function') loadAdminSuppliers();
+    if (section === 'users' && typeof loadAdminUsers === 'function') loadAdminUsers();
+    if (section === 'content' && typeof loadAdminContent === 'function') loadAdminContent();
   }
 
   // 운영자 대시보드 검증 대기 건수 집계
@@ -17436,6 +17273,132 @@
       .from('suppliers').select('id', { count: 'exact', head: true });
     const supEl = document.getElementById('adm-supplier-total');
     if (supEl) supEl.innerHTML = (supTotal || 0) + '<small>개</small>';
+  }
+
+  // ===================== 백오피스: 공급자 관리 =====================
+  async function loadAdminSuppliers() {
+    const tbody = document.getElementById('adm-suppliers-tbody');
+    if (!tbody || !isSupabaseReady()) return;
+    tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</td></tr>';
+    const { data, error } = await supabaseClient.from('suppliers').select('*').order('created_at', { ascending: false });
+    if (error) { tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패</td></tr>'; return; }
+    if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="padding:30px; text-align:center; color:var(--concrete);">등록된 공급자가 없습니다.</td></tr>'; return; }
+    const tierLabels = { gold:'GOLD', silver:'SILVER', bronze:'BRONZE' };
+    const statusLabels = { verified:'검증완료', pending:'검토중', unverified:'미검증' };
+    tbody.innerHTML = data.map(s => {
+      const name = (s.company_name || '-').replace(/</g, '&lt;');
+      const biz = (s.business_no || '-').replace(/</g, '&lt;');
+      const status = statusLabels[s.verify_status] || '미검증';
+      const tier = s.verify_tier ? tierLabels[s.verify_tier] : '-';
+      const date = s.created_at ? s.created_at.slice(0,10) : '-';
+      const verified = s.biz_verified ? '✓' : '-';
+      return '<tr><td><strong>' + name + '</strong></td><td style="font-family:monospace; font-size:11px;">' + biz + '</td>'
+        + '<td>' + (s.category || '-') + '</td><td>' + status + (tier !== '-' ? ' (' + tier + ')' : '') + '</td>'
+        + '<td>' + verified + '</td><td>' + date + '</td></tr>';
+    }).join('');
+  }
+
+  // ===================== 백오피스: 사용자 관리 =====================
+  async function loadAdminUsers() {
+    const tbody = document.getElementById('adm-users-tbody');
+    if (!tbody || !isSupabaseReady()) return;
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</td></tr>';
+    // suppliers 외 일반 사용자는 auth.users 직접조회 불가 → suppliers 기준 + 안내
+    const { data } = await supabaseClient.from('suppliers').select('id, company_name, created_at').order('created_at', { ascending: false });
+    const rows = data || [];
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:16px; color:var(--concrete); font-size:12px;">※ 보안상 전체 가입자 목록은 Supabase 대시보드에서 확인하세요. 아래는 공급자 가입 현황입니다.</td></tr>'
+      + (rows.length === 0 ? '<tr><td colspan="5" style="padding:20px; text-align:center; color:var(--concrete);">데이터 없음</td></tr>'
+        : rows.map(s => '<tr><td style="font-family:monospace; font-size:11px;">' + s.id.slice(0,8) + '</td><td>' + (s.company_name||'-').replace(/</g,'&lt;') + '</td><td>공급자</td><td>' + (s.created_at ? s.created_at.slice(0,10) : '-') + '</td><td>활성</td></tr>').join(''));
+  }
+
+  // ===================== 백오피스: 콘텐츠(매거진) 관리 =====================
+  async function loadAdminContent() {
+    const tbody = document.getElementById('adm-content-tbody');
+    if (!tbody || !isSupabaseReady()) return;
+    tbody.innerHTML = '<tr><td colspan="7" style="padding:20px; text-align:center; color:var(--concrete);">불러오는 중…</td></tr>';
+    const { data, error } = await supabaseClient.from('articles').select('*').order('created_at', { ascending: false });
+    if (error) { tbody.innerHTML = '<tr><td colspan="7" style="padding:20px; text-align:center; color:var(--vermilion);">조회 실패 (articles 테이블 확인)</td></tr>'; return; }
+    const arts = data || [];
+    const sub = document.getElementById('adm-content-sub');
+    const published = arts.filter(a => a.status === 'published').length;
+    if (sub) sub.textContent = '전체 ' + arts.length + '개 · 발행 ' + published + '건';
+    if (arts.length === 0) { tbody.innerHTML = '<tr><td colspan="7" style="padding:30px; text-align:center; color:var(--concrete);">작성된 콘텐츠가 없습니다. "새 글 작성"으로 시작하세요.</td></tr>'; return; }
+    tbody.innerHTML = arts.map(a => {
+      const title = (a.title || '제목 없음').replace(/</g, '&lt;');
+      const statusTag = a.status === 'published'
+        ? '<span class="adm-tag gold">발행 중</span>'
+        : '<span class="adm-tag">초안</span>';
+      const date = a.published_at ? a.published_at.slice(0,10) : '—';
+      const toggleLabel = a.status === 'published' ? '내림' : '발행';
+      const toggleTo = a.status === 'published' ? 'draft' : 'published';
+      return '<tr><td><strong>' + title + '</strong></td><td>' + (a.category||'-') + '</td>'
+        + '<td>' + (a.author||'-') + '</td><td>' + date + '</td><td>' + (a.views||0) + '</td>'
+        + '<td>' + statusTag + '</td>'
+        + '<td><button class="adm-btn" style="font-size:11px;" onclick="editArticle(\'' + a.id + '\')">편집</button> '
+        + '<button class="adm-btn" style="font-size:11px;" onclick="toggleArticleStatus(\'' + a.id + '\',\'' + toggleTo + '\')">' + toggleLabel + '</button></td></tr>';
+    }).join('');
+  }
+
+  let _articleCache = [];
+  function openArticleEditor() {
+    document.getElementById('article-modal-title').textContent = '새 글 작성';
+    ['art-id','art-title','art-author','art-cover','art-summary','art-body'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    document.getElementById('art-category').value = '신축 가이드';
+    document.getElementById('article-modal-overlay').classList.add('open');
+  }
+  function closeArticleEditor() {
+    document.getElementById('article-modal-overlay').classList.remove('open');
+  }
+  async function editArticle(id) {
+    if (!isSupabaseReady()) return;
+    const { data } = await supabaseClient.from('articles').select('*').eq('id', id).single();
+    if (!data) { alert('글을 불러올 수 없습니다.'); return; }
+    document.getElementById('article-modal-title').textContent = '글 편집';
+    document.getElementById('art-id').value = data.id;
+    document.getElementById('art-title').value = data.title || '';
+    document.getElementById('art-category').value = data.category || '신축 가이드';
+    document.getElementById('art-author').value = data.author || '';
+    document.getElementById('art-cover').value = data.cover_url || '';
+    document.getElementById('art-summary').value = data.summary || '';
+    document.getElementById('art-body').value = data.body || '';
+    document.getElementById('article-modal-overlay').classList.add('open');
+  }
+  async function saveArticle(status) {
+    const id = document.getElementById('art-id').value;
+    const title = document.getElementById('art-title').value.trim();
+    if (!title) { alert('제목을 입력해 주세요.'); return; }
+    if (!isSupabaseReady()) { alert('데모 모드'); return; }
+
+    const payload = {
+      title,
+      category: document.getElementById('art-category').value,
+      author: document.getElementById('art-author').value.trim() || null,
+      cover_url: document.getElementById('art-cover').value.trim() || null,
+      summary: document.getElementById('art-summary').value.trim() || null,
+      body: document.getElementById('art-body').value.trim() || null,
+      status
+    };
+    if (status === 'published') payload.published_at = new Date().toISOString();
+
+    let res;
+    if (id) {
+      res = await supabaseClient.from('articles').update(payload).eq('id', id);
+    } else {
+      res = await supabaseClient.from('articles').insert(payload);
+    }
+    if (res.error) { alert('저장 실패: ' + res.error.message); return; }
+    closeArticleEditor();
+    alert(status === 'published' ? '발행되었습니다.' : '초안으로 저장되었습니다.');
+    loadAdminContent();
+  }
+  async function toggleArticleStatus(id, toStatus) {
+    if (!confirm(toStatus === 'published' ? '이 글을 발행하시겠습니까?' : '이 글을 내리시겠습니까? (초안으로 전환)')) return;
+    if (!isSupabaseReady()) return;
+    const payload = { status: toStatus };
+    if (toStatus === 'published') payload.published_at = new Date().toISOString();
+    const { error } = await supabaseClient.from('articles').update(payload).eq('id', id);
+    if (error) { alert('변경 실패: ' + error.message); return; }
+    loadAdminContent();
   }
 
   // =============== REVIEW WRITE — Big Rating ===============
@@ -19290,6 +19253,108 @@ ${vendorContext}
 </script>
 
 <!-- ===================== 포트폴리오 등록 모달 ===================== -->
+<div class="testmode-overlay" id="article-modal-overlay">
+  <div class="testmode-modal" style="max-width:560px; text-align:left;">
+    <h2 class="signup-step-title" style="margin-bottom:6px;" id="article-modal-title">새 글 작성</h2>
+    <p class="signup-step-sub" style="margin-bottom:20px;">매거진에 발행할 콘텐츠입니다.</p>
+    <input type="hidden" id="art-id">
+    <div class="auth-field">
+      <label class="auth-label">제목<span class="req">*</span></label>
+      <input type="text" class="auth-input" id="art-title" placeholder="예: 꼬마빌딩 신축, 평당 580만원이 적정한가">
+    </div>
+    <div style="display:flex; gap:10px;">
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">카테고리</label>
+        <select class="auth-input" id="art-category">
+          <option value="신축 가이드">신축 가이드</option>
+          <option value="법무·세무">법무·세무</option>
+          <option value="시장 데이터">시장 데이터</option>
+          <option value="인테리어">인테리어</option>
+          <option value="투자·금융">투자·금융</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">저자</label>
+        <input type="text" class="auth-input" id="art-author" placeholder="예: 리서치팀">
+      </div>
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">대표 이미지 URL</label>
+      <input type="text" class="auth-input" id="art-cover" placeholder="https://... (선택)">
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">요약</label>
+      <textarea class="auth-input" id="art-summary" rows="2" placeholder="한두 문장 요약" style="resize:vertical; font-family:inherit;"></textarea>
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">본문</label>
+      <textarea class="auth-input" id="art-body" rows="6" placeholder="본문 내용" style="resize:vertical; font-family:inherit;"></textarea>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="signup-btn-back" style="flex:1;" onclick="closeArticleEditor()">취소</button>
+      <button class="signup-btn-back" style="flex:1;" id="art-draft-btn" onclick="saveArticle('draft')">초안 저장</button>
+      <button class="auth-submit" style="flex:1.5; margin:0;" id="art-publish-btn" onclick="saveArticle('published')">발행하기</button>
+    </div>
+  </div>
+</div>
+
+<div class="testmode-overlay" id="quote-modal-overlay">
+  <div class="testmode-modal" style="max-width:520px; text-align:left;">
+    <h2 class="signup-step-title" style="margin-bottom:6px;">견적 요청</h2>
+    <p class="signup-step-sub" style="margin-bottom:20px;" id="quote-target-label">선택한 업체에 견적을 요청합니다.</p>
+
+    <div class="auth-field">
+      <label class="auth-label">요청 제목<span class="req">*</span></label>
+      <input type="text" class="auth-input" id="qr-title" placeholder="예: 강남 신사동 5층 상가 신축">
+    </div>
+    <div style="display:flex; gap:10px;">
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">위치</label>
+        <input type="text" class="auth-input" id="qr-region" placeholder="예: 서울 강남구">
+      </div>
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">용도</label>
+        <select class="auth-input" id="qr-usage">
+          <option value="">선택</option>
+          <option value="근린생활시설">근린생활시설</option>
+          <option value="단독주택">단독주택</option>
+          <option value="다세대·다가구">다세대·다가구</option>
+          <option value="공동주택">공동주택</option>
+          <option value="상가">상가</option>
+          <option value="오피스">오피스</option>
+          <option value="숙박시설">숙박시설</option>
+          <option value="공장·창고">공장·창고</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">면적 (평)</label>
+        <input type="text" class="auth-input" id="qr-pyeong" placeholder="예: 260" inputmode="decimal">
+      </div>
+      <div class="auth-field" style="flex:1;">
+        <label class="auth-label">예산 (억원)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input type="text" class="auth-input" id="qr-budget-min" placeholder="25" inputmode="decimal" style="margin:0;">
+          <span style="color:var(--concrete);">~</span>
+          <input type="text" class="auth-input" id="qr-budget-max" placeholder="30" inputmode="decimal" style="margin:0;">
+        </div>
+      </div>
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">상세 내용<span class="req">*</span></label>
+      <textarea class="auth-input" id="qr-content" rows="4" placeholder="공사 범위, 희망 일정, 특이사항 등을 자세히 적어주세요." style="resize:vertical; font-family:inherit;"></textarea>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="signup-btn-back" style="flex:1;" onclick="closeQuoteRequest()">취소</button>
+      <button class="auth-submit" style="flex:2; margin:0;" id="qr-submit-btn" onclick="submitQuoteRequest()">견적 요청 보내기</button>
+    </div>
+  </div>
+</div>
+
 <div class="testmode-overlay" id="portfolio-modal-overlay">
   <div class="testmode-modal" style="max-width:480px; text-align:left;">
     <h2 class="signup-step-title" style="margin-bottom:6px;">새 시공 사례 등록</h2>
