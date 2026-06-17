@@ -10016,22 +10016,22 @@
       <span class="sep">/</span>
       <button onclick="switchView('listing')">건축시공</button>
       <span class="sep">/</span>
-      <span class="current">정인종합건축(주)</span>
+      <span class="current" id="vd-breadcrumb">정인종합건축(주)</span>
     </div>
 
     <div class="vd-hero">
-      <img class="vd-hero-img" src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1600&q=80" alt="">
+      <img class="vd-hero-img" id="vd-hero-img" src="https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1600&q=80" alt="">
       <div class="vd-hero-overlay">
-        <div class="vd-hero-cat">건축시공 · GOLD 검증 · 서울 강남구</div>
-        <h1 class="vd-hero-name">정인종합건축<span style="font-family: 'Pretendard Variable', sans-serif; font-size: 0.5em; opacity: 0.7;">(주)</span></h1>
-        <div class="vd-badges">
+        <div class="vd-hero-cat" id="vd-hero-cat">건축시공 · GOLD 검증 · 서울 강남구</div>
+        <h1 class="vd-hero-name" id="vd-hero-name">정인종합건축<span style="font-family: 'Pretendard Variable', sans-serif; font-size: 0.5em; opacity: 0.7;">(주)</span></h1>
+        <div class="vd-badges" id="vd-hero-badges">
           <span class="badge badge-gold">GOLD VERIFIED</span>
           <span class="badge badge-premium">PREMIUM</span>
           <span class="badge badge-neutral">안심예치제</span>
           <span class="badge badge-neutral">하자보증보험</span>
           <span class="badge badge-neutral">3D 도면</span>
         </div>
-        <p style="color: rgba(245,239,230,0.85); font-size: 15px; max-width: 720px; line-height: 1.6;">
+        <p id="vd-hero-desc" style="color: rgba(245,239,230,0.85); font-size: 15px; max-width: 720px; line-height: 1.6;">
           강남권 근린상가 및 점포겸용주택 시공 전문. 디자인 강한 입면 설계와 정밀한 공정 관리로 합리적인 단가에 고품질 결과물을 제공합니다.
         </p>
       </div>
@@ -10051,7 +10051,7 @@
         <div class="vd-tab-content" id="tab-about">
           <div class="vd-section">
             <h2>회사 소개</h2>
-            <p class="vd-about-text">
+            <p class="vd-about-text" id="vd-about-text">
               정인종합건축(주)는 2012년 설립된 강남권 중소형 건축 시공 전문 업체입니다. 13년간 142건의 신축 및 리모델링 프로젝트를 완료했으며, 그 중 89%가 근린생활시설(상가, 점포겸용주택) 영역입니다. 평균 평당 단가는 580만원 수준으로 강남권 시공사 중 합리적인 가격대에 위치합니다.
               <br><br>
               디자인이 강한 입면 설계가 강점이며, 자체 설계팀과 협력 설계사무소를 통해 도면 단계부터 시공 효율성을 함께 검토합니다. 모든 프로젝트에서 BIM(Building Information Modeling)을 활용해 시공 오차를 최소화하고 공기를 단축합니다.
@@ -10104,9 +10104,9 @@
         <!-- PORTFOLIO TAB -->
         <div class="vd-tab-content" id="tab-portfolio" style="display:none;">
           <div class="vd-section">
-            <h2>주요 시공 사례<span class="count-small">총 12건</span></h2>
+            <h2>주요 시공 사례<span class="count-small" id="vd-portfolio-count">총 12건</span></h2>
             <p style="color: var(--concrete); margin-bottom: 24px; font-size: 14px;">최근 5년간 완공된 대표 프로젝트입니다. 각 사례를 클릭하면 상세 정보(공종 구성·자재 사양·시공 과정)를 확인할 수 있습니다.</p>
-            <div class="portfolio-grid">
+            <div class="portfolio-grid" id="vd-portfolio-grid">
               <div class="portfolio-item">
                 <div class="portfolio-img-wrap"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt=""></div>
                 <div class="portfolio-body">
@@ -13707,62 +13707,8 @@
                   <th>액션</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">V-2026-0518-A</td>
-                  <td><strong>대한건설산업(주)</strong></td>
-                  <td><span class="adm-tag silver">SILVER</span> → <span class="adm-tag gold">GOLD</span></td>
-                  <td>2026.05.18</td>
-                  <td>현장 실사 + 재무 평가</td>
-                  <td>
-                    <button class="adm-btn success" onclick="alert('승인 처리 — 실사 일정을 잡습니다.')">검토</button>
-                    <button class="adm-btn danger" onclick="alert('반려 사유 입력 페이지로 이동')">반려</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">V-2026-0518-B</td>
-                  <td><strong>서일종합건설(주)</strong></td>
-                  <td><span class="adm-tag bronze">BRONZE</span> → <span class="adm-tag silver">SILVER</span></td>
-                  <td>2026.05.18</td>
-                  <td>실적 검증 + 인터뷰</td>
-                  <td>
-                    <button class="adm-btn success" onclick="alert('Silver 검증 승인 처리')">승인</button>
-                    <button class="adm-btn danger" onclick="alert('반려 사유 입력')">반려</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">V-2026-0517-C</td>
-                  <td><strong>이지안건축사사무소</strong></td>
-                  <td><span class="adm-tag gold">GOLD</span> 갱신</td>
-                  <td>2026.05.17</td>
-                  <td>연간 정기 실사 (Gold 1년차)</td>
-                  <td>
-                    <button class="adm-btn" onclick="alert('정기 실사 일정 잡기')">일정</button>
-                    <button class="adm-btn primary" onclick="alert('자동 갱신 처리')">갱신</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">V-2026-0517-D</td>
-                  <td><strong>한솔건축(주)</strong></td>
-                  <td><span class="adm-tag silver">SILVER</span> → <span class="adm-tag gold">GOLD</span></td>
-                  <td>2026.05.17</td>
-                  <td>현장 실사 + 재무 평가</td>
-                  <td>
-                    <button class="adm-btn success" onclick="alert('검토 처리')">검토</button>
-                    <button class="adm-btn danger" onclick="alert('반려 처리')">반려</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: 'JetBrains Mono', monospace;">V-2026-0516-E</td>
-                  <td><strong>모던인테리어</strong></td>
-                  <td>신규 <span class="adm-tag bronze">BRONZE</span></td>
-                  <td>2026.05.16</td>
-                  <td>서류 검증 + 사업자 확인</td>
-                  <td>
-                    <button class="adm-btn success" onclick="alert('Bronze 자동 승인 처리')">승인</button>
-                    <button class="adm-btn danger" onclick="alert('반려 처리')">반려</button>
-                  </td>
-                </tr>
+              <tbody id="adm-verify-tbody">
+                <tr><td colspan="6" style="padding:30px; text-align:center; color:var(--concrete);">검증 관리 메뉴를 열면 신청 목록을 불러옵니다.</td></tr>
               </tbody>
             </table>
           </div>
@@ -14634,7 +14580,7 @@
       <div id="pa-step-supplier" style="display:none;">
         <div class="auth-field">
           <label class="auth-label">업체명(상호)<span class="req">*</span></label>
-          <input type="text" class="auth-input" id="sp-company" placeholder="예: 정인종합건축(주)">
+          <input type="text" class="auth-input" id="sp-company" placeholder="업체명을 입력하세요">
         </div>
         <div class="auth-field">
           <label class="auth-label">대표 전문분야<span class="req">*</span></label>
@@ -14654,7 +14600,20 @@
         <div class="auth-field">
           <label class="auth-label">사업자등록번호<span class="req">*</span></label>
           <input type="text" class="auth-input" id="sp-bizno" placeholder="000-00-00000" inputmode="numeric">
+          <div id="sp-bizno-result" style="font-size:12px; margin-top:5px; display:none;"></div>
         </div>
+        <div style="display:flex; gap:10px; align-items:flex-end;">
+          <div class="auth-field" style="flex:1; margin-bottom:0;">
+            <label class="auth-label">대표자명<span class="req">*</span></label>
+            <input type="text" class="auth-input" id="sp-verify-ceo" placeholder="홍길동">
+          </div>
+          <div class="auth-field" style="flex:1; margin-bottom:0;">
+            <label class="auth-label">개업일자<span class="req">*</span></label>
+            <input type="text" class="auth-input" id="sp-startdt" placeholder="20200101" inputmode="numeric" maxlength="8">
+          </div>
+        </div>
+        <button type="button" class="auth-submit" id="sp-verify-btn" style="margin-top:10px; background:var(--white); color:var(--ink); border:1px solid var(--rule-strong);" onclick="verifyBizno()">국세청 사업자 진위확인</button>
+        <div style="font-size:11px; color:var(--concrete); margin:6px 0 0; line-height:1.5;">사업자등록번호·대표자명·개업일자가 국세청에 등록된 정보와 일치하는지 확인합니다.</div>
         <div style="margin:18px 0 10px; padding-top:14px; border-top:1px solid var(--rule);">
           <span style="font-size:12px; font-weight:700; color:var(--concrete); letter-spacing:0.05em;">선택 정보 (나중에 마이페이지에서 입력 가능)</span>
         </div>
@@ -16772,14 +16731,98 @@
   }
 
   function goVendor(id) {
-    // 실제 DB 업체는 아직 상세 페이지 미연동 (v30 예정) → 임시 안내
+    // 실제 DB 업체 → 상세 페이지를 DB 데이터로 채움
     if (typeof id === 'string' && id.startsWith('db_')) {
       const v = dbVendors.find(x => x.id === id);
-      alert((v ? v.name : '신규 업체') + '\n\n실제 등록 업체입니다. 상세 페이지는 준비 중입니다.\n(' + (v ? v.region : '') + ')');
-      return;
+      if (v) { renderVendorDetail(v); return; }
     }
+    // 가짜 샘플 업체 → 원본 하드코딩 값 복원 후 표시
+    restoreSampleVendorDetail();
     switchView('vendor');
     setTimeout(drawBigRadar, 50);
+  }
+
+  // 가짜 샘플 상세 원본 복원 (실제 업체가 덮어쓴 경우 대비)
+  const _sampleVendorHTML = {};
+  function snapshotSampleVendor() {
+    ['vd-breadcrumb','vd-hero-cat','vd-hero-name','vd-hero-desc','vd-hero-badges','vd-about-text','vd-portfolio-count','vd-portfolio-grid'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && _sampleVendorHTML[id] === undefined) _sampleVendorHTML[id] = el.innerHTML;
+    });
+  }
+  function restoreSampleVendorDetail() {
+    Object.keys(_sampleVendorHTML).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = _sampleVendorHTML[id];
+    });
+    const heroImg = document.getElementById('vd-hero-img');
+    if (heroImg) heroImg.src = 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1600&q=80';
+  }
+
+  // 실제 업체 상세 페이지 렌더링
+  async function renderVendorDetail(v) {
+    // 히어로 영역
+    const setT = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    setT('vd-breadcrumb', v.name);
+    setT('vd-hero-cat', [v.cat, tierLabel(v.tier) + ' 검증', v.region].filter(Boolean).join(' · '));
+    const nameEl = document.getElementById('vd-hero-name');
+    if (nameEl) nameEl.textContent = v.name;
+    setT('vd-hero-desc', v.desc || '');
+    const heroImg = document.getElementById('vd-hero-img');
+    if (heroImg && v.img) heroImg.src = v.img.replace('w=800', 'w=1600');
+
+    // 뱃지 (검증 상태 기반)
+    const badges = document.getElementById('vd-hero-badges');
+    if (badges) {
+      badges.innerHTML = '<span class="badge ' + tierBadgeClass(v.tier) + '">' + tierLabel(v.tier) + '</span>'
+        + (v.specialty ? '<span class="badge badge-neutral">' + v.specialty + '</span>' : '');
+    }
+
+    // 회사 소개
+    const about = document.getElementById('vd-about-text');
+    if (about) about.textContent = v.desc || (v.name + ' — 짓고 등록 업체입니다.');
+
+    // 시공 사례(포트폴리오) — DB에서 이 업체 것만
+    await renderVendorPortfolio(v.dbId);
+
+    switchView('vendor');
+    setTimeout(drawBigRadar, 50);
+  }
+
+  // 업체 상세의 시공사례 탭 — DB 포트폴리오로 채움
+  async function renderVendorPortfolio(supplierId) {
+    const grid = document.getElementById('vd-portfolio-grid');
+    const countEl = document.getElementById('vd-portfolio-count');
+    if (!grid) return;
+    grid.innerHTML = '<p style="color:var(--concrete); padding:20px;">불러오는 중…</p>';
+
+    if (!isSupabaseReady()) { grid.innerHTML = ''; return; }
+    const { data, error } = await supabaseClient
+      .from('products').select('*').eq('supplier_id', supplierId)
+      .order('created_at', { ascending: false });
+
+    if (error || !data || data.length === 0) {
+      if (countEl) countEl.textContent = '총 0건';
+      grid.innerHTML = '<p style="color:var(--concrete); padding:20px 0;">아직 등록된 시공 사례가 없습니다.</p>';
+      return;
+    }
+    if (countEl) countEl.textContent = '총 ' + data.length + '건';
+
+    grid.innerHTML = data.map(p => {
+      const title = (p.company_name || '제목 없음').replace(/</g, '&lt;');
+      const info = [];
+      if (p.region)         info.push('<strong>위치</strong> ' + p.region.replace(/</g,'&lt;'));
+      if (p.area_pyeong)    info.push('<strong>규모</strong> 연면적 ' + p.area_pyeong + '평');
+      if (p.cost_amount)    info.push('<strong>공사비</strong> 약 ' + (p.cost_amount/100000000).toFixed(1) + '억원');
+      const meta = [p.category, p.completed_year ? p.completed_year + ' 완공' : ''].filter(Boolean).join(' · ');
+      return '<div class="portfolio-item">' +
+        '<div class="portfolio-img-wrap"><img src="' + (p.image_url||'') + '" alt="" onerror="this.style.opacity=0.3"></div>' +
+        '<div class="portfolio-body">' +
+          '<div class="portfolio-meta">' + (meta || '시공 사례') + '</div>' +
+          '<div class="portfolio-title">' + title + '</div>' +
+          '<p class="portfolio-info">' + info.join('<br>') + '</p>' +
+        '</div></div>';
+    }).join('');
   }
 
   function bindCategoryNav() {
@@ -16983,6 +17026,53 @@
   }
 
   // ─── 시공사 업체 정보 저장 ───
+  // ─── 국세청 사업자 진위확인 ───
+  let bizVerified = false;
+  async function verifyBizno() {
+    const bno   = document.getElementById('sp-bizno').value.replace(/[^0-9]/g, '');
+    const ceo   = document.getElementById('sp-verify-ceo').value.trim();
+    const start = document.getElementById('sp-startdt').value.replace(/[^0-9]/g, '');
+    const result = document.getElementById('sp-bizno-result');
+
+    if (bno.length !== 10) { alert('사업자등록번호 10자리를 정확히 입력해 주세요.'); return; }
+    if (!ceo) { alert('대표자명을 입력해 주세요.'); return; }
+    if (start.length !== 8) { alert('개업일자를 YYYYMMDD 형식 8자리로 입력해 주세요. (예: 20200101)'); return; }
+
+    const btn = document.getElementById('sp-verify-btn');
+    btn.disabled = true; btn.textContent = '확인 중…';
+    result.style.display = 'block';
+    result.style.color = 'var(--concrete)';
+    result.textContent = '국세청에 조회 중입니다…';
+
+    try {
+      const res = await fetch('/api/verify-bizno', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ b_no: bno, p_nm: ceo, start_dt: start })
+      });
+      const data = await res.json();
+      btn.disabled = false; btn.textContent = '국세청 사업자 진위확인';
+
+      if (res.ok && data.valid) {
+        bizVerified = true;
+        result.style.color = 'var(--green, #2E7D32)';
+        result.textContent = '✓ 국세청 확인 완료 — 정상 등록된 사업자입니다.';
+        // 대표자명을 선택정보 칸에도 자동 반영
+        const ceoField = document.getElementById('sp-ceo');
+        if (ceoField && !ceoField.value) ceoField.value = ceo;
+      } else {
+        bizVerified = false;
+        result.style.color = 'var(--vermilion)';
+        result.textContent = '✗ 일치하지 않습니다. 사업자번호·대표자명·개업일자를 다시 확인해 주세요.';
+      }
+    } catch (e) {
+      btn.disabled = false; btn.textContent = '국세청 사업자 진위확인';
+      bizVerified = false;
+      result.style.color = 'var(--vermilion)';
+      result.textContent = '확인 중 오류가 발생했습니다: ' + e.message;
+    }
+  }
+
   async function paSaveSupplier() {
     const company  = document.getElementById('sp-company').value.trim();
     const category = document.getElementById('sp-category').value;
@@ -16990,6 +17080,12 @@
     if (!company)  { alert('업체명을 입력해 주세요.'); return; }
     if (!category) { alert('대표 전문분야를 선택해 주세요.'); return; }
     if (!bizno)    { alert('사업자등록번호를 입력해 주세요.'); return; }
+
+    // 진위확인 미완료 시 안내 (가입은 허용하되 권장)
+    if (!bizVerified) {
+      const go = confirm('국세청 사업자 진위확인을 아직 완료하지 않았습니다.\n\n확인 없이 계속 진행하시겠습니까?\n(나중에 마이페이지에서 확인할 수 있습니다.)');
+      if (!go) return;
+    }
 
     const btn = document.getElementById('pa-supplier-btn');
     btn.disabled = true; btn.textContent = '저장 중…';
@@ -17007,6 +17103,7 @@
           address: document.getElementById('sp-address').value.trim() || null,
           biz_type: document.getElementById('sp-biztype').value.trim() || null,
           capital: capRaw ? parseInt(capRaw, 10) : null,
+          biz_verified: bizVerified,
           verify_status: 'unverified'
         };
         const { error } = await supabaseClient.from('suppliers').upsert(payload, { onConflict: 'id' });
@@ -17095,6 +17192,12 @@
     document.getElementById('pa-step-otp').style.display = 'none';
     const acc = document.getElementById('pa-step-account'); if (acc) acc.style.display = 'none';
     const sup = document.getElementById('pa-step-supplier'); if (sup) sup.style.display = 'none';
+    bizVerified = false;
+    ['sp-company','sp-bizno','sp-verify-ceo','sp-startdt','sp-ceo','sp-address','sp-biztype','sp-capital'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    const spCat = document.getElementById('sp-category'); if (spCat) spCat.value = '';
+    const bnoRes = document.getElementById('sp-bizno-result'); if (bnoRes) bnoRes.style.display = 'none';
     document.getElementById('pa-step-done').style.display = 'none';
     document.getElementById('pa-title').style.display = '';
     document.getElementById('pa-title').innerHTML = '휴대폰으로<br><em>간편 가입</em>';
@@ -17176,6 +17279,7 @@
     if (phoneEl) phoneEl.textContent = phone;
   }
   window.addEventListener('load', () => { setTimeout(updateHeaderAuth, 500); });
+  window.addEventListener('load', () => { setTimeout(() => { if (typeof snapshotSampleVendor === 'function') snapshotSampleVendor(); }, 300); });
   window.addEventListener('load', () => {
     setTimeout(() => {
       if (supabaseClient) {
@@ -17196,19 +17300,29 @@
   });
 
   // =============== ADMIN AUTH ===============
-  function adminLogin() {
+  async function adminLogin() {
     const id = document.getElementById('adm-login-id').value.trim();
     const pw = document.getElementById('adm-login-pw').value;
-    const otp = document.getElementById('adm-login-otp').value.trim();
-    if (!id || !pw) { alert('운영자 아이디와 비밀번호를 입력해주세요.'); return; }
-    if (otp.length !== 6) { alert('OTP 6자리 코드를 입력해주세요.\n\n(데모: 아무 6자리 숫자 입력 후 로그인)'); return; }
-    // Demo: accept any input
-    alert('✓ 로그인 성공\n\n환영합니다, M:Tiger 운영자님.\n세션이 30분간 유지됩니다.');
+    if (!id || !pw) { alert('운영자 이메일과 비밀번호를 입력해주세요.'); return; }
+    if (!isSupabaseReady()) { alert('데모 모드: Supabase 연결 후 작동합니다.'); return; }
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email: id, password: pw });
+    if (error) { alert('로그인 실패: ' + error.message); return; }
+    const { data: adminRow } = await supabaseClient
+      .from('admin_users').select('email').eq('email', id).maybeSingle();
+    if (!adminRow) {
+      await supabaseClient.auth.signOut();
+      alert('운영자 권한이 없는 계정입니다.\n관리자에게 문의하세요.');
+      return;
+    }
+    await updateHeaderAuth();
     switchView('admin');
+    switchAdmSection('verify');
   }
 
-  function adminLogout() {
+  async function adminLogout() {
     if (!confirm('운영자 세션을 종료하시겠습니까?')) return;
+    if (isSupabaseReady()) await supabaseClient.auth.signOut();
+    await updateHeaderAuth();
     switchView('admin-login');
   }
 
@@ -17218,6 +17332,7 @@
     document.querySelectorAll('.adm-section').forEach(s => s.classList.remove('active'));
     const target = document.getElementById('adm-sec-' + section);
     if (target) target.classList.add('active');
+    if (section === 'verify' && typeof loadAdminVerifyList === 'function') loadAdminVerifyList();
   }
 
   // =============== REVIEW WRITE — Big Rating ===============
@@ -19273,6 +19388,96 @@ ${vendorContext}
       else if (data.verify_status === 'pending')  desc.textContent = '서류 검토 중입니다. 결과는 알림으로 안내됩니다.';
       else                                        desc.textContent = '서류를 제출하고 검증을 신청하세요.';
     }
+  }
+
+  // ===================== 운영자 백오피스 — 검증 관리 =====================
+  async function loadAdminVerifyList() {
+    const tbody = document.getElementById('adm-verify-tbody');
+    if (!tbody) return;
+    if (!isSupabaseReady()) { tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;">데모 모드</td></tr>'; return; }
+
+    tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--concrete);">불러오는 중…</td></tr>';
+
+    // 검토중(pending) 공급자 목록
+    const { data, error } = await supabaseClient
+      .from('suppliers').select('*')
+      .eq('verify_status', 'pending')
+      .order('updated_at', { ascending: true });
+
+    if (error) { tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--vermilion);">조회 실패: ' + error.message + '</td></tr>'; return; }
+
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="padding:30px;text-align:center;color:var(--concrete);">검토 대기 중인 신청이 없습니다.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.map(s => {
+      const company = (s.company_name || '-').replace(/</g, '&lt;');
+      const bizno = (s.business_no || '-').replace(/</g, '&lt;');
+      const date = s.updated_at ? s.updated_at.slice(0,10) : '-';
+      const verified = s.biz_verified ? '<span class="adm-tag gold">진위✓</span>' : '<span class="adm-tag">미확인</span>';
+      return '<tr>' +
+        '<td style="font-family:monospace; font-size:11px;">' + s.id.slice(0,8) + '</td>' +
+        '<td><strong>' + company + '</strong><br><span style="font-size:11px;color:var(--concrete);">' + bizno + ' ' + verified + '</span></td>' +
+        '<td><span class="adm-tag">미검증</span> → <select id="tier-' + s.id + '" class="auth-input" style="width:auto;padding:4px 8px;font-size:11px;display:inline-block;"><option value="bronze">BRONZE</option><option value="silver">SILVER</option><option value="gold">GOLD</option></select></td>' +
+        '<td>' + date + '</td>' +
+        '<td><button class="adm-btn" style="font-size:11px;" onclick="adminViewDocs(\'' + s.id + '\')">서류 보기</button></td>' +
+        '<td>' +
+          '<button class="adm-btn success" onclick="adminApprove(\'' + s.id + '\')">승인</button> ' +
+          '<button class="adm-btn danger" onclick="adminReject(\'' + s.id + '\')">반려</button>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // 제출 서류 목록 보기
+  async function adminViewDocs(supplierId) {
+    if (!isSupabaseReady()) return;
+    const { data, error } = await supabaseClient
+      .from('supplier_documents').select('*').eq('supplier_id', supplierId)
+      .order('uploaded_at', { ascending: false });
+    if (error) { alert('서류 조회 실패: ' + error.message); return; }
+    if (!data || data.length === 0) { alert('제출된 서류가 없습니다.'); return; }
+
+    const typeLabels = { biz_license:'사업자등록증', const_license:'건설업등록증/면허', insurance:'4대보험', portfolio_doc:'시공실적' };
+    let msg = '제출 서류 (' + data.length + '건):\n\n';
+    for (const d of data) {
+      msg += '· ' + (typeLabels[d.doc_type] || d.doc_type) + '\n';
+    }
+    msg += '\n파일은 Supabase → Storage → supplier-docs → ' + supplierId.slice(0,8) + '... 폴더에서 확인하세요.';
+    alert(msg);
+  }
+
+  // 검증 승인
+  async function adminApprove(supplierId) {
+    const tier = document.getElementById('tier-' + supplierId)?.value || 'bronze';
+    if (!confirm('이 업체를 ' + tier.toUpperCase() + ' 등급으로 검증 승인하시겠습니까?')) return;
+    if (!isSupabaseReady()) return;
+
+    const { error } = await supabaseClient.from('suppliers')
+      .update({ verify_status: 'verified', verify_tier: tier })
+      .eq('id', supplierId);
+    if (error) { alert('승인 실패: ' + error.message + '\n\n(운영자 권한이 있는지 admin_setup.sql 확인)'); return; }
+
+    await supabaseClient.from('supplier_documents')
+      .update({ status: 'approved' }).eq('supplier_id', supplierId);
+
+    alert('검증 승인 완료 (' + tier.toUpperCase() + ')');
+    loadAdminVerifyList();
+  }
+
+  // 검증 반려
+  async function adminReject(supplierId) {
+    if (!confirm('이 신청을 반려하시겠습니까? (미검증 상태로 되돌립니다)')) return;
+    if (!isSupabaseReady()) return;
+    const { error } = await supabaseClient.from('suppliers')
+      .update({ verify_status: 'unverified', verify_tier: null })
+      .eq('id', supplierId);
+    if (error) { alert('반려 실패: ' + error.message); return; }
+    await supabaseClient.from('supplier_documents')
+      .update({ status: 'rejected' }).eq('supplier_id', supplierId);
+    alert('반려 처리되었습니다.');
+    loadAdminVerifyList();
   }
 
   // ===================== 현장 검색 (SITE SEARCH) =====================
