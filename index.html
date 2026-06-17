@@ -10677,12 +10677,12 @@
         </div>
         <nav class="mp-nav">
           <button class="mp-nav-item active" data-spc="dashboard" onclick="switchSpcSection('dashboard')">대시보드</button>
-          <button class="mp-nav-item" data-spc="requests" onclick="switchSpcSection('requests')">받은 견적 요청<span class="mp-nav-badge">8</span></button>
+          <button class="mp-nav-item" data-spc="requests" onclick="switchSpcSection('requests')">받은 견적 요청</button>
           <button class="mp-nav-item" data-spc="quotes" onclick="switchSpcSection('quotes')">보낸 견적서</button>
           <div class="mp-nav-divider"></div>
           <button class="mp-nav-item" data-spc="profile" onclick="switchSpcSection('profile')">회사 프로필</button>
           <button class="mp-nav-item" data-spc="portfolio" onclick="switchSpcSection('portfolio')">포트폴리오 관리</button>
-          <button class="mp-nav-item" data-spc="reviews" onclick="switchSpcSection('reviews')">받은 후기<span class="mp-nav-badge">2</span></button>
+          <button class="mp-nav-item" data-spc="reviews" onclick="switchSpcSection('reviews')">받은 후기</button>
           <div class="mp-nav-divider"></div>
           <button class="mp-nav-item" data-spc="verify" onclick="switchSpcSection('verify')">검증 신청</button>
           <button class="mp-nav-item" data-spc="membership" onclick="switchSpcSection('membership')">멤버십 / 결제</button>
@@ -11281,9 +11281,9 @@
           <button class="mp-nav-item active" data-mp="dashboard" onclick="switchMpSection('dashboard')">대시보드</button>
           <button class="mp-nav-item" data-mp="profile" onclick="switchMpSection('profile')">내 정보</button>
           <div class="mp-nav-divider"></div>
-          <button class="mp-nav-item" data-mp="quotes-sent" onclick="switchMpSection('quotes-sent')">견적 요청 내역<span class="mp-nav-badge">3</span></button>
-          <button class="mp-nav-item" data-mp="quotes-received" onclick="switchMpSection('quotes-received')">받은 견적<span class="mp-nav-badge">7</span></button>
-          <button class="mp-nav-item" data-mp="projects" onclick="switchMpSection('projects')">진행 프로젝트<span class="mp-nav-badge">1</span></button>
+          <button class="mp-nav-item" data-mp="quotes-sent" onclick="switchMpSection('quotes-sent')">견적 요청 내역</button>
+          <button class="mp-nav-item" data-mp="quotes-received" onclick="switchMpSection('quotes-received')">받은 견적</button>
+          <button class="mp-nav-item" data-mp="projects" onclick="switchMpSection('projects')">진행 프로젝트</button>
           <button class="mp-nav-item" data-mp="escrow" onclick="switchMpSection('escrow')">결제·정산</button>
           <button class="mp-nav-item" data-mp="receipt" onclick="switchView('receipt')">영수증·세금계산서</button>
           <button class="mp-nav-item" data-mp="archive" onclick="switchMpSection('archive')">자료 보관함</button>
@@ -11293,7 +11293,7 @@
           <button class="mp-nav-item" data-mp="compare-list" onclick="switchMpSection('compare-list')">비교함</button>
           <button class="mp-nav-item" data-mp="reviews" onclick="switchMpSection('reviews')">작성한 후기</button>
           <div class="mp-nav-divider"></div>
-          <button class="mp-nav-item" data-mp="notifications" onclick="switchMpSection('notifications')">알림<span class="mp-nav-badge">12</span></button>
+          <button class="mp-nav-item" data-mp="notifications" onclick="switchMpSection('notifications')">알림</button>
           <button class="mp-nav-item" data-mp="referral" onclick="switchView('referral')">친구 초대<span class="mp-nav-badge" style="background: linear-gradient(135deg, #D4AF37 0%, #8B6914 100%);">★</span></button>
           <button class="mp-nav-item" data-mp="settings" onclick="switchMpSection('settings')">설정</button>
         </nav>
@@ -13591,8 +13591,8 @@
         <nav class="adm-nav" id="adm-nav">
           <button class="adm-nav-item active" data-adm="dashboard" onclick="switchAdmSection('dashboard')">대시보드</button>
           <div class="adm-nav-divider"></div>
-          <button class="adm-nav-item" data-adm="verify" onclick="switchAdmSection('verify')">검증 관리<span class="adm-nav-badge">12</span></button>
-          <button class="adm-nav-item" data-adm="dispute" onclick="switchAdmSection('dispute')">분쟁 중재<span class="adm-nav-badge">3</span></button>
+          <button class="adm-nav-item" data-adm="verify" onclick="switchAdmSection('verify')">검증 관리<span class="adm-nav-badge" id="adm-verify-count" style="display:none;">0</span></button>
+          <button class="adm-nav-item" data-adm="dispute" onclick="switchAdmSection('dispute')">분쟁 중재</button>
           <button class="adm-nav-item" data-adm="suppliers" onclick="switchAdmSection('suppliers')">공급자 관리</button>
           <button class="adm-nav-item" data-adm="users" onclick="switchAdmSection('users')">사용자 관리</button>
           <div class="adm-nav-divider"></div>
@@ -13638,18 +13638,18 @@
           <div class="adm-stat-grid" style="grid-template-columns: repeat(3, 1fr);">
             <div class="adm-stat" style="background: var(--vermilion-light); border-color: rgba(196,74,44,0.2);">
               <div class="adm-stat-eyebrow" style="color: var(--vermilion);">⚠ 검증 대기</div>
-              <div class="adm-stat-val">12<small>건</small></div>
+              <div class="adm-stat-val" id="adm-dash-verify">0<small>건</small></div>
               <div class="adm-stat-trend" style="color: var(--vermilion);">처리 필요</div>
             </div>
-            <div class="adm-stat" style="background: var(--vermilion-light); border-color: rgba(196,74,44,0.2);">
-              <div class="adm-stat-eyebrow" style="color: var(--vermilion);">⚠ 분쟁 대기</div>
-              <div class="adm-stat-val">3<small>건</small></div>
-              <div class="adm-stat-trend" style="color: var(--vermilion);">긴급</div>
+            <div class="adm-stat" style="background: var(--hanji-soft);">
+              <div class="adm-stat-eyebrow">분쟁 중재</div>
+              <div class="adm-stat-val" style="color:var(--concrete);">준비중</div>
+              <div class="adm-stat-trend">Phase 4</div>
             </div>
             <div class="adm-stat" style="background: var(--hanji-soft);">
               <div class="adm-stat-eyebrow">에스크로 보관 자금</div>
-              <div class="adm-stat-val">23.4<small>억</small></div>
-              <div class="adm-stat-trend">18개 프로젝트</div>
+              <div class="adm-stat-val" style="color:var(--concrete);">준비중</div>
+              <div class="adm-stat-trend">결제 연동 후</div>
             </div>
           </div>
 
@@ -13685,7 +13685,7 @@
             <div>
               <div class="adm-section-eyebrow">VERIFICATION REVIEW · 검증 승인</div>
               <h2 class="adm-section-title">검증 <em>관리</em></h2>
-              <div class="adm-section-sub">신청 대기 12건 · 평균 처리 기간 2.3일</div>
+              <div class="adm-section-sub" id="adm-verify-sub">신청 대기 건수를 불러옵니다…</div>
             </div>
             <select class="auth-input" style="width: auto; padding: 8px 14px; font-size: 12px;">
               <option>전체</option>
@@ -17382,6 +17382,19 @@
     const target = document.getElementById('adm-sec-' + section);
     if (target) target.classList.add('active');
     if (section === 'verify' && typeof loadAdminVerifyList === 'function') loadAdminVerifyList();
+    if (section === 'dashboard' && typeof updateAdminDashCount === 'function') updateAdminDashCount();
+  }
+
+  // 운영자 대시보드 검증 대기 건수 집계
+  async function updateAdminDashCount() {
+    if (!isSupabaseReady()) return;
+    const { count } = await supabaseClient
+      .from('suppliers').select('id', { count: 'exact', head: true })
+      .eq('verify_status', 'pending');
+    const el = document.getElementById('adm-dash-verify');
+    if (el) el.innerHTML = (count || 0) + '<small>건</small>';
+    const badge = document.getElementById('adm-verify-count');
+    if (badge) { badge.textContent = count || 0; badge.style.display = (count > 0) ? '' : 'none'; }
   }
 
   // =============== REVIEW WRITE — Big Rating ===============
@@ -19454,6 +19467,13 @@ ${vendorContext}
       .order('updated_at', { ascending: true });
 
     if (error) { tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--vermilion);">조회 실패: ' + error.message + '</td></tr>'; return; }
+
+    // 실제 대기 건수로 뱃지·서브텍스트 갱신
+    const count = (data || []).length;
+    const badge = document.getElementById('adm-verify-count');
+    if (badge) { badge.textContent = count; badge.style.display = count > 0 ? '' : 'none'; }
+    const sub = document.getElementById('adm-verify-sub');
+    if (sub) sub.textContent = count > 0 ? ('신청 대기 ' + count + '건') : '검토 대기 중인 신청이 없습니다';
 
     if (!data || data.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" style="padding:30px;text-align:center;color:var(--concrete);">검토 대기 중인 신청이 없습니다.</td></tr>';
