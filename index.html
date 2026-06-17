@@ -14015,7 +14015,7 @@
       name: s.company_name || '이름 없음',
       cat: s.category || '기타',
       tier: tier,
-      rating: 0, reviews: 0, projects: 0,
+      rating: s.rating_avg || 0, reviews: s.rating_count || 0, projects: 0,
       region: s.address || '지역 미입력',
       specialty: s.biz_type || '',
       desc: s.intro || (s.category ? s.category + ' 전문 업체' : '신규 등록 업체'),
@@ -14075,7 +14075,7 @@
           <div class="vendor-list-desc">${v.desc}</div>
           <div class="vendor-list-tags">${v.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
           <div class="vendor-list-stats">
-            <span>${v.isReal ? '신규 등록' : `<span class="rating">${v.rating}</span> (${v.reviews})`}</span>
+            <span>${(v.isReal && v.reviews === 0) ? '신규 등록' : `<span class="rating">${v.rating}</span> (${v.reviews})`}</span>
             <span>${v.region}</span>
           </div>
           <button class="vendor-card-compare ${compareSet.has(v.id) ? 'active' : ''}"
@@ -14990,7 +14990,7 @@
     const titleMap = {}; myReqs.forEach(r => titleMap[r.id] = r.title);
     const { data, error } = await supabaseClient
       .from('quote_recipients')
-      .select('*, suppliers:supplier_id(company_name)')
+      .select('*, suppliers:supplier_id(company_name), quote_requests:request_id(contract_status, accepted_supplier_id)')
       .in('request_id', reqIds)
       .eq('status', 'responded')
       .order('responded_at', { ascending: false });
@@ -15005,13 +15005,128 @@
       const amount = r.response_amount ? (r.response_amount/100000000).toFixed(1) + '억원' : '-';
       const note = (r.response_note || '').replace(/</g, '&lt;');
       const time = notifTimeAgo(r.responded_at);
+      const qr = r.quote_requests || {};
+      const isAcceptedThis = qr.accepted_supplier_id === r.supplier_id;
+      const reqContracted = qr.contract_status === 'contracted' || qr.contract_status === 'completed';
+
+      let actionHtml = '';
+      if (isAcceptedThis) {
+        actionHtml = '<div style="margin-top:12px; display:flex; gap:8px; align-items:center;">'
+          + '<span class="adm-tag gold">✓ 계약 수락됨</span>'
+          + '<button class="auth-submit" style="margin:0; max-width:160px; padding:8px 14px; font-size:13px;" onclick="openReviewWrite(\'' + r.request_id + '\',\'' + r.supplier_id + '\',\'' + company.replace(/'/g,"\\'") + '\')">후기 작성</button>'
+          + '</div>';
+      } else if (reqContracted) {
+        actionHtml = '<div style="margin-top:12px;"><span class="adm-tag">다른 업체와 계약됨</span></div>';
+      } else {
+        actionHtml = '<div style="margin-top:12px;"><button class="auth-submit" style="margin:0; max-width:160px; padding:8px 14px; font-size:13px;" onclick="acceptQuote(\'' + r.request_id + '\',\'' + r.supplier_id + '\',\'' + company.replace(/'/g,"\\'") + '\')">이 견적 수락하기</button></div>';
+      }
+
       return '<div class="mp-quote-card" style="margin-bottom:16px;"><div class="mp-quote-head"><div>'
         + '<div class="mp-quote-title">' + company + ' <span style="font-size:13px; color:var(--vermilion); font-weight:700;">' + amount + '</span></div>'
         + '<div style="font-size:12px; color:var(--concrete); margin-top:4px;">' + reqTitle + ' · ' + time + '</div>'
         + '</div></div>'
         + (note ? '<div style="font-size:13px; margin-top:10px; color:var(--ink-soft);">' + note + '</div>' : '')
+        + actionHtml
         + '</div>';
     }).join('');
+  }
+
+  // 건축주: 견적 수락 (계약 성사)
+  async function acceptQuote(requestId, supplierId, companyName) {
+    if (!confirm(companyName + '의 견적을 수락하시겠습니까?\n수락하면 계약이 성사되고, 해당 업체에 알림이 전송됩니다.')) return;
+    if (!isSupabaseReady()) return;
+    // 요청서에 계약 업체 지정
+    const { error } = await supabaseClient.from('quote_requests')
+      .update({ accepted_supplier_id: supplierId, contract_status: 'contracted' })
+      .eq('id', requestId);
+    if (error) { alert('수락 실패: ' + error.message + '\n\n(contract_review_schema.sql 실행 확인)'); return; }
+    // 수락된 수신행 표시
+    await supabaseClient.from('quote_recipients')
+      .update({ accepted: true, accepted_at: new Date().toISOString() })
+      .eq('request_id', requestId).eq('supplier_id', supplierId);
+    // 시공사에게 알림
+    await createNotification(supplierId, 'project', '견적이 수락되었습니다! 계약이 성사되었습니다.', 'console');
+    alert('계약이 성사되었습니다.\n시공 완료 후 후기를 남길 수 있습니다.');
+    loadReceivedQuotes();
+  }
+
+  // ===================== 후기 작성 =====================
+  function openReviewWrite(requestId, supplierId, companyName) {
+    document.getElementById('review-request-id').value = requestId;
+    document.getElementById('review-supplier-id').value = supplierId;
+    document.getElementById('review-target-label').textContent = companyName + ' 시공 경험을 평가해 주세요.';
+    document.getElementById('review-rating').value = '0';
+    document.getElementById('review-content').value = '';
+    renderReviewStars(0);
+    document.getElementById('review-modal-overlay').classList.add('open');
+  }
+  function closeReviewWrite() {
+    document.getElementById('review-modal-overlay').classList.remove('open');
+  }
+  function renderReviewStars(rating) {
+    document.querySelectorAll('#review-stars span').forEach(s => {
+      s.textContent = parseInt(s.dataset.star) <= rating ? '★' : '☆';
+      s.style.color = parseInt(s.dataset.star) <= rating ? 'var(--vermilion)' : 'var(--concrete)';
+    });
+  }
+  // 별점 클릭 이벤트 (이벤트 위임)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest && e.target.closest('#review-stars') && e.target.dataset.star) {
+      const r = parseInt(e.target.dataset.star);
+      document.getElementById('review-rating').value = r;
+      renderReviewStars(r);
+    }
+  });
+  async function submitReview() {
+    const requestId = document.getElementById('review-request-id').value;
+    const supplierId = document.getElementById('review-supplier-id').value;
+    const rating = parseInt(document.getElementById('review-rating').value);
+    const content = document.getElementById('review-content').value.trim();
+    if (!rating || rating < 1) { alert('평점을 선택해 주세요.'); return; }
+    if (!isSupabaseReady()) { alert('데모 모드'); return; }
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const btn = document.getElementById('review-submit-btn');
+    btn.disabled = true; btn.textContent = '등록 중…';
+
+    const { error } = await supabaseClient.from('reviews').insert({
+      request_id: requestId, owner_id: user.id, supplier_id: supplierId,
+      rating, content: content || null
+    });
+    btn.disabled = false; btn.textContent = '후기 등록';
+    if (error) { alert('후기 등록 실패: ' + error.message + '\n\n(contract_review_schema.sql 실행 확인)'); return; }
+
+    // 시공사에게 알림
+    await createNotification(supplierId, 'review', '새 후기가 등록되었습니다 · ' + rating + '점', 'console');
+    closeReviewWrite();
+    alert('후기가 등록되었습니다. 감사합니다.');
+    loadReceivedQuotes();
+  }
+
+  // ===================== 이미지 직접 업로드 =====================
+  async function handlePfImageUpload(input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const status = document.getElementById('pf-image-status');
+    if (file.size > 5 * 1024 * 1024) { if(status){status.style.display='block'; status.style.color='var(--vermilion)'; status.textContent='파일이 5MB를 초과합니다.';} input.value=''; return; }
+    if (!isSupabaseReady()) { alert('데모 모드'); return; }
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) { alert('로그인이 필요합니다.'); return; }
+
+    if (status) { status.style.display='block'; status.style.color='var(--concrete)'; status.textContent='업로드 중…'; }
+
+    const ext = file.name.split('.').pop();
+    const path = user.id + '/' + Date.now() + '.' + ext;
+    const { error } = await supabaseClient.storage.from('portfolio-images').upload(path, file, { upsert: true });
+    if (error) {
+      if (status) { status.style.color='var(--vermilion)'; status.textContent='업로드 실패: ' + error.message + ' (portfolio-images 버킷 확인)'; }
+      return;
+    }
+    const { data: pub } = supabaseClient.storage.from('portfolio-images').getPublicUrl(path);
+    document.getElementById('pf-image').value = pub.publicUrl;
+    if (status) { status.style.color='var(--green, #2E7D32)'; status.textContent='✓ 업로드 완료'; }
   }
 
   // =============== CHAT ===============
@@ -17969,6 +18084,30 @@ ${vendorContext}
   </div>
 </div>
 
+<div class="testmode-overlay" id="review-modal-overlay">
+  <div class="testmode-modal" style="max-width:480px; text-align:left;">
+    <h2 class="signup-step-title" style="margin-bottom:6px;">후기 작성</h2>
+    <p class="signup-step-sub" style="margin-bottom:20px;" id="review-target-label">시공 경험을 평가해 주세요.</p>
+    <input type="hidden" id="review-request-id">
+    <input type="hidden" id="review-supplier-id">
+    <div class="auth-field">
+      <label class="auth-label">평점<span class="req">*</span></label>
+      <div id="review-stars" style="font-size:32px; letter-spacing:4px; cursor:pointer; user-select:none;">
+        <span data-star="1">☆</span><span data-star="2">☆</span><span data-star="3">☆</span><span data-star="4">☆</span><span data-star="5">☆</span>
+      </div>
+      <input type="hidden" id="review-rating" value="0">
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">후기 내용</label>
+      <textarea class="auth-input" id="review-content" rows="4" placeholder="시공 품질, 일정 준수, 소통 등 실제 경험을 적어주세요." style="resize:vertical; font-family:inherit;"></textarea>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="signup-btn-back" style="flex:1;" onclick="closeReviewWrite()">취소</button>
+      <button class="auth-submit" style="flex:2; margin:0;" id="review-submit-btn" onclick="submitReview()">후기 등록</button>
+    </div>
+  </div>
+</div>
+
 <div class="testmode-overlay" id="quote-response-overlay">
   <div class="testmode-modal" style="max-width:480px; text-align:left;">
     <h2 class="signup-step-title" style="margin-bottom:6px;">견적 응답</h2>
@@ -18105,9 +18244,11 @@ ${vendorContext}
       </div>
     </div>
     <div class="auth-field">
-      <label class="auth-label">대표 이미지 URL</label>
-      <input type="text" class="auth-input" id="pf-image" placeholder="https://... (선택, 비우면 기본 이미지)">
-      <div class="pa-otp-hint">이미지 주소를 붙여넣으세요. 직접 업로드는 다음 단계에서 지원됩니다.</div>
+      <label class="auth-label">대표 이미지</label>
+      <input type="file" accept="image/*" id="pf-image-file" onchange="handlePfImageUpload(this)" style="margin-bottom:8px; font-size:13px;">
+      <div id="pf-image-status" style="font-size:12px; color:var(--concrete); margin-bottom:8px; display:none;"></div>
+      <input type="text" class="auth-input" id="pf-image" placeholder="또는 이미지 URL 직접 입력 (선택)">
+      <div class="pa-otp-hint">파일을 선택하면 업로드되고, 비우면 기본 이미지가 사용됩니다.</div>
     </div>
     <div class="auth-field">
       <label class="auth-label">상세 설명</label>
