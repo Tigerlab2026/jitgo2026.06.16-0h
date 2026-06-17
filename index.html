@@ -9471,6 +9471,7 @@
       <!-- 그룹 B: 사용자 기능 (역할에 따라 표시) -->
       <div class="header-nav-group" id="header-feature-group" style="display:none;">
         <button class="header-nav-link" id="nav-console-btn" onclick="switchView('console')" style="display:none;">공급자 콘솔</button>
+        <button class="header-nav-link" id="nav-admin-btn" onclick="switchView('admin')" style="display:none; background:var(--ink); color:var(--hanji);">백오피스</button>
         <button class="header-nav-link primary" id="nav-mypage-btn" onclick="switchView('mypage')">마이 페이지</button>
       </div>
 
@@ -13246,7 +13247,7 @@
   </div>
   <div class="footer-bottom">
     <div>© 2026 JITGO · 짓고. ALL RIGHTS RESERVED.</div>
-    <div>JITGO-V4-001 · STATUS / LIVE · <a onclick="switchView('admin-login')" style="color: rgba(245,239,230,0.35); cursor: pointer; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 11px;" title="운영자 전용 백오피스">ADMIN</a></div>
+    <div>JITGO-V4-001 · STATUS / LIVE · <a onclick="switchView('admin-login')" style="color: rgba(245,239,230,0.75); cursor: pointer; text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;" title="운영자 전용 백오피스">ADMIN 로그인</a></div>
   </div>
 </footer>
 
@@ -15897,6 +15898,13 @@
       if (featureGroup) featureGroup.style.display = '';
       if (mypageBtn)  mypageBtn.style.display = '';                                  // 모든 로그인 사용자
       if (consoleBtn) consoleBtn.style.display = (role === 'supplier') ? '' : 'none'; // 시공사만
+      // 운영자면 백오피스 버튼 노출
+      const adminBtn = document.getElementById('nav-admin-btn');
+      if (adminBtn) {
+        const { data: adminRow } = await supabaseClient
+          .from('admin_users').select('email').eq('email', user.email || '').maybeSingle();
+        adminBtn.style.display = adminRow ? '' : 'none';
+      }
       // 모바일 메뉴
       const mAccount = document.getElementById('mobile-account-section');
       const mConsole = document.getElementById('mobile-console-btn');
@@ -15913,6 +15921,8 @@
       if (authGroup) authGroup.style.display = '';
       if (userGroup) userGroup.style.display = 'none';
       if (featureGroup) featureGroup.style.display = 'none';
+      const adminBtn = document.getElementById('nav-admin-btn');
+      if (adminBtn) adminBtn.style.display = 'none';
       // 모바일 메뉴
       const mAccount = document.getElementById('mobile-account-section');
       const mAuthFoot = document.getElementById('mobile-auth-footer');
