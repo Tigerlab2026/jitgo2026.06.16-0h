@@ -9445,26 +9445,21 @@
         <div class="header-notif-wrap">
           <button class="header-notif-bell" onclick="switchView('chat')" aria-label="메시지" title="메시지">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            <span class="header-notif-badge" style="background: var(--vermilion);">3</span>
+            <span class="header-notif-badge" style="background: var(--vermilion); display:none;">0</span>
           </button>
         </div>
         <div class="header-notif-wrap">
           <button class="header-notif-bell" onclick="toggleNotifDropdown(event)" aria-label="알림" title="알림">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <span class="header-notif-badge" id="notif-badge">6</span>
+            <span class="header-notif-badge" id="notif-badge" style="display:none;">0</span>
           </button>
           <div class="header-notif-dropdown" id="notif-dropdown">
             <div class="header-notif-dropdown-head">
-              <div class="header-notif-dropdown-title">알림 <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--concrete); margin-left: 4px;">6건 미열람</span></div>
+              <div class="header-notif-dropdown-title">알림</div>
               <button class="header-notif-mark-read" onclick="markAllNotifRead()">모두 읽음 처리</button>
             </div>
             <div class="header-notif-dropdown-body" id="notif-dropdown-body">
-              <div class="header-notif-row unread" onclick="closeNotifDropdown(); switchView('review-write');" style="cursor: pointer; background: rgba(196,74,44,0.04);"><div class="icon" style="background: var(--vermilion);">★</div><div><div class="header-notif-row-text"><strong style="color: var(--vermilion);">시공이 완료되었습니다!</strong> 화성 남양 근린상가 — 정인종합건축(주). <strong>후기를 남겨주세요</strong></div><div class="header-notif-row-time">방금 전</div></div></div>
-            <div class="header-notif-row unread"><div class="icon">₩</div><div><div class="header-notif-row-text"><strong>정인종합건축(주)</strong>에서 견적이 도착했습니다 · <strong>28억원</strong></div><div class="header-notif-row-time">2시간 전</div></div></div>
-              <div class="header-notif-row unread"><div class="icon">₩</div><div><div class="header-notif-row-text"><strong>에이케이엔지니어링(주)</strong>에서 견적이 도착했습니다 · <strong>22억원</strong></div><div class="header-notif-row-time">어제</div></div></div>
-              <div class="header-notif-row unread"><div class="icon">◆</div><div><div class="header-notif-row-text">AI 적정가 분석 완료. 적정 시공비 <strong>26.5억원</strong></div><div class="header-notif-row-time">어제</div></div></div>
-              <div class="header-notif-row unread"><div class="icon">⬢</div><div><div class="header-notif-row-text">화성 남양 근린상가 <strong>골조 공사 50% 완료</strong></div><div class="header-notif-row-time">2일 전</div></div></div>
-              <div class="header-notif-row unread"><div class="icon">✎</div><div><div class="header-notif-row-text">신축 양도세 신고 완료 · 한솔세무회계</div><div class="header-notif-row-time">3일 전</div></div></div>
+              <div style="padding: 32px 20px; text-align: center; color: var(--concrete); font-size: 13px;">새로운 알림이 없습니다.</div>
             </div>
             <div class="header-notif-dropdown-foot">
               <button onclick="closeNotifDropdown(); switchView('mypage'); setTimeout(()=>switchMpSection('notifications'),50);">전체 알림 보기 →</button>
@@ -9494,7 +9489,7 @@
     <div class="mobile-header-actions">
       <button class="header-notif-bell" onclick="switchView('mypage'); setTimeout(()=>switchMpSection('notifications'),50);" aria-label="알림" style="position: relative;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="header-notif-badge">6</span>
+        <span class="header-notif-badge" style="display:none;">0</span>
       </button>
       <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="메뉴">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -9597,12 +9592,12 @@
     <button class="mobile-menu-item" onclick="closeMobileMenu(); switchView('mypage'); setTimeout(()=>switchMpSection('notifications'),50);">
       <span class="mobile-menu-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
       <span class="mobile-menu-item-text">알림</span>
-      <span class="mobile-menu-item-badge">6</span>
+      
     </button>
     <button class="mobile-menu-item" onclick="closeMobileMenu(); switchView('chat');">
       <span class="mobile-menu-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
       <span class="mobile-menu-item-text">메시지</span>
-      <span class="mobile-menu-item-badge">3</span>
+      
     </button>
     <button class="mobile-menu-item" id="mobile-console-btn" onclick="closeMobileMenu(); switchView('console');" style="display:none;">
       <span class="mobile-menu-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
@@ -9656,19 +9651,19 @@
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="hero-stat-num" id="hero-vendor-count">0</div>
-          <div class="hero-stat-label">Registered Vendors</div>
+          <div class="hero-stat-label">등록 업체</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">412</div>
-          <div class="hero-stat-label">Gold Verified</div>
+          <div class="hero-stat-num" id="hero-gold-count">0</div>
+          <div class="hero-stat-label">Gold 검증</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">187</div>
-          <div class="hero-stat-label">Monthly Matches</div>
+          <div class="hero-stat-num" id="hero-match-count">0</div>
+          <div class="hero-stat-label">월 매칭</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">4.6<span class="unit">/5</span></div>
-          <div class="hero-stat-label">Avg. Satisfaction</div>
+          <div class="hero-stat-num" id="hero-rating"><span style="font-size:0.6em; color:var(--concrete);">준비중</span></div>
+          <div class="hero-stat-label">평균 만족도</div>
         </div>
       </div>
     </div>
@@ -9690,39 +9685,39 @@
           <div>
             <div class="count">CATEGORY · TOP-MATCHED</div>
             <div class="label">건축시공</div>
-            <div class="feature-desc">RC조 신축부터 리모델링까지. 등록 892개사 중 Gold 검증 142개사가 활동 중입니다.</div>
+            <div class="feature-desc">RC조 신축부터 리모델링까지. 검증된 시공 전문업체를 만나보세요.</div>
           </div>
         </div>
         <div class="bento-item" onclick="goCategory('설계')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/></svg></div>
-          <div><div class="label">설계사무소</div><div class="count">1,247개사</div></div>
+          <div><div class="label">설계사무소</div><div class="count">건축·구조 설계</div></div>
           <span class="arrow">→</span>
         </div>
         <div class="bento-item" onclick="goCategory('인테리어')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
-          <div><div class="label">인테리어</div><div class="count">734개사</div></div>
+          <div><div class="label">인테리어</div><div class="count">실내 디자인·시공</div></div>
           <span class="arrow">→</span>
         </div>
         <div class="bento-item" onclick="goCategory('자재')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-          <div><div class="label">건축자재</div><div class="count">412개사</div></div>
+          <div><div class="label">건축자재</div><div class="count">자재·설비 공급</div></div>
           <span class="arrow">→</span>
         </div>
         <div class="bento-item" onclick="goCategory('PM')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg></div>
-          <div><div class="label">임대관리(PM)</div><div class="count">218개사</div></div>
+          <div><div class="label">임대관리(PM)</div><div class="count">자산·임대 운영</div></div>
           <span class="arrow">→</span>
         </div>
         <div class="bento-item" onclick="goCategory('FM')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/></svg></div>
-          <div><div class="label">시설관리(FM)</div><div class="count">167개사</div></div>
+          <div><div class="label">시설관리(FM)</div><div class="count">건물 유지·관리</div></div>
           <span class="arrow">→</span>
         </div>
         <div class="bento-item span-2" onclick="goCategory('자문')">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg></div>
           <div>
             <div class="label">법무 · 세무 · 금융</div>
-            <div class="count">법무사 89 / 세무사 78 / 금융사 45 — 총 212개사</div>
+            <div class="count">법무 · 세무 · 부동산 금융 자문</div>
           </div>
           <span class="arrow">→</span>
         </div>
@@ -9867,15 +9862,15 @@
     <section class="section">
       <div class="cta-block">
         <div>
-          <h2>업체로 등록하고<br><em>매월 187건의 매칭</em>을<br>받아보세요</h2>
-          <p>광고비를 쏟지 않아도 검증된 건축주들이 먼저 찾아옵니다. 평균 14일 이내 첫 견적 문의를 받습니다.</p>
+          <h2>업체로 등록하고<br><em>검증된 건축주</em>를<br>만나보세요</h2>
+          <p>광고비를 쏟지 않아도 검증된 건축주들이 먼저 찾아옵니다. 프로필을 등록하고 견적 요청을 받아보세요.</p>
           <button class="btn-cta" onclick="switchView('pricing')">업체 등록 →</button>
         </div>
         <div class="cta-stats">
-          <div><div class="cta-stat-num">187</div><div class="cta-stat-label">월 평균 매칭</div></div>
-          <div><div class="cta-stat-num">14일</div><div class="cta-stat-label">평균 첫 문의</div></div>
           <div><div class="cta-stat-num">₩99K</div><div class="cta-stat-label">월 구독부터</div></div>
           <div><div class="cta-stat-num">0%</div><div class="cta-stat-label">매칭 수수료</div></div>
+          <div><div class="cta-stat-num">3단계</div><div class="cta-stat-label">검증 등급</div></div>
+          <div><div class="cta-stat-num">9개</div><div class="cta-stat-label">서비스 분야</div></div>
         </div>
       </div>
     </section>
@@ -10355,7 +10350,7 @@
             <div>COST<strong>무료</strong></div>
             <div>DURATION<strong>즉시</strong></div>
             <div>RENEWAL<strong>2년</strong></div>
-            <div>CURRENT<strong>789개사</strong></div>
+            
           </div>
         </div>
       </div>
@@ -10378,7 +10373,7 @@
             <div>COST<strong>유료</strong></div>
             <div>DURATION<strong>7~10일</strong></div>
             <div>RENEWAL<strong>1년</strong></div>
-            <div>CURRENT<strong>270개사</strong></div>
+            
           </div>
         </div>
       </div>
@@ -10402,7 +10397,7 @@
             <div>COST<strong>고비용</strong></div>
             <div>DURATION<strong>2~3주</strong></div>
             <div>RENEWAL<strong>2년</strong></div>
-            <div>CURRENT<strong>142개사</strong></div>
+            
           </div>
         </div>
       </div>
@@ -10415,10 +10410,10 @@
         <button class="btn-cta" onclick="switchView('listing')">검증 업체 찾기 →</button>
       </div>
       <div class="cta-stats">
-        <div><div class="cta-stat-num">142</div><div class="cta-stat-label">Gold 검증</div></div>
-        <div><div class="cta-stat-num">7</div><div class="cta-stat-label">검증 단계</div></div>
-        <div><div class="cta-stat-num">23%</div><div class="cta-stat-label">등록 거절률</div></div>
-        <div><div class="cta-stat-num">∞</div><div class="cta-stat-label">분쟁 중재</div></div>
+        <div><div class="cta-stat-num">3단계</div><div class="cta-stat-label">검증 등급</div></div>
+        <div><div class="cta-stat-num">Bronze</div><div class="cta-stat-label">서류 심사</div></div>
+        <div><div class="cta-stat-num">Silver</div><div class="cta-stat-label">실적 검증</div></div>
+        <div><div class="cta-stat-num">Gold</div><div class="cta-stat-label">현장 실사</div></div>
       </div>
     </div>
   </section>
@@ -12343,10 +12338,10 @@
           <button class="btn-cta" onclick="switchView('signup')">회원가입 →</button>
         </div>
         <div class="cta-stats">
-          <div><div class="cta-stat-num">3,217</div><div class="cta-stat-label">등록 업체</div></div>
-          <div><div class="cta-stat-num">142</div><div class="cta-stat-label">Gold 검증</div></div>
-          <div><div class="cta-stat-num">187</div><div class="cta-stat-label">월 매칭</div></div>
-          <div><div class="cta-stat-num">4.6</div><div class="cta-stat-label">평균 만족도</div></div>
+          <div><div class="cta-stat-num" id="about-vendor-count">0</div><div class="cta-stat-label">등록 업체</div></div>
+          <div><div class="cta-stat-num" id="about-gold-count">0</div><div class="cta-stat-label">Gold 검증</div></div>
+          <div><div class="cta-stat-num">9개</div><div class="cta-stat-label">서비스 분야</div></div>
+          <div><div class="cta-stat-num">3단계</div><div class="cta-stat-label">검증 등급</div></div>
         </div>
       </div>
     </div>
@@ -13614,14 +13609,14 @@
 
           <div class="adm-stat-grid">
             <div class="adm-stat">
-              <div class="adm-stat-eyebrow">USERS · 누적 사용자</div>
-              <div class="adm-stat-val">8,427<small>명</small></div>
-              <div class="adm-stat-trend up">+342 이번 주</div>
+              <div class="adm-stat-eyebrow">누적 사용자</div>
+              <div class="adm-stat-val" id="adm-user-total"><small>준비중</small></div>
+              <div class="adm-stat-trend">집계 예정</div>
             </div>
             <div class="adm-stat">
-              <div class="adm-stat-eyebrow">SUPPLIERS · 등록 공급자</div>
-              <div class="adm-stat-val">3,217<small>개</small></div>
-              <div class="adm-stat-trend up">+28 이번 주</div>
+              <div class="adm-stat-eyebrow">등록 공급자</div>
+              <div class="adm-stat-val" id="adm-supplier-total">0<small>개</small></div>
+              <div class="adm-stat-trend up">실시간</div>
             </div>
             <div class="adm-stat">
               <div class="adm-stat-eyebrow">MATCHED · 이번 달 매칭</div>
@@ -13797,7 +13792,7 @@
             <div>
               <div class="adm-section-eyebrow">SUPPLIERS · 공급자 관리</div>
               <h2 class="adm-section-title">공급자 <em>관리</em></h2>
-              <div class="adm-section-sub">3,217개 등록 · Gold 142 / Silver 270 / Bronze 2,805</div>
+              <div class="adm-section-sub">등록 공급자 목록</div>
             </div>
             <input type="text" class="auth-input" placeholder="업체명, 사업자번호 검색" style="width: 280px; padding: 9px 14px; font-size: 12px;">
           </div>
@@ -13900,7 +13895,7 @@
             <div>
               <div class="adm-section-eyebrow">USERS · 사용자 관리</div>
               <h2 class="adm-section-title">사용자 <em>관리</em></h2>
-              <div class="adm-section-sub">누적 8,427명 · 활성 사용자 2,148명 (지난 30일)</div>
+              <div class="adm-section-sub">가입 사용자 목록</div>
             </div>
             <input type="text" class="auth-input" placeholder="이름, 이메일 검색" style="width: 280px; padding: 9px 14px; font-size: 12px;">
           </div>
@@ -16015,6 +16010,12 @@
     dbVendors = (data || []).map(supplierToVendor);
     const heroCount = document.getElementById('hero-vendor-count');
     if (heroCount) heroCount.textContent = dbVendors.length;
+    const goldCount = document.getElementById('hero-gold-count');
+    if (goldCount) goldCount.textContent = dbVendors.filter(v => v.tier === 'gold').length;
+    const aboutVendor = document.getElementById('about-vendor-count');
+    if (aboutVendor) aboutVendor.textContent = dbVendors.length;
+    const aboutGold = document.getElementById('about-gold-count');
+    if (aboutGold) aboutGold.textContent = dbVendors.filter(v => v.tier === 'gold').length;
     if (typeof renderVendorList === 'function') renderVendorList();
   }
 
@@ -17361,6 +17362,11 @@
     if (el) el.innerHTML = (count || 0) + '<small>건</small>';
     const badge = document.getElementById('adm-verify-count');
     if (badge) { badge.textContent = count || 0; badge.style.display = (count > 0) ? '' : 'none'; }
+    // 등록 공급자 총수
+    const { count: supTotal } = await supabaseClient
+      .from('suppliers').select('id', { count: 'exact', head: true });
+    const supEl = document.getElementById('adm-supplier-total');
+    if (supEl) supEl.innerHTML = (supTotal || 0) + '<small>개</small>';
   }
 
   // =============== REVIEW WRITE — Big Rating ===============
