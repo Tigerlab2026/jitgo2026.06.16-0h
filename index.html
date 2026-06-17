@@ -11275,7 +11275,7 @@
           <div class="mp-avatar" id="mp-avatar">김</div>
           <div class="mp-user-name" id="mp-user-name">김재훈 님</div>
           <div class="mp-user-email" id="mp-user-phone">jaehoon@example.kr</div>
-          <div class="mp-user-meta">USER · 가입 2025.11.15</div>
+          <div class="mp-user-meta" id="mp-user-meta">USER · 가입 2025.11.15</div>
         </div>
         <nav class="mp-nav" id="mp-nav">
           <button class="mp-nav-item active" data-mp="dashboard" onclick="switchMpSection('dashboard')">대시보드</button>
@@ -11370,19 +11370,19 @@
           <div style="background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 32px; max-width: 640px;">
             <div class="auth-field">
               <label class="auth-label">이름</label>
-              <input type="text" class="auth-input" value="김재훈">
+              <input type="text" class="auth-input" id="mp-prof-name" value="">
             </div>
             <div class="auth-field">
               <label class="auth-label">이메일</label>
-              <input type="email" class="auth-input" value="jaehoon@example.kr">
+              <input type="email" class="auth-input" id="mp-prof-email" value="">
             </div>
             <div class="auth-field">
               <label class="auth-label">휴대폰</label>
-              <input type="tel" class="auth-input" value="010-1234-5678">
+              <input type="tel" class="auth-input" id="mp-prof-phone" value="" readonly style="background:var(--hanji-soft);">
             </div>
             <div class="auth-field">
               <label class="auth-label">주소 (선택)</label>
-              <input type="text" class="auth-input" placeholder="서울 강남구 ___">
+              <input type="text" class="auth-input" id="mp-prof-address" placeholder="서울 강남구 ___">
             </div>
             <div class="auth-field">
               <label class="auth-label">관심 분야 (선택)</label>
@@ -11393,7 +11393,7 @@
                 <button type="button" class="signup-cat-chip">리모델링</button>
               </div>
             </div>
-            <button class="auth-submit" style="margin-top: 16px;">변경 사항 저장</button>
+            <button class="auth-submit" style="margin-top: 16px;" onclick="saveMyProfile()">변경 사항 저장</button>
             <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--rule); display: flex; gap: 12px;">
               <button class="signup-btn-back" style="flex: 1;">비밀번호 변경</button>
               <button class="signup-btn-back" style="flex: 1; color: var(--vermilion); border-color: var(--vermilion);">회원 탈퇴</button>
@@ -16905,6 +16905,7 @@
     if (target) target.classList.add('active');
     if (section === 'favorites') renderMpFavorites();
     if (section === 'compare-list') renderMpCompareList();
+    if (section === 'profile' && typeof loadMyProfile === 'function') loadMyProfile();
   }
 
   // =============== MOBILE MENU (햄버거) ===============
@@ -17270,13 +17271,55 @@
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return;
     const name = user.user_metadata?.name || '회원';
+    const role = user.user_metadata?.role || 'owner';
+    const roleLabel = (role === 'supplier') ? '공급자(시공사)' : '건축주';
     const phone = user.phone ? '0' + user.phone.replace(/^82/, '') : '';
+    const email = user.email || '';
+    const contact = email || phone || '';
+    const joinDate = user.created_at ? user.created_at.slice(0,10).replace(/-/g, '.') : '';
+
     const avatar = document.getElementById('mp-avatar');
     const nameEl = document.getElementById('mp-user-name');
-    const phoneEl = document.getElementById('mp-user-phone');
+    const contactEl = document.getElementById('mp-user-phone');
+    const metaEl = document.getElementById('mp-user-meta');
+
     if (avatar)  avatar.textContent = name.charAt(0);
     if (nameEl)  nameEl.textContent = name + ' 님';
-    if (phoneEl) phoneEl.textContent = phone;
+    if (contactEl) contactEl.textContent = contact;
+    if (metaEl)  metaEl.textContent = roleLabel + (joinDate ? ' · 가입 ' + joinDate : '');
+  }
+
+  // 내 정보 섹션 — 실제 값 채우기
+  async function loadMyProfile() {
+    if (!isSupabaseReady()) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+    const nameI  = document.getElementById('mp-prof-name');
+    const emailI = document.getElementById('mp-prof-email');
+    const phoneI = document.getElementById('mp-prof-phone');
+    const addrI  = document.getElementById('mp-prof-address');
+    if (nameI)  nameI.value  = user.user_metadata?.name || '';
+    if (emailI) emailI.value = user.email || '';
+    if (phoneI) phoneI.value = user.phone ? '0' + user.phone.replace(/^82/, '') : '';
+    if (addrI)  addrI.value  = user.user_metadata?.address || '';
+  }
+
+  // 내 정보 저장
+  async function saveMyProfile() {
+    if (!isSupabaseReady()) { alert('데모 모드입니다.'); return; }
+    const name = document.getElementById('mp-prof-name')?.value.trim();
+    const email = document.getElementById('mp-prof-email')?.value.trim();
+    const address = document.getElementById('mp-prof-address')?.value.trim();
+    if (!name) { alert('이름을 입력해 주세요.'); return; }
+
+    const updates = { data: { ...(await supabaseClient.auth.getUser()).data.user.user_metadata, name, address } };
+    if (email) updates.email = email;
+
+    const { error } = await supabaseClient.auth.updateUser(updates);
+    if (error) { alert('저장 실패: ' + error.message); return; }
+    alert('변경 사항이 저장되었습니다.');
+    updateMypageUser();
+    updateHeaderAuth();
   }
   window.addEventListener('load', () => { setTimeout(updateHeaderAuth, 500); });
   window.addEventListener('load', () => { setTimeout(() => { if (typeof snapshotSampleVendor === 'function') snapshotSampleVendor(); }, 300); });
