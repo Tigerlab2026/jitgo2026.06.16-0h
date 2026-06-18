@@ -9355,7 +9355,8 @@
     .pricing-card.popular { transform: none; }
     .wizard-options { grid-template-columns: 1fr; }
     .wizard-q-title { font-size: 28px; }
-    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+    .footer-inner > :first-child { grid-column: 1 / -1; }
     .footer-bottom { flex-direction: column; gap: 8px; }
     .bottom-nav {
       display: block;
@@ -13267,7 +13268,7 @@
   </div>
   <div class="footer-bottom">
     <div>© 2026 JITGO · 짓고. ALL RIGHTS RESERVED.</div>
-    <div>JITGO-V47 · STATUS / LIVE · <a onclick="switchView('admin-login')" style="color: rgba(245,239,230,0.75); cursor: pointer; text-decoration: underline; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;" title="운영자 전용 백오피스">ADMIN 로그인</a></div>
+    <div>JITGO-V48 · STATUS / LIVE · <a onclick="switchView('admin-login')" style="color: rgba(245,239,230,0.35); cursor: pointer; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 11px;" title="운영자 전용 백오피스">ADMIN</a></div>
   </div>
 </footer>
 
